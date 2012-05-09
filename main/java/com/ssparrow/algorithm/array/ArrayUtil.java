@@ -213,4 +213,49 @@ public final class ArrayUtil {
 			}
 		}
 	}
+	  
+	/**
+	 * @param array
+	 * @param column
+	 */
+	public static int[][] convertArrayToMatrix(int[] array, int column) {
+		int[][] result;
+		
+		int surplus = array.length % column;
+		int deficit = column * (array.length / column + 1) - array.length;
+
+		if (surplus <= deficit) {
+			int row = array.length / column;
+			result=new int[row+surplus][column];
+
+			for (int i = 0; i < row+surplus; i++) {
+				for (int j = 0; j < column; j++) {
+					if(i<row){
+						int index = (j == 0) ? i : j * row + surplus + i;
+						result[i][j]=array[index];
+					}else if(j==0){
+						result[i][j] = array[i];
+					}else{
+						result[i][j]=0;
+					}
+				}
+			}
+		} else {
+			int row = array.length / column + 1;
+			result=new int[row][column];
+
+			for (int i = 0; i < row; i++) {
+				for (int j = 0; j < column; j++) {
+					if (j == 0 && i >= row - deficit) {
+						result[i][j]=0;
+					}else{
+						int index = (j == 0) ? i : j * row - deficit + i;
+						result[i][j]=array[index];
+					}
+				}
+			}
+		}
+		
+		return result;
+	}
 }

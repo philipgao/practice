@@ -46,4 +46,40 @@ public class ArrayUtilTest {
 		assertArrayEquals(result, matrix);
 	}
 
+	@Test
+	public void testConvertArrayToMatrix(){
+	    int[] array=new int[]{1,2,3,4,5};    
+
+	    int[][] matrix=new int[][]{
+	    		{1},
+	    		{2},
+	    		{3},
+	    		{4},
+	    		{5}
+	    };
+	    int[][] result = ArrayUtil.convertArrayToMatrix(array, 1);
+	    assertArrayEquals(matrix, result);
+	    
+	    matrix=new int[][]{
+	    		{1,4},
+	    		{2,5},
+	    		{3,0}
+	    };
+	    result = ArrayUtil.convertArrayToMatrix(array, 2);
+	    assertArrayEquals(matrix, result);
+	    
+	    matrix=new int[][]{
+	    		{1,2,4},
+	    		{0,3,5}
+	    };
+	    result = ArrayUtil.convertArrayToMatrix(array, 3);
+	    assertArrayEquals(matrix, result);
+	    
+	    matrix=new int[][]{
+	    		{1,3,4,5},
+	    		{2,0,0,0}
+	    };
+	    result = ArrayUtil.convertArrayToMatrix(array, 4);
+	    assertArrayEquals(matrix, result);
+	}
 }
