@@ -73,4 +73,34 @@ public abstract class AbstractHeap  implements Heap{
 			heapify(index);
 		}
 	}
+	
+
+	protected void heapify(int index, boolean isMaxHeap){
+		if(index>=heapSize){
+			return;
+		}
+		
+		int topIndex=index;
+		
+		if(left(index)<heapSize){
+			boolean compareLeft = isMaxHeap? (data[left(index)]>data[index]):(data[left(index)]<data[index]);
+			if(compareLeft){
+				topIndex=left(index);
+			}
+		}
+		
+		if(right(index)<heapSize){
+			boolean compareRight = isMaxHeap?(data[right(index)]>data[topIndex]):(data[right(index)]<data[topIndex]);
+			if(compareRight){
+				topIndex=right(index);
+			}
+		}
+		if(topIndex!=index){
+			int tmp=data[index];
+			data[index]=data[topIndex];
+			data[topIndex]=tmp;
+			
+			heapify(topIndex);
+		}
+	}
 }
