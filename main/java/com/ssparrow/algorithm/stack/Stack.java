@@ -1,15 +1,15 @@
 package com.ssparrow.algorithm.stack;
 
 public class Stack {
-	private String[] array;
+	private int[] array;
 	private int pointer;
 	
 	public Stack(){
-		array=new String[100];
+		array=new int[100];
 		pointer=-1;
 	}
 	
-	public void push(String value) throws IndexOutOfStackBoundException{
+	public void push(int value) throws IndexOutOfStackBoundException{
 		if(pointer+1>=array.length){
 			throw new IndexOutOfStackBoundException("stack pointer ["+pointer+"] is out of limit");
 		}
@@ -18,14 +18,26 @@ public class Stack {
 		array[pointer]=value;
 	}
 	
-	public String pop(){
+	public int pop(){
 		if(pointer<0){
-			return null;
+			return -1;
 		}
 		
 		return array[pointer--];
 	}
 
+	public int peek(){
+		if(pointer<0){
+			return -1;
+		}
+		
+		return array[pointer];
+	}
+	
+	public boolean isEmpty(){
+		return pointer==-1;
+	}
+	
 	public static class IndexOutOfStackBoundException extends Exception{
 		private static final long serialVersionUID = 1L;
 

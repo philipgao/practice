@@ -12,16 +12,19 @@ public class StackTest {
 	public void test() throws IndexOutOfStackBoundException {
 		Stack stack=new Stack();
 		
-		assertNull(stack.pop());
+		assertEquals(-1,stack.pop());
 		
-		stack.push("test");
-		assertEquals("test", stack.pop());
+		stack.push(1);
+		assertEquals(1, stack.pop());
 		
-		stack.push("philip");
-		stack.push("jamie");
-		assertEquals("jamie", stack.pop());
-		assertEquals("philip", stack.pop());
-		assertNull(stack.pop());
+		stack.push(5);
+		stack.push(9);
+		assertEquals(9, stack.pop());
+		assertEquals(5, stack.peek());
+		assertEquals(5, stack.pop());
+		assertEquals(-1,stack.pop());
+		
+		assertTrue(stack.isEmpty());
 	}
 
 }
