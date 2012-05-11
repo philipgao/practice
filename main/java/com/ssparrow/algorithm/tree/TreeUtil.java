@@ -30,6 +30,10 @@ public class TreeUtil {
 		}
 	}
 	
+	/**
+	 * @param root
+	 * @return
+	 */
 	public static int checkHeightAndBalance(TreeNode root){
 		if(root==null){
 			return 0;
@@ -51,5 +55,29 @@ public class TreeUtil {
 		}else{
 			return Math.max(leftHeight, rightHeight)+1;
 		}
+	}
+	
+	/**
+	 * @param array
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public static TreeNode createMinimalBST(int [] array,int start, int end){
+		if(array==null){
+			return null;
+		}
+		
+		if(start>end){
+			return null;
+		}
+		
+		int middle=(start+end)/2;
+		
+		TreeNode root=new TreeNode(array[middle]);
+		root.setLeftNode(createMinimalBST(array, start, middle-1));
+		root.setRightNode(createMinimalBST(array, middle+1, end));
+		
+		return root;
 	}
 }
