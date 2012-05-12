@@ -63,7 +63,7 @@ public class TreeUtil {
 	 * @param end
 	 * @return
 	 */
-	public static TreeNode createMinimalBST(int [] array,int start, int end){
+	public static TreeNode createMinimalBST(TreeNode root,int [] array,int start, int end){
 		if(array==null){
 			return null;
 		}
@@ -74,10 +74,64 @@ public class TreeUtil {
 		
 		int middle=(start+end)/2;
 		
-		TreeNode root=new TreeNode(array[middle]);
-		root.setLeftNode(createMinimalBST(array, start, middle-1));
-		root.setRightNode(createMinimalBST(array, middle+1, end));
+		TreeNode node=new TreeNode(root, array[middle]);
+		node.setLeftNode(createMinimalBST(node, array, start, middle-1));
+		node.setRightNode(createMinimalBST(node, array, middle+1, end));
 		
-		return root;
+		return node;
+	}
+	
+	/**
+	 * @param root
+	 * @return
+	 */
+	public static boolean checkBST(TreeNode root){
+		if(root==null){
+			return true;
+		}
+		int[] array=new int[root.getSize()];
+		
+		index=0;
+		copyBST(root, array);
+		
+		for(int i=0;i<array.length-1;i++){
+			if(array[i]>array[i+1]){
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	public static int index=0;
+	private static void copyBST(TreeNode node, int[] array){
+		if(node==null){
+			return;
+		}
+		copyBST(node.getLeftNode(), array);
+		array[index++]=node.getValue();
+		copyBST(node.getRightNode(), array);
+	}
+	
+	public static int last_data=Integer.MIN_VALUE;
+	public static boolean checkBSTOptimaized(TreeNode root){
+		if(root==null){
+			return true;
+		}
+		
+		if(!checkBSTOptimaized(root.getLeftNode())){
+			return false;
+		}
+		
+		if(root.getValue()<last_data){
+			return false;
+		}
+		last_data=root.getValue();
+		
+		if(!checkBSTOptimaized(root.getRightNode())){
+			return false;
+		}
+		
+		return true;
 	}
 }
