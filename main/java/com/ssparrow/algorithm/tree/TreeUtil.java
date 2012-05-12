@@ -113,6 +113,11 @@ public class TreeUtil {
 		copyBST(node.getRightNode(), array);
 	}
 	
+	
+	/**
+	 * @param root
+	 * @return
+	 */
 	public static int last_data=Integer.MIN_VALUE;
 	public static boolean checkBSTOptimaized(TreeNode root){
 		if(root==null){
@@ -133,5 +138,39 @@ public class TreeUtil {
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * @param root
+	 * @param sum
+	 * @return
+	 */
+	public static String findSum(TreeNode root, int sum){
+		int [] path = new int[getTreeHeight(root)];
+		StringBuffer sb=new StringBuffer();
+		findSum(sb, root, sum, path, 0);
+		return sb.toString();
+	}
+	
+	private static void findSum(StringBuffer sb, TreeNode node, int sum, int[] path, int level){
+		if(node==null){
+			return;
+		}
+		
+		path[level]=node.getValue();
+		int result=0;
+		for(int i=level;i>=0;i--){
+			result+=path[i];
+			
+			if(result==sum){
+				for(int j=i;j<=level;j++){
+					sb.append(path[j]).append(' ');
+				}
+				sb.append('\n');
+			}
+		}
+		
+		findSum(sb,node.getLeftNode(), sum, path, level+1);
+		findSum(sb, node.getRightNode(), sum, path, level+1);
 	}
 }

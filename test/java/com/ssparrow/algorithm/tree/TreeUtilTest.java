@@ -123,4 +123,11 @@ public class TreeUtilTest {
 		assertEquals(5, root.getNextNode().getValue());
 		assertEquals(root, root.getLeftNode().getRightNode().getNextNode());
 	}
+	
+	@Test
+	public void testFindSum(){
+		TreeNode root = TreeUtil.createMinimalBST(null, new int[]{1,2,3,4,5,6,7}, 0, 6);
+		assertEquals("6 5 \n", TreeUtil.findSum(root, 11));
+		assertEquals("4 6 5 \n", TreeUtil.findSum(root, 15));
+	}
 }
