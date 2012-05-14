@@ -82,4 +82,19 @@ public class ArrayUtilTest {
 	    result = ArrayUtil.convertArrayToMatrix(array, 4);
 	    assertArrayEquals(matrix, result);
 	}
+	
+	@Test
+	public void testSearchInRotatedArray(){
+		int[] array=new int[]{50,5,20,30,40};
+		
+		assertEquals(-1, ArrayUtil.searchInRtatedArray(array, 25));
+		
+		assertEquals(2, ArrayUtil.searchInRtatedArray(array, 20));
+		
+		array=new int[]{30,45,50,5,2,6,10,20};
+		assertEquals(5, ArrayUtil.searchInRtatedArray(array, 6));
+
+		assertEquals(1, ArrayUtil.searchInRtatedArray(array, 45));
+		
+	}
 }

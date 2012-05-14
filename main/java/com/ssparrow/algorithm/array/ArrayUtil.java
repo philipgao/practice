@@ -258,4 +258,37 @@ public final class ArrayUtil {
 		
 		return result;
 	}
+	
+	/**
+	 * @param array
+	 * @param value
+	 * @return
+	 */
+	public static int searchInRtatedArray(int [] array, int value){
+		int start=0;
+		for(int index=0;index<array.length-1;index++){
+			if(array[index]>array[index+1]){
+				start=index+1;
+				break;
+			}
+		}
+		
+		return binarySearchInRtatedArray(array, value, 0, array.length+start-1);
+	}
+	
+	private static int binarySearchInRtatedArray(int [] array, int value, int start, int end){
+		if(start>end){
+			return -1;
+		}
+			
+		int mid=(start+end)/2;
+		int midIndex = (mid<array.length)? mid: (mid-1)%(array.length-1);
+		if(array[midIndex]==value){
+			return midIndex;
+		}else if(array[midIndex]>value){
+			return binarySearchInRtatedArray(array, value, start, mid-1);
+		}else{
+			return binarySearchInRtatedArray(array, value, mid+1, end);
+		}
+	}
 }
