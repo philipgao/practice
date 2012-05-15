@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.ssparrow.algorithm.misc.Pair;
+
 public class ArrayUtilTest {
 
 	@Test
@@ -108,5 +110,10 @@ public class ArrayUtilTest {
 		};
 		
 		assertNull(ArrayUtil.searchInSortedMatrix(matrix, 100, 0,3	, 0, 3));
+		
+		Pair result=ArrayUtil.searchInSortedMatrix(matrix, 85, 0,3	, 0, 3);
+		assertNotNull(result);
+		assertEquals(0, result.getA());
+		assertEquals(3, result.getB());
 	}
 }
