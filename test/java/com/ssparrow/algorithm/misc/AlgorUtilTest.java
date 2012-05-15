@@ -44,4 +44,15 @@ public class AlgorUtilTest {
 		
 		AlgorUtil.shuffleCards(cards);
 	}
+	
+	@Test
+	public void testCount2InRange(){
+		assertEquals(0, AlgorUtil.count2InRange(0));
+
+		assertEquals(0, AlgorUtil.count2InRange(1));
+
+		assertEquals(1, AlgorUtil.count2InRange(2));
+
+		assertEquals(15, AlgorUtil.count2InRange(50));
+	}
 }

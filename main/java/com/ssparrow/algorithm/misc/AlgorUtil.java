@@ -62,4 +62,34 @@ public class AlgorUtil {
 		
 		return addTwoNumbers(sumWithoutCarry, carryOnly);
 	}
+	
+	/**
+	 * @param number
+	 * @return
+	 */
+	public static int count2InRange(int number){
+		int length = String.valueOf(number).length();
+		
+		int sum=0;
+		for(int digit=0;digit<length;digit++){
+			sum+=count2InRangeAtDigit(number, digit);
+		}
+		
+		return sum;
+	}
+	
+	private static int count2InRangeAtDigit(int number, int d){
+		int power10=(int) Math.pow(10, d);
+		int nextPower10=(int) Math.pow(10, d+1);
+		
+		int value=(number/power10)%10;
+		
+		if(value<2){
+			return ((number/nextPower10)%10)*nextPower10/10;
+		}else if(value>2){
+			return ((number/nextPower10)%10+1)*nextPower10/10;
+		}else{
+			return ((number/nextPower10)%10)*nextPower10/10+number%power10+1;
+		}
+	}
 }
