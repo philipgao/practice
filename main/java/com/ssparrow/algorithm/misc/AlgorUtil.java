@@ -1,5 +1,8 @@
 package com.ssparrow.algorithm.misc;
 
+import java.util.Arrays;
+import java.util.Random;
+
 public class AlgorUtil {
 	/**
 	 * @param a
@@ -32,22 +35,31 @@ public class AlgorUtil {
 		return count;
 	}
 	
-	public static class Pair{
-		int a;
-		int b;
-		
-		public Pair(int a, int b) {
-			this.a = a;
-			this.b = b;
+	public static void shuffleCards(int []array){
+		for(int i=0;i<array.length; i++){
+			int index=new Random().nextInt(52-i)+i;
+			
+			int tmp=array[i];
+			array[i]=array[index];
+			array[index]=tmp;
 		}
-
-		public int getA() {
+		System.out.println(Arrays.toString(array));
+	}
+	
+	
+	/**
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	public static int addTwoNumbers(int a, int b){
+		if(b==0){
 			return a;
 		}
-
-		public int getB() {
-			return b;
-		}
 		
+		int sumWithoutCarry=a^b;
+		int carryOnly=(a&b)<<1;
+		
+		return addTwoNumbers(sumWithoutCarry, carryOnly);
 	}
 }

@@ -1,5 +1,7 @@
 package com.ssparrow.algorithm.array;
 
+import com.ssparrow.algorithm.misc.Pair;
+
 public final class ArrayUtil {
 	/**
 	 * @param array
@@ -290,5 +292,68 @@ public final class ArrayUtil {
 		}else{
 			return binarySearchInRtatedArray(array, value, mid+1, end);
 		}
+	}
+	
+	/**
+	 * @param matrix
+	 * @param value
+	 * @param rowStart
+	 * @param rowEnd
+	 * @param columnStart
+	 * @param columnEnd
+	 * @return
+	 */
+	public static Pair searchInSortedMatrix(int[][] matrix, int value, int rowStart, int rowEnd, int columnStart, int columnEnd){
+		if(rowStart>rowEnd || columnStart>columnEnd
+				||rowStart<0||rowEnd<0
+				||rowStart>=matrix.length||rowEnd>=matrix.length
+				||columnStart<0||columnEnd<0
+				||columnStart>=matrix[0].length||columnEnd>=matrix[0].length){
+			return null;
+		}
+		
+		int rowSpan=rowEnd-rowStart+1;
+		int columnSpan=columnEnd-columnStart+1;
+		
+		if(rowSpan<columnSpan){
+			searchInSortedMatrix(matrix, value, rowStart, rowEnd, columnStart+rowSpan, columnEnd);
+			columnEnd=columnStart+rowSpan-1;
+		}else if(rowSpan>columnSpan){
+			searchInSortedMatrix(matrix, value, rowStart+columnSpan, rowEnd, columnStart, columnEnd);
+			rowEnd=rowStart+rowSpan-1;
+		}
+		
+		
+		int rowMid=(rowStart+rowEnd)/2;
+		int columnMid=(columnStart+columnEnd)/2;
+		
+		if(matrix[rowMid][columnMid]==value){
+			return new Pair(rowMid, columnMid);
+		}
+		
+		
+		int row=rowMid;
+		int column=columnMid;
+		
+		if(matrix[rowMid][columnMid]>value){
+			while(row>=0 && column>=0 && matrix[row][column]>value){
+				row--;
+				column--;
+			}
+		}else{
+			while( row<matrix.length && column<matrix[0].length && matrix[row][column]<value){
+				row++;
+				column++;
+			}
+			row=row-1;
+			column=column-1;
+		}
+		
+		Pair result = searchInSortedMatrix(matrix, value, row+1, rowEnd, columnStart, column);
+		if(result==null){
+			result=searchInSortedMatrix(matrix, value, rowStart, row, column+1, columnEnd);
+		}
+		
+		return result;
 	}
 }

@@ -25,7 +25,7 @@ public class IncidentHandlerTest {
 		IncidentHandler incidentHandler=new IncidentHandler(employees);
 		
 		int id=1;
-		while(true){
+		while(id<=10){
 			Incident incident=new Incident(String.valueOf(id++));
 			incidentHandler.handleIncident(incident);
 		}

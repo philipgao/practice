@@ -173,4 +173,24 @@ public class TreeUtil {
 		findSum(sb,node.getLeftNode(), sum, path, level+1);
 		findSum(sb, node.getRightNode(), sum, path, level+1);
 	}
+	
+	/**
+	 * @param result
+	 * @param root
+	 * @param currentlevel
+	 * @param expectedlevel
+	 */
+	public static void findByLevel(StringBuffer result, TreeNode root, int currentlevel, int expectedlevel){
+		if(root==null){
+			return;
+		}
+		
+		if(currentlevel==expectedlevel){
+			result.append(root.getValue());
+			return;
+		}
+		
+		findByLevel(result, root.getLeftNode(), currentlevel+1, expectedlevel);
+		findByLevel(result, root.getRightNode(), currentlevel+1, expectedlevel);
+	}
 }

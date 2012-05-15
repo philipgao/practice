@@ -97,4 +97,16 @@ public class ArrayUtilTest {
 		assertEquals(1, ArrayUtil.searchInRtatedArray(array, 45));
 		
 	}
+	
+	@Test
+	public void testSearchInSortedMatrix(){
+		int[][] matrix = new int[][]{
+				{15,20,70,85},
+				{20,35,80,95},
+				{30,55,95,105},
+				{40,80,120,120}
+		};
+		
+		assertNull(ArrayUtil.searchInSortedMatrix(matrix, 100, 0,3	, 0, 3));
+	}
 }

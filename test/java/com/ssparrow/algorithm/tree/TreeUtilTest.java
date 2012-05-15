@@ -130,4 +130,22 @@ public class TreeUtilTest {
 		assertEquals("6 5 \n", TreeUtil.findSum(root, 11));
 		assertEquals("4 6 5 \n", TreeUtil.findSum(root, 15));
 	}
+	
+	@Test
+	public void testFindByLevel(){
+		TreeNode root = TreeUtil.createMinimalBST(null, new int[]{1,2,3,4,5,6,7}, 0, 6);
+		
+		StringBuffer result=new StringBuffer();
+		TreeUtil.findByLevel(result, root, 1, 1);
+		assertEquals("4", result.toString());
+		
+		result=new StringBuffer();
+		TreeUtil.findByLevel(result, root, 1, 2);
+		assertEquals("26", result.toString());
+		
+		result=new StringBuffer();
+		TreeUtil.findByLevel(result, root, 1, 3);
+		assertEquals("1357", result.toString());
+		
+	}
 }

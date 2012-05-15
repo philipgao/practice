@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.ssparrow.algorithm.misc.AlgorUtil.Pair;
-
 public class AlgorUtilTest {
 
 	@Test
@@ -25,5 +23,25 @@ public class AlgorUtilTest {
 
 		assertEquals(24, AlgorUtil.findNumerOfZeros(100));
 	}
+	
+	@Test
+	public void testAddTwoNumbers(){
+		assertEquals(0, AlgorUtil.addTwoNumbers(0, 0));
 
+		assertEquals(1, AlgorUtil.addTwoNumbers(0, 1));
+
+		assertEquals(1, AlgorUtil.addTwoNumbers(1, 0));
+
+		assertEquals(1181, AlgorUtil.addTwoNumbers(385	, 796));
+	}
+	
+	@Test
+	public void testShuffleCards(){
+		int [] cards=new int[52];
+		for(int index=0;index<52;index++){
+			cards[index]=index+1;
+		}
+		
+		AlgorUtil.shuffleCards(cards);
+	}
 }
