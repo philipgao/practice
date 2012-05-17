@@ -103,4 +103,10 @@ public class StringUtilTest {
 		result=StringUtil.countCompress(str);
 		assertEquals("a3", result);
 	}
+	
+	@Test
+	public void testFindMajorityWord() throws Exception{
+		String majorityWord = StringUtil.findMajorityWord("wordlist.txt");
+		assertEquals("philip", majorityWord);
+	}
 }

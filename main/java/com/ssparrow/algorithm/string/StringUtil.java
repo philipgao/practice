@@ -1,5 +1,8 @@
 package com.ssparrow.algorithm.string;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.BitSet;
 
 public final class StringUtil {
@@ -166,5 +169,29 @@ public final class StringUtil {
 		System.arraycopy(countCharArray, 0, result, resultIndex,countCharArray.length);
 		
 		return new String(result);
+	}
+	
+	public static String findMajorityWord(String fileName) throws Exception{
+		BufferedReader reader=new BufferedReader(new FileReader(fileName));
+		
+		String word;
+		String candidate=null;
+		int count=0;
+		
+		while((word=reader.readLine())!=null){
+			if(count==0){
+				candidate=word;
+				count++;
+			}else{
+				if(word.equals(candidate)){
+					count++;
+				}else{
+					count--;
+				}
+			}
+		}
+		
+		return candidate;
+		
 	}
 }
