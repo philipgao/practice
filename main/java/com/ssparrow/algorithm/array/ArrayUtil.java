@@ -275,7 +275,7 @@ public final class ArrayUtil {
 			}
 		}
 		
-		return binarySearchInRtatedArray(array, value, 0, array.length+start-1);
+		return binarySearchInRtatedArray(array, value, start, array.length+start-1);
 	}
 	
 	private static int binarySearchInRtatedArray(int [] array, int value, int start, int end){
