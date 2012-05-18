@@ -32,7 +32,7 @@ public class RecursionUtil {
 		if(start>end){
 			return -1;
 		}
-		int mid=(start+end)/2;
+		int mid=start+(end-start)/2;
 		if(array[mid]==mid){
 			return mid;
 		}else if(array[mid]<mid){
@@ -53,7 +53,7 @@ public class RecursionUtil {
 			return -1;
 		}
 		
-		int mid=(start+end)/2;
+		int mid=start+(end-start)/2;
 		if(array[mid]==mid){
 			return mid;
 		}

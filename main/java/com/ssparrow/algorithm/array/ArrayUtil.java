@@ -283,7 +283,7 @@ public final class ArrayUtil {
 			return -1;
 		}
 			
-		int mid=(start+end)/2;
+		int mid=start+(end-start)/2;
 		int midIndex = (mid<array.length)? mid: (mid-1)%(array.length-1);
 		if(array[midIndex]==value){
 			return midIndex;
@@ -324,8 +324,8 @@ public final class ArrayUtil {
 		}
 		
 		
-		int rowMid=(rowStart+rowEnd)/2;
-		int columnMid=(columnStart+columnEnd)/2;
+		int rowMid=rowStart+(rowEnd-rowStart)/2;
+		int columnMid=columnStart+(columnEnd-columnStart)/2;
 		
 		if(matrix[rowMid][columnMid]==value){
 			return new Pair(rowMid, columnMid);
