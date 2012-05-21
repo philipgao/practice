@@ -3,8 +3,8 @@ package com.ssparrow.algorithm.misc;
 
 
 public class Pair{
-	int a;
-	int b;
+	private int a;
+	private int b;
 	
 	public Pair(int a, int b) {
 		this.a = a;
@@ -18,5 +18,15 @@ public class Pair{
 	public int getB() {
 		return b;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Pair){
+			Pair target=(Pair)obj;
+			return a==target.getA()&&b==target.getB();
+		}
+		return false;
+	}
+	
 	
 }
