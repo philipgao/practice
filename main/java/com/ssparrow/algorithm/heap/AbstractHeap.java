@@ -1,26 +1,26 @@
 package com.ssparrow.algorithm.heap;
 
-public abstract class AbstractHeap  implements Heap{
+public abstract class AbstractHeap<T extends Comparable<? super T>>  implements Heap{
 
-	protected int[] data;
+	protected Comparable[] data;
 	protected int heapSize;
 
 	public AbstractHeap() {
 		super();
 	}
 	
-	public AbstractHeap(int[] array){
+	public AbstractHeap(T[] array){
 		this.setData(array);
 	}
 
 	@Override
-	public int[] getData() {
+	public Comparable[] getData() {
 		return data;
 	}
 
 	@Override
-	public void setData(int[] array) {
-		data=new int[array.length];
+	public void setData(Comparable[] array) {
+		data=new Comparable[array.length];
 		this.heapSize=array.length;
 		System.arraycopy(array, 0, data, 0, array.length);
 		
@@ -50,17 +50,17 @@ public abstract class AbstractHeap  implements Heap{
 	}
 
 	@Override
-	public int getTopValue() {
+	public Comparable getTopValue() {
 		return this.getValue(0);
 	}
 
 	@Override
-	public int getValue(int index) {
+	public Comparable getValue(int index) {
 		return data[index];
 	}
 
 	@Override
-	public void setValue(int index, int value) {
+	public void setValue(int index, Comparable value) {
 		data[index]=value;
 	}
 	
@@ -83,20 +83,20 @@ public abstract class AbstractHeap  implements Heap{
 		int topIndex=index;
 		
 		if(left(index)<heapSize){
-			boolean compareLeft = isMaxHeap? (data[left(index)]>data[index]):(data[left(index)]<data[index]);
+			boolean compareLeft = isMaxHeap? (data[left(index)].compareTo(data[index])>0):(data[left(index)].compareTo(data[index])<0);
 			if(compareLeft){
 				topIndex=left(index);
 			}
 		}
 		
 		if(right(index)<heapSize){
-			boolean compareRight = isMaxHeap?(data[right(index)]>data[topIndex]):(data[right(index)]<data[topIndex]);
+			boolean compareRight = isMaxHeap?(data[right(index)].compareTo(data[topIndex])>0):(data[right(index)].compareTo(data[topIndex])<0);
 			if(compareRight){
 				topIndex=right(index);
 			}
 		}
 		if(topIndex!=index){
-			int tmp=data[index];
+			Comparable tmp=data[index];
 			data[index]=data[topIndex];
 			data[topIndex]=tmp;
 			

@@ -1,4 +1,4 @@
-package com.ssparrow.afi.ch02sorting;
+ package com.ssparrow.afi.ch02sorting;
 
 import com.ssparrow.algorithm.misc.Pair;
 
@@ -45,4 +45,23 @@ public class Ch02SortingUtil {
 		
 		return new Pair(min, max);
 	}
+	
+	/**
+	 * @param array
+	 * @return
+	 */
+	public static int[] p209RemoveDuplicateItems(int [] array){
+		int j=0;
+		
+		for(int i=1;i<array.length;i++){
+			if(array[i]!=array[j]){
+				array[++j]=array[i];
+			}
+		}
+		
+		int [] result=new int[j+1];
+		System.arraycopy(array, 0, result, 0, j+1);
+		return result;
+	}
+	
 }

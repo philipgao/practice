@@ -1,10 +1,10 @@
 package com.ssparrow.algorithm.heap;
 
-public interface Heap {
+public interface Heap<T extends Comparable<? super T>> {
 
-	public abstract int[] getData();
+	public abstract Comparable[] getData();
 
-	public abstract void setData(int[] array);
+	public abstract void setData(Comparable[] array);
 
 	public abstract int getHeapSize();
 
@@ -14,10 +14,10 @@ public interface Heap {
 
 	public abstract void heapify(int index);
 
-	public abstract int getTopValue();
+	public abstract Comparable getTopValue();
 
-	public abstract int getValue(int index);
+	public abstract Comparable getValue(int index);
 
-	public abstract void setValue(int index, int value);
+	public abstract void setValue(int index, Comparable value);
 
 }

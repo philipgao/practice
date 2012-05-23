@@ -2,8 +2,8 @@ package com.ssparrow.algorithm.heap;
 
 public class HeapSorter {
 	
-	public static int[] sortWithMaxHeap(int[] array){
-		int[] result=new int[array.length];
+	public static Comparable[] sortWithMaxHeap(Comparable[] array){
+		Comparable[] result=new Comparable[array.length];
 		MaxHeap maxHeap=new MaxHeap(array);
 		
 		int index=result.length-1;
@@ -21,8 +21,8 @@ public class HeapSorter {
 		return result;
 	}
 	
-	public static int[] sortWithMinHeap(int[] array){
-		int[] result=new int[array.length];
+	public static Comparable[] sortWithMinHeap(Comparable[] array){
+		Comparable[] result=new Comparable[array.length];
 		MinHeap minHeap=new MinHeap(array);
 		
 		int index=0;
