@@ -23,4 +23,9 @@ public class Ch02SortingUtilTest {
 		array = new int[]{1,1,2,2,2,3,4,5,6,6,7,10,10};
 		assertArrayEquals(new int[]{1,2,3,4,5,6,7,10}, Ch02SortingUtil.p209RemoveDuplicateItems(array));
 	}
+	
+	@Test
+	public void testP210MergeStockQuotes() throws Exception{
+		Ch02SortingUtil.p210MergeStockQuotes(System.currentTimeMillis()+".txt");
+	}
 }

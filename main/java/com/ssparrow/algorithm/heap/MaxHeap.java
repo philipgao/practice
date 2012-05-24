@@ -1,7 +1,12 @@
 package com.ssparrow.algorithm.heap;
 
-public class MaxHeap extends AbstractHeap {
-	public MaxHeap(Comparable[] array){
+public class MaxHeap<T extends Comparable<? super T>> extends AbstractHeap<T> {
+	
+	public MaxHeap(int maxSize) {
+		super(maxSize);
+	}
+
+	public MaxHeap(T[] array){
 		super.setData(array);
 	}
 	

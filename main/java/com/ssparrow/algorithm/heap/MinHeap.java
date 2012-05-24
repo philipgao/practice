@@ -1,7 +1,11 @@
 package com.ssparrow.algorithm.heap;
 
-public class MinHeap extends AbstractHeap {
-	public MinHeap(Comparable[] array){
+public class MinHeap<T extends Comparable<? super T>> extends AbstractHeap<T> {
+	public MinHeap(int maxSize) {
+		super(maxSize);
+	}
+	
+	public MinHeap(T[] array){
 		super.setData(array);
 	}
 	

@@ -1,12 +1,16 @@
 package com.ssparrow.algorithm.heap;
 
-public abstract class AbstractHeap<T extends Comparable<? super T>>  implements Heap{
+public abstract class AbstractHeap<T extends Comparable<? super T>>  implements Heap<T>{
 
-	protected Comparable[] data;
-	protected int heapSize;
+	protected Object[] data;
+	protected int heapSize=0;
 
 	public AbstractHeap() {
 		super();
+	}
+	
+	public AbstractHeap(int maxSize){
+		data=new Object[maxSize];
 	}
 	
 	public AbstractHeap(T[] array){
@@ -14,13 +18,13 @@ public abstract class AbstractHeap<T extends Comparable<? super T>>  implements 
 	}
 
 	@Override
-	public Comparable[] getData() {
-		return data;
+	public T[] getData() {
+		return (T[]) data;
 	}
 
 	@Override
-	public void setData(Comparable[] array) {
-		data=new Comparable[array.length];
+	public void setData(T[] array) {
+		data=new Object[array.length];
 		this.heapSize=array.length;
 		System.arraycopy(array, 0, data, 0, array.length);
 		
@@ -50,17 +54,17 @@ public abstract class AbstractHeap<T extends Comparable<? super T>>  implements 
 	}
 
 	@Override
-	public Comparable getTopValue() {
+	public T getTopValue() {
 		return this.getValue(0);
 	}
 
 	@Override
-	public Comparable getValue(int index) {
-		return data[index];
+	public T getValue(int index) {
+		return (T) data[index];
 	}
 
 	@Override
-	public void setValue(int index, Comparable value) {
+	public void setValue(int index, T value) {
 		data[index]=value;
 	}
 	
@@ -69,11 +73,43 @@ public abstract class AbstractHeap<T extends Comparable<? super T>>  implements 
 	 */
 	@Override
 	public void buildHeap(){
-		for(int index=data.length/2;index>=0;index--){
+		for(int index=heapSize/2;index>=0;index--){
 			heapify(index);
 		}
 	}
 	
+	@Override
+	public T peek() {
+		if(heapSize>0){
+			return (T) data[0];
+		}
+		return null;
+	}
+
+	@Override
+	public T pop() {
+		if(heapSize>0){
+			T top = (T) data[0];
+			
+			data[0]=data[heapSize-1];
+			heapSize--;
+			heapify(0);
+			
+			return top;
+		}
+		return null;
+	}
+
+	@Override
+	public void push(T value) {
+		if(heapSize==data.length){
+			return;
+		}
+		
+		data[heapSize]=value;
+		heapSize++;
+		buildHeap();
+	}
 
 	protected void heapify(int index, boolean isMaxHeap){
 		if(index>=heapSize){
@@ -83,24 +119,26 @@ public abstract class AbstractHeap<T extends Comparable<? super T>>  implements 
 		int topIndex=index;
 		
 		if(left(index)<heapSize){
-			boolean compareLeft = isMaxHeap? (data[left(index)].compareTo(data[index])>0):(data[left(index)].compareTo(data[index])<0);
+			boolean compareLeft = isMaxHeap? (((T)data[left(index)]).compareTo((T)data[index])>0):(((T)data[left(index)]).compareTo((T)data[index])<0);
 			if(compareLeft){
 				topIndex=left(index);
 			}
 		}
 		
 		if(right(index)<heapSize){
-			boolean compareRight = isMaxHeap?(data[right(index)].compareTo(data[topIndex])>0):(data[right(index)].compareTo(data[topIndex])<0);
+			boolean compareRight = isMaxHeap?(((T)data[right(index)]).compareTo((T)data[topIndex])>0):(((T)data[right(index)]).compareTo((T)data[topIndex])<0);
 			if(compareRight){
 				topIndex=right(index);
 			}
 		}
 		if(topIndex!=index){
-			Comparable tmp=data[index];
+			T tmp=(T) data[index];
 			data[index]=data[topIndex];
 			data[topIndex]=tmp;
 			
 			heapify(topIndex);
 		}
 	}
+	
+	
 }
