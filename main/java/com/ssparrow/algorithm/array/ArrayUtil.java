@@ -356,4 +356,50 @@ public final class ArrayUtil {
 		
 		return result;
 	}
+	
+	
+	public static int findLongestDistance(int[] array){
+	        
+	        int [] candidates=new int[array.length];
+	        int [] oriIndex=new int[array.length];
+	        
+	        int index=0;
+	        int minimum=Integer.MAX_VALUE;
+	        for(int i=0;i<array.length;i++){
+	            if(array[i]<minimum){
+	                minimum=array[i];
+	                candidates[index]=array[i];
+	                oriIndex[index++]=i;
+	                System.out.println(array[i]);
+	            }
+	        }
+	        
+	        for(int i=1;i<index;i++){
+	            int tmp=candidates[i];
+	            int tmpIndex=oriIndex[i];
+	            int j=i-1;
+	            while(j>=0&&candidates[j]>tmp){
+	        	candidates[j+1]=candidates[j];
+	        	oriIndex[j+1]=oriIndex[j];
+	        	j--;
+	            }
+	            candidates[j+1]=tmp;
+	            oriIndex[j+1]=tmpIndex;
+	        }
+	        
+	        int k=0;
+	        int max=Integer.MIN_VALUE;
+	        for(int i=array.length-1;i>=0&&k<index;i--){
+	            while(k<index && array[i]>candidates[k]){
+	        	int span=i-oriIndex[k];
+	        	if(span>max){
+	        	    max=span;
+	        	}
+	        	
+	        	k++;
+	            }
+	        }
+	        
+	        return max;
+	}
 }

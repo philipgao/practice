@@ -116,4 +116,18 @@ public class ArrayUtilTest {
 		assertEquals(0, result.getA());
 		assertEquals(3, result.getB());
 	}
+
+	@Test
+	public void testFindLongestDistance(){
+
+	        int [] array = new int []{4,3,5,2,1,3,2,3};
+	        assertEquals(4, ArrayUtil.findLongestDistance(array));
+	        
+	        array = new int []{4,3,5,2,1,3,2,4};
+	        assertEquals(6, ArrayUtil.findLongestDistance(array));
+	        
+	        array = new int []{4,3,5,2,1,3,2,6};
+	        assertEquals(7, ArrayUtil.findLongestDistance(array));
+	    
+	}
 }
