@@ -171,6 +171,11 @@ public final class StringUtil {
 		return new String(result);
 	}
 	
+	/**
+	 * @param fileName
+	 * @return
+	 * @throws Exception
+	 */
 	public static String findMajorityWord(String fileName) throws Exception{
 		BufferedReader reader=new BufferedReader(new FileReader(fileName));
 		
@@ -193,5 +198,32 @@ public final class StringUtil {
 		
 		return candidate;
 		
+	}
+	
+	public static boolean checkPalindrome(String str){
+		if(str==null){
+			return false;
+		}else if(str.length()==0 ||str.length()==1){
+			return true;
+		}
+		
+		int backIndex=0;
+		
+		int length = str.length();
+		for(int fastIndex=0,forwardIndex=0;forwardIndex<length;forwardIndex++, fastIndex+=2){
+			if(fastIndex==length-1){
+				backIndex=forwardIndex-1;
+			}else if(fastIndex==length){
+				backIndex=forwardIndex-1;
+				forwardIndex--;
+			}else if(fastIndex>length){
+				if(str.charAt(forwardIndex)!=str.charAt(backIndex)){
+					return false;
+				}
+				backIndex--;
+			}
+		}
+		
+		return true;
 	}
 }

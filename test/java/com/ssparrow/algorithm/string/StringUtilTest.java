@@ -109,4 +109,19 @@ public class StringUtilTest {
 		String majorityWord = StringUtil.findMajorityWord("wordlist.txt");
 		assertEquals("philip", majorityWord);
 	}
+	
+	@Test
+	public void testCheckPalindrome(){
+		assertFalse(StringUtil.checkPalindrome(null));
+
+		assertTrue(StringUtil.checkPalindrome("a"));
+		
+		assertFalse(StringUtil.checkPalindrome("ab"));
+
+		assertTrue(StringUtil.checkPalindrome("aba"));
+		
+		assertFalse(StringUtil.checkPalindrome("abbc"));
+
+		assertTrue(StringUtil.checkPalindrome("abba"));
+	}
 }
