@@ -363,7 +363,6 @@ public class Ch01SearchUtil {
 		for(int index=1;index<array.length;index++){
 			if(array[index]<array[minIndex]){
 				minIndex=index;
-				continue;
 			}
 			
 			int diff=array[index]-array[minIndex];

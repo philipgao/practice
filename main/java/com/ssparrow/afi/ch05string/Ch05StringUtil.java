@@ -13,14 +13,16 @@ public class Ch05StringUtil {
 		}
 		
 		char[][][] map = new char[array.length+1][reverse.length+1][];
-		char[] result = findLongestCommonSubsequence(map, array, array.length, reverse, reverse.length);
+		char[] result = findLongestCommonSubString(map, array, array.length, reverse, reverse.length);
 		return new String(result);
 	}
 	
-	public static char[] findLongestCommonSubsequence(char[][][] map,char[] array1, int length1,char array2[], int length2){
-		System.out.println(length1+":"+length2);
-		if(length1==0||length2==0){
-			return new char[0];
+	
+	private static char[] findLongestCommonSubString(char[][][]map, char[] array1, int length1,char[] array2, int length2){
+		if(length1==0 || length2==0){
+			char[] result=new char[0];
+			map[length1][length2]=result;
+			return result;
 		}
 		
 		if(map[length1][length2]!=null){
@@ -28,24 +30,30 @@ public class Ch05StringUtil {
 		}
 		
 		if(array1[length1-1]==array2[length2-1]){
-			char[] subLCS = findLongestCommonSubsequence(map, array1, length1-1, array2, length2-1);
-			char[] result=new char[subLCS.length+1];
-			System.arraycopy(subLCS, 0, result, 0, subLCS.length);
-			result[subLCS.length]=array1[length1-1];
+			int i=length1-2;
+			int j=length2-2;
+			
+			while(i>=0 && j>=0 && array1[i]==array2[j]){
+				i--;
+				j--;
+			}
+			
+			int length=length1-i-1;
+			char[] result = new char[length];
+			System.arraycopy(array1, i+1, result, 0, length);
 			map[length1][length2]=result;
 			return result;
-		}else{
-			char[] subLCS1=findLongestCommonSubsequence(map, array1, length1-1, array2, length2);
-			char[] subLCS2=findLongestCommonSubsequence(map, array1, length1, array2, length2-1);
-			
+		} else {
+			char[] subLCS1 = findLongestCommonSubString(map, array1,length1 - 1, array2, length2);
+			char[] subLCS2 = findLongestCommonSubString(map, array1, length1,array2, length2 - 1);
+
 			char[] result;
-			if(subLCS1.length>=subLCS2.length){
-				result=subLCS1;
-				
-			}else{
-				result=subLCS2;
+			if (subLCS1.length >= subLCS2.length) {
+				result = subLCS1;
+			} else {
+				result = subLCS2;
 			}
-			map[length1][length2]=result;
+			map[length1][length2] = result;
 			return result;
 		}
 	}
