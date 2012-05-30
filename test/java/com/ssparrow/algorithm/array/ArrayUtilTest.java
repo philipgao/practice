@@ -130,4 +130,16 @@ public class ArrayUtilTest {
 	        assertEquals(7, ArrayUtil.findLongestDistance(array));
 	    
 	}
+	
+	@Test
+	public void testFindMaxSum(){
+		int [] array=new int[]{1,2, -2,0,-1, 3, -2, 4, 6,-5,10};
+		assertEquals(new Pair(5, 10), ArrayUtil.findMaxSum(array));
+		
+		array=new int[]{1,2, -2,0,-1, 3, -2, 4, 6,-5,-5};
+		assertEquals(new Pair(5, 8), ArrayUtil.findMaxSum(array));
+
+		array=new int[]{1,2, -1,0,-1, 3, -2, 4, 6,-5,10};
+		assertEquals(new Pair(0, 10), ArrayUtil.findMaxSum(array));
+	}
 }

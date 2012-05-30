@@ -370,7 +370,7 @@ public final class ArrayUtil {
 	                minimum=array[i];
 	                candidates[index]=array[i];
 	                oriIndex[index++]=i;
-	                System.out.println(array[i]);
+//	                System.out.println(array[i]);
 	            }
 	        }
 	        
@@ -402,4 +402,40 @@ public final class ArrayUtil {
 	        
 	        return max;
 	}
+	
+	/**
+	 * find subarray in a given array that has the max sum
+	 * the input array has both position number and negative number
+	 * @param array
+	 * @return
+	 */
+	public static Pair findMaxSum(int [] array){
+		int start=0;
+		int end=0;
+		int max=0;
+		
+		int runningStart=0;
+		int runningSum=0;
+		
+		for (int index = 0; index < array.length; index++) {
+			runningSum=runningSum+array[index];
+			if(runningSum<=0){
+				if(runningStart<array.length-1){
+					runningStart=index+1;
+				}
+				runningSum=0;
+				continue;
+			}
+			
+			if(runningSum>max){
+				max=runningSum;
+				
+				start=runningStart;
+				end=index;
+			}
+		}
+				
+		return new Pair(start, end);
+	}
+	
 }
