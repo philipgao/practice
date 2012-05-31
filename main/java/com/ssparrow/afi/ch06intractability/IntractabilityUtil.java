@@ -31,7 +31,7 @@ public class IntractabilityUtil {
 			}
 		}
 		
-		System.out.println(maxWeight+":"+maxIndex);
+//		System.out.println(maxWeight+":"+maxIndex);
 		map.put(maxWeight, maxValue);
 		return maxValue;
 		
