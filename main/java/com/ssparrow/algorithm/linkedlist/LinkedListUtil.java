@@ -62,4 +62,29 @@ public class LinkedListUtil {
 		
 		return head;
 	}
+	
+	/**
+	 * @param head
+	 * @return
+	 */
+	public static LinkedListNode reverseLinkedList(LinkedListNode head){
+		if(head==null || head.getNext()==null){
+			return head;
+		}
+		
+		LinkedListNode lastNode=head;		
+		LinkedListNode node=head.getNext();
+		
+		while(node!=null){
+			LinkedListNode tmp = node.getNext();
+			
+			node.setNext(lastNode);
+			lastNode=node;
+			
+			node=tmp;
+		}
+		
+		head.setNext(null);
+		return lastNode;
+	}
 }

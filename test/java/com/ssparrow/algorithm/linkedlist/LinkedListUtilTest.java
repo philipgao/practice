@@ -44,5 +44,29 @@ public class LinkedListUtilTest {
 			
 		}
 	}
+	
+	@Test
+	public void testReverseLinkedList(){
+		LinkedListNode head=new LinkedListNode("1");
+		head.addToTail("2");
+		head.addToTail("3");
+		head.addToTail("4");
+		head.addToTail("5");
+		
+		LinkedListNode reverseHead = LinkedListUtil.reverseLinkedList(head);
+		assertEquals("5", reverseHead.getData());
+		reverseHead=reverseHead.getNext();
+		assertEquals("4", reverseHead.getData());
+		reverseHead=reverseHead.getNext();
+		assertEquals("3", reverseHead.getData());
+		reverseHead=reverseHead.getNext();
+		assertEquals("2", reverseHead.getData());
+		reverseHead=reverseHead.getNext();
+		assertEquals("1", reverseHead.getData());
+		reverseHead=reverseHead.getNext();
+		assertNull(reverseHead);
+		
+		
+	}
 
 }
