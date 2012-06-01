@@ -208,18 +208,10 @@ public class TreeUtil {
 	 */
 	
 	public static int findTreeDepth(String str){
-		if(str.charAt(0)=='(' && str.charAt(str.length()-1)==')'){
-			if(str.length()<4){
-				return -1;
-			}
-			
-			return findSubTreeDepth(str);
-		}else{
-			return -1;
-		}
+		return findTreeDepth(str, true);
 	}
 	
-	private static int findSubTreeDepth(String str){
+	public static int findTreeDepth(String str, boolean isWholeStr){
 		boolean isBranch=true;
 		String content = str;
 		
@@ -230,7 +222,7 @@ public class TreeUtil {
 			
 			isBranch=false;
 			content = str.substring(1, str.length()-1);
-		}else if(str.charAt(0)!='0'){
+		}else if(isWholeStr || str.charAt(0)!='0'){
 			return -1;
 		}
 		
@@ -258,8 +250,8 @@ public class TreeUtil {
 			String left=content.substring(0, index+1);
 			String right=content.substring(index+1);
 			
-			int leftDepth=findSubTreeDepth(left);
-			int rightDepth=findSubTreeDepth(right);
+			int leftDepth=findTreeDepth(left, false);
+			int rightDepth=findTreeDepth(right, false);
 			
 			if(leftDepth==-1 || rightDepth==-1){
 				return -1;
@@ -290,7 +282,7 @@ public class TreeUtil {
 				int leftDepth=0;
 				
 				String right=content.substring(index);
-				int rightDepth=findSubTreeDepth(right);
+				int rightDepth=findTreeDepth(right, false);
 				
 				if(rightDepth==-1){
 					return -1;
