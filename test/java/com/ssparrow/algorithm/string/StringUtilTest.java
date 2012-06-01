@@ -17,14 +17,23 @@ public class StringUtilTest {
 	
 	@Test
 	public void testReverseWords(){
-		String result=StringUtil.reverseWords(null);
+		String result=StringUtil.reverseCharsInWords(null);
 		assertNull(result);
 		
-		result=StringUtil.reverseWords("word");
+		result=StringUtil.reverseCharsInWords("word");
 		assertEquals("drow", result);
 		
-		result=StringUtil.reverseWords("word abcde");
+		result=StringUtil.reverseCharsInWords("word abcde");
 		assertEquals("drow edcba", result);
+	}
+	
+	@Test
+	public void testReverseWordsInSentence(){
+		StringBuffer sb=new StringBuffer();
+		String sentence="this is a cafe";
+		StringUtil.reverseWordsInSentence(sb, sentence);
+		
+		assertEquals("cafe a is this", sb.toString());
 	}
 
 	@Test

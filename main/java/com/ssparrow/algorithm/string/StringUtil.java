@@ -28,7 +28,7 @@ public final class StringUtil {
 	 * @param sentence
 	 * @return
 	 */
-	public static String reverseWords(String sentence){
+	public static String reverseCharsInWords(String sentence){
 		if(sentence==null){
 			return null;
 		}
@@ -56,6 +56,38 @@ public final class StringUtil {
 		return new String(array);
 	}
 	
+	
+	/**
+	 * revere words in a sentence
+	 * for example "this is it" will be converted to "it is this"
+	 * 
+	 * @param sb
+	 * @param sentence
+	 */
+	public static void reverseWordsInSentence(StringBuffer sb, String sentence){
+		int wordstart=0;
+		int wordend=0;
+		
+		for(int index=0;index<sentence.length();index++){
+			if(sentence.charAt(index)==' ' || index==sentence.length()-1){
+				wordend=(index==sentence.length()-1)? index+1:index;
+				
+				if(wordend>wordstart){
+					String word=sentence.substring(wordstart, wordend);
+					
+					if(index==sentence.length()-1){
+						sb.append(word);
+					}else{
+						reverseWordsInSentence(sb, sentence.substring(wordend+1));
+						
+						sb.append(" ").append(word);
+					}
+				}
+				
+				break;
+			}
+		}
+	}
 	/**
 	 * @param str
 	 * @return
