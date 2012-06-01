@@ -1,5 +1,6 @@
 package com.ssparrow.algorithm.misc;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -91,5 +92,18 @@ public class AlgorUtil {
 		}else{
 			return ((number/nextPower10)%10)*nextPower10/10+number%power10+1;
 		}
+	}
+	
+	public static BigDecimal power(double a, int b){
+		if(b==0){
+			return new BigDecimal(1);
+		}
+		
+		BigDecimal base = new BigDecimal(a);
+		BigDecimal result=base;
+		for (int i = 1; i < b; i++) {
+			result = result.multiply(base);
+		}
+		return result;
 	}
 }

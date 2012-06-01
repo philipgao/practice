@@ -193,4 +193,105 @@ public class TreeUtil {
 		findByLevel(result, root.getLeftNode(), currentlevel+1, expectedlevel);
 		findByLevel(result, root.getRightNode(), currentlevel+1, expectedlevel);
 	}
+	
+	/**
+	 * @param str
+	 * @return
+	 */
+	
+	public static int findTreeDepth(String str){
+		if(str.charAt(0)=='(' && str.charAt(str.length()-1)==')'){
+			if(str.length()<4){
+				return -1;
+			}
+			
+			return findSubTreeDepth(str);
+		}else{
+			return -1;
+		}
+	}
+	
+	private static int findSubTreeDepth(String str){
+		boolean isBranch=true;
+		String content = str;
+		
+		if(str.charAt(0)=='(' && str.charAt(str.length()-1)==')'){
+			if(str.length()<4){
+				return -1;
+			}
+			
+			isBranch=false;
+			content = str.substring(1, str.length()-1);
+		}else if(str.charAt(0)!='0'){
+			return -1;
+		}
+		
+		if(content.charAt(0)=='('){
+			int count=1;
+			int index=1;
+			for(;index<content.length();index++){
+				if(content.charAt(index)=='('){
+					count++;
+				}else if(content.charAt(index)==')'){
+					count --;
+				}else if(content.charAt(index)!='0'){
+					return -1;
+				}
+				
+				if(count==0){
+					break;
+				}
+			}
+			
+			if((index==content.length()) || count>0){
+				return -1;
+			}
+			
+			String left=content.substring(0, index+1);
+			String right=content.substring(index+1);
+			
+			int leftDepth=findSubTreeDepth(left);
+			int rightDepth=findSubTreeDepth(right);
+			
+			if(leftDepth==-1 || rightDepth==-1){
+				return -1;
+			}else{
+				return Math.max(leftDepth, rightDepth)+1;
+			}
+		}else{
+			int index=1;
+			
+			while(index<content.length() && content.charAt(index)=='0'){
+				index++;
+			}
+			
+			if(index==content.length()){
+				int expected=isBranch?1:2;
+				
+				if(index==expected){
+					return 1;
+				}else{
+					return -1;
+				}
+			}else{
+				
+				if(content.charAt(index)!='('){
+					return -1;
+				}
+				
+				int leftDepth=0;
+				
+				String right=content.substring(index);
+				int rightDepth=findSubTreeDepth(right);
+				
+				if(rightDepth==-1){
+					return -1;
+				}else{
+					return Math.max(leftDepth, rightDepth)+1;
+				}
+			}
+			
+			
+		}
+	}
 }

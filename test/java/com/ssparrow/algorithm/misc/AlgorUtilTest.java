@@ -55,4 +55,9 @@ public class AlgorUtilTest {
 
 		assertEquals(15, AlgorUtil.count2InRange(50));
 	}
+	
+	@Test
+	public void testPower(){
+		System.out.println(AlgorUtil.power(1.1, 3));
+	}
 }

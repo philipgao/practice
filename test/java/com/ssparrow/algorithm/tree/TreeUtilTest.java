@@ -148,4 +148,19 @@ public class TreeUtilTest {
 		assertEquals("1357", result.toString());
 		
 	}
+	
+	@Test
+	public void testFindTreeDepth(){
+		assertEquals(1, TreeUtil.findTreeDepth("(00)"));
+		assertEquals(2, TreeUtil.findTreeDepth("((00)0)"));
+		assertEquals(2, TreeUtil.findTreeDepth("((00)(00))"));
+		assertEquals(3, TreeUtil.findTreeDepth("((00)(0(00)))"));
+		assertEquals(4, TreeUtil.findTreeDepth("((00)(0(0(00))))"));
+		assertEquals(-1, TreeUtil.findTreeDepth("x"));
+		assertEquals(-1, TreeUtil.findTreeDepth("0"));
+		assertEquals(-1, TreeUtil.findTreeDepth("()"));
+		assertEquals(-1, TreeUtil.findTreeDepth("(0)"));
+		assertEquals(-1, TreeUtil.findTreeDepth("(00)x"));
+		assertEquals(-1, TreeUtil.findTreeDepth("(0p)"));
+	}
 }
