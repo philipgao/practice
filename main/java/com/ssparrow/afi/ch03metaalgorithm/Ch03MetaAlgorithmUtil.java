@@ -1,5 +1,9 @@
 package com.ssparrow.afi.ch03metaalgorithm;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 public class Ch03MetaAlgorithmUtil {
 
 	/**
@@ -82,4 +86,32 @@ public class Ch03MetaAlgorithmUtil {
 		return false;
 	}
 	
+	/**
+	 * break one line of consecutive characters into valid words according to dictionary
+	 * @param dict
+	 * @param line
+	 * @return
+	 *   if the line is not breakable, return null
+	 *   otherwise, return list of the words
+	 */
+	public static List<String> p304BreakLineToWords(Set<String> dict, String line){
+		for(int i=1;i<=line.length();i++){
+			String prefix=line.substring(0, i);
+			if(dict.contains(prefix)){
+				if(i<line.length()){
+					String subLine =line.substring(i);
+					List<String> result = p304BreakLineToWords(dict, subLine);
+					if(result!=null){
+						result.add(0, prefix);
+						return result;
+					}
+				}else{
+					List<String> result=new LinkedList<String>();
+					result.add(prefix);
+					return result;
+				}
+			}
+		}
+		return null;
+	}
 }
