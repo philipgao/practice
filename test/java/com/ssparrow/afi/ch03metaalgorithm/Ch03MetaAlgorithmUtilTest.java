@@ -3,10 +3,13 @@ package com.ssparrow.afi.ch03metaalgorithm;
 import static org.junit.Assert.*;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
+
+import com.ssparrow.algorithm.misc.Pair;
 
 public class Ch03MetaAlgorithmUtilTest {
 
@@ -69,5 +72,26 @@ public class Ch03MetaAlgorithmUtilTest {
 		assertEquals("bath", result.get(1));
 		assertEquals("and", result.get(2));
 		assertEquals("beyond", result.get(3));
+	}
+	
+	@Test
+	public void testP317FindPointsCoverIntervals(){
+		List<Pair> intervals=new LinkedList<Pair>();
+		intervals.add(new Pair(0, 5));
+		intervals.add(new Pair(2, 6));
+		intervals.add(new Pair(4, 6));
+		List<Integer> points = Ch03MetaAlgorithmUtil.p317FindPointsCoverIntervals(intervals);
+		assertEquals(1, points.size());
+		assertEquals(5, points.get(0).intValue());
+		
+		intervals=new LinkedList<Pair>();
+		intervals.add(new Pair(0, 2));
+		intervals.add(new Pair(2, 4));
+		intervals.add(new Pair(3, 5));
+		intervals.add(new Pair(4, 6));
+		points = Ch03MetaAlgorithmUtil.p317FindPointsCoverIntervals(intervals);
+		assertEquals(2, points.size());
+		assertEquals(2, points.get(0).intValue());
+		assertEquals(5, points.get(1).intValue());
 	}
 }

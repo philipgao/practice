@@ -1,8 +1,14 @@
 package com.ssparrow.afi.ch03metaalgorithm;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
+import com.ssparrow.algorithm.misc.Pair;
 
 public class Ch03MetaAlgorithmUtil {
 
@@ -113,5 +119,52 @@ public class Ch03MetaAlgorithmUtil {
 			}
 		}
 		return null;
+	}
+	
+	
+	/**
+	 * @param intervals
+	 * @return
+	 */
+	public static List<Integer> p317FindPointsCoverIntervals(List<Pair> intervals){
+		List<Integer> points=new LinkedList<Integer>();
+		
+		Comparator<Pair> startComparator=new Comparator<Pair>(){
+			@Override
+			public int compare(Pair o1, Pair o2) {
+				return o1.getA()-o2.getB();
+			}
+		};
+		List<Pair> startSortList=new LinkedList<Pair>(intervals);
+		Collections.sort(startSortList, startComparator);
+		
+		Comparator<Pair> endComparator=new Comparator<Pair>(){
+			@Override
+			public int compare(Pair o1, Pair o2) {
+				return o1.getB()-o2.getB();
+			}
+		};
+		List<Pair> endSortList=new LinkedList<Pair>(intervals);
+		Collections.sort(endSortList, endComparator);
+		
+		Set<Pair> deleteList=new HashSet<Pair>();
+		for (Iterator iterator = endSortList.iterator(); iterator.hasNext();) {
+			Pair pair = (Pair) iterator.next();
+			
+			if(!deleteList.contains(pair)){
+				
+				points.add(pair.getB());
+				deleteList.add(pair);
+				
+				for (Iterator iterator2 = startSortList.iterator(); iterator2.hasNext();) {
+					Pair pair2 = (Pair) iterator2.next();
+					if(!deleteList.contains(pair2) && pair2.getA()<=pair.getB()){
+						deleteList.add(pair2);
+					}
+				}
+			}
+		}
+		
+		return points;
 	}
 }
