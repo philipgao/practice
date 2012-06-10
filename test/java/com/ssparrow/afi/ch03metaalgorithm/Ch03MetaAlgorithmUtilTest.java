@@ -9,6 +9,9 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import com.ssparrow.afi.ch04graph.ComparationResult;
+import com.ssparrow.afi.ch04graph.Player;
+import com.ssparrow.afi.ch04graph.Team;
 import com.ssparrow.algorithm.misc.Pair;
 
 public class Ch03MetaAlgorithmUtilTest {
@@ -93,5 +96,70 @@ public class Ch03MetaAlgorithmUtilTest {
 		assertEquals(2, points.size());
 		assertEquals(2, points.get(0).intValue());
 		assertEquals(5, points.get(1).intValue());
+	}
+	
+	@Test
+	public void testTeamComparation(){
+		Team team1=new Team("A");
+		Player a1=new Player("A1");
+		a1.setHeight(3);
+		team1.addPlayer(a1);
+		Player a2=new Player("A2");
+		a2.setHeight(5);
+		team1.addPlayer(a2);
+		Player a3=new Player("A3");
+		a3.setHeight(1);
+		team1.addPlayer(a3);
+		Player a4=new Player("A4");
+		a4.setHeight(4);
+		team1.addPlayer(a4);
+		Player a5=new Player("A5");
+		a5.setHeight(2);
+		team1.addPlayer(a5);
+		
+
+		Team team2=new Team("B");
+		Player b1=new Player("B1");
+		b1.setHeight(1);
+		team2.addPlayer(b1);
+		Player b2=new Player("B2");
+		b2.setHeight(2);
+		team2.addPlayer(b2);
+		Player b3=new Player("B3");
+		b3.setHeight(3);
+		team2.addPlayer(b3);
+		Player b4=new Player("B4");
+		b4.setHeight(4);
+		team2.addPlayer(b4);
+		Player b5=new Player("B5");
+		b5.setHeight(5);
+		team2.addPlayer(b5);
+		
+		assertEquals(ComparationResult.EQUAL, team1.compareTo(team2));
+		
+		//B: 1 2 3 4 6
+		b5.setHeight(6);
+		assertEquals(ComparationResult.LOWER, team1.compareTo(team2));
+		
+		//A: 1 2 3 5 6
+		a4.setHeight(6);
+		assertEquals(ComparationResult.HIGHER, team1.compareTo(team2));
+		
+		//B: 2 2 3 4 6
+		b1.setHeight(2);
+		assertEquals(ComparationResult.INCONSISTENT, team1.compareTo(team2));
+		
+		//A: 1 2 3 4 5 B: 2 3 4 5 6
+		a1.setHeight(3);
+		a2.setHeight(1);
+		a3.setHeight(4);
+		a4.setHeight(5);
+		a5.setHeight(2);
+		b1.setHeight(2);
+		b2.setHeight(3);
+		b3.setHeight(4);
+		b4.setHeight(5);
+		b5.setHeight(6);
+		assertEquals(ComparationResult.LOWER, team1.compareTo(team2));
 	}
 }

@@ -1,9 +1,16 @@
 package com.ssparrow.afi.ch04graph;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
+import com.ssparrow.algorithm.graph.Graph;
+import com.ssparrow.algorithm.graph.Status;
+import com.ssparrow.algorithm.graph.Vertex;
 import com.ssparrow.algorithm.tree.TreeNode;
 
 public class Ch04GraphUtil {
@@ -32,8 +39,10 @@ public class Ch04GraphUtil {
 				//since this node is start of this level, its child will be start of next level
 				if(node.getLeftNode()!=null){
 					levelStartNode=node.getLeftNode();
+					foundLevelStart=true;
 				}else if(node.getRightNode()!=null){
 					levelStartNode=node.getRightNode();
+					foundLevelStart=true;
 				}else{
 					//if the start node of current level has no child, 
 					//then set flag and let its siblings to find start of next level
@@ -44,8 +53,10 @@ public class Ch04GraphUtil {
 				
 				if(node.getLeftNode()!=null){
 					levelStartNode=node.getLeftNode();
+					foundLevelStart=true;
 				}else if(node.getRightNode()!=null){
 					levelStartNode=node.getRightNode();
+					foundLevelStart=true;
 				}
 			}
 			
@@ -62,6 +73,67 @@ public class Ch04GraphUtil {
 		
 		return result;
 		
+	}
+	
+	/**
+	 * @param start
+	 * @return
+	 */
+	public static boolean p403IsPCBWiringLayoutPossible(Vertex start){
+		Queue<Vertex> queue=new LinkedList<Vertex>();
+		Map<Vertex, Status> statusMap=new HashMap<Vertex, Status>();
+		Map<Vertex, Integer> distanceMap=new HashMap<Vertex, Integer>();
+		
+		List<List<Vertex>> distanceLists=new LinkedList<List<Vertex>>();
+		
+		queue.offer(start);
+		statusMap.put(start, Status.Queued);
+		distanceMap.put(start, 0);
+		
+		Vertex node;
+		List<Vertex> currentDistanceList = null;
+		while((node=queue.poll())!=null){
+			Integer currentDistance = distanceMap.get(node);
+			Set<Vertex> adjacentVertexes = node.getAdjacentVertexes();
+			
+			if(distanceLists.size()<=currentDistance || distanceLists.get(currentDistance)==null){
+				currentDistanceList=new LinkedList<Vertex>();
+				distanceLists.add(currentDistanceList);
+			}
+			currentDistanceList.add(node);
+			
+			
+			for (Iterator iterator = adjacentVertexes.iterator(); iterator.hasNext();) {
+				Vertex adjacent = (Vertex) iterator.next();
+				
+				if(statusMap.get(adjacent)==null || statusMap.get(adjacent).equals(Status.Unvisited)){
+					queue.offer(adjacent);
+					
+					statusMap.put(adjacent, Status.Queued);
+					distanceMap.put(adjacent, currentDistance+1);
+				}
+			}
+			
+			statusMap.put(node, Status.Visited);
+		}
+		
+		for(int index=1;index<distanceLists.size();index++){
+			List<Vertex> vertexList = distanceLists.get(index);
+			
+			for (Iterator iterator = vertexList.iterator(); iterator.hasNext();) {
+				Vertex vertex = (Vertex) iterator.next();
+				
+				for (Iterator iterator2 = vertexList.iterator(); iterator2.hasNext();) {
+					Vertex vertexOnSameDistance = (Vertex) iterator2.next();
+					
+					if(!vertexOnSameDistance.equals(vertex) && vertex.getAdjacentVertexes().contains(vertexOnSameDistance)){
+						return false;
+					}
+				}
+			}
+		}
+		
+		return true;
 	}
 	
 }

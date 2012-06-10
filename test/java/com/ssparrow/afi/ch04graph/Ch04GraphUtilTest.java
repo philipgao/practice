@@ -6,6 +6,9 @@ import org.junit.Test;
 
 import java.util.List;
 
+import com.ssparrow.algorithm.graph.Edge;
+import com.ssparrow.algorithm.graph.Graph;
+import com.ssparrow.algorithm.graph.Vertex;
 import com.ssparrow.algorithm.tree.TreeNode;
 import com.ssparrow.algorithm.tree.TreeUtil;
 
@@ -48,5 +51,38 @@ public class Ch04GraphUtilTest {
 		assertEquals(11, result.get(2).get(0).getValue());
 		assertEquals(20, result.get(2).get(1).getValue());
 		
+	}
+	
+	@Test
+	public void testP403IsPCBWiringLayoutPossible(){
+
+		Graph graph=new Graph();
+		
+		Vertex v1=new Vertex("v1");
+		Vertex v2=new Vertex("v2");
+		Vertex v3=new Vertex("v3");
+		Vertex v4=new Vertex("v4");
+		Vertex v5=new Vertex("v5");
+		Vertex v6=new Vertex("v6");
+		
+		Edge edge12 = new Edge(v1, v2);
+		Edge edge15 = new Edge(v1, v5);
+		Edge edge23 = new Edge(v2, v3);
+		Edge edge54 = new Edge(v5, v4);
+		Edge edge46 = new Edge(v4, v6);
+		
+		graph.addVertex(v1);
+		graph.addVertex(v2);
+		graph.addVertex(v3);
+		graph.addVertex(v4);
+		graph.addVertex(v5);
+		graph.addVertex(v6);
+		
+		assertTrue(Ch04GraphUtil.p403IsPCBWiringLayoutPossible(v1));
+
+		Edge edge25 = new Edge(v2, v5);
+		Edge edge34 = new Edge(v3, v4);
+
+		assertFalse(Ch04GraphUtil.p403IsPCBWiringLayoutPossible(v1));
 	}
 }
