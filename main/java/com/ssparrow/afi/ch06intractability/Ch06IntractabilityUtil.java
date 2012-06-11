@@ -50,8 +50,8 @@ public class Ch06IntractabilityUtil {
 		List<List<Integer>> allPartials=new LinkedList<List<Integer>>();
 		allPartials.add(initList);
 		
-		int shortedPathLength=Integer.MAX_VALUE;
-		List<Integer> shortedPath=null;
+		int shortestPartialLength=Integer.MAX_VALUE;
+		List<Integer> shortestPath=null;
 		while(!allPartials.isEmpty()){
 			List<Integer> currentPartial = allPartials.remove(0);
 			
@@ -66,15 +66,15 @@ public class Ch06IntractabilityUtil {
 						continue;
 					}else if(sum==n){
 						
-						if(currentPartial.size()<shortedPathLength){
-							shortedPathLength=currentPartial.size();
+						if(currentPartial.size()<shortestPartialLength){
+							shortestPartialLength=currentPartial.size();
 
-							shortedPath=new LinkedList<Integer>(currentPartial);
-							shortedPath.add(sum);
+							shortestPath=new LinkedList<Integer>(currentPartial);
+							shortestPath.add(sum);
 						}
 						
 					}else{
-						if(!currentPartial.contains(sum) && currentPartial.size()<shortedPathLength && sum>currentPartial.get(currentPartial.size()-1)){
+						if(!currentPartial.contains(sum) && currentPartial.size()<shortestPartialLength && sum>currentPartial.get(currentPartial.size()-1)){
 							List<Integer> extension=new LinkedList<Integer>(currentPartial);
 							extension.add(sum);
 							allPartials.add(extension);
@@ -84,7 +84,7 @@ public class Ch06IntractabilityUtil {
 			}
 		}
 		
-		return shortedPath;
+		return shortestPath;
 	}
 
 }
