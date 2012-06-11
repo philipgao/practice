@@ -79,7 +79,7 @@ public class Ch04GraphUtil {
 	 * @param start
 	 * @return
 	 */
-	public static boolean p403IsPCBWiringLayoutPossible(Vertex start){
+	public static boolean p404IsPCBWiringLayoutPossible(Vertex start){
 		Queue<Vertex> queue=new LinkedList<Vertex>();
 		Map<Vertex, Status> statusMap=new HashMap<Vertex, Status>();
 		Map<Vertex, Integer> distanceMap=new HashMap<Vertex, Integer>();
@@ -136,4 +136,75 @@ public class Ch04GraphUtil {
 		return true;
 	}
 	
+	
+	public static int p413ComputeSortestPathNumber(Vertex start, Vertex end){
+	    Queue<Vertex> queue=new LinkedList<Vertex>();
+	    Map<Vertex, Status> statusMap=new HashMap<Vertex, Status>();
+	    Map<Vertex, Integer> levelMap=new HashMap<Vertex, Integer>();
+	    List<List<Vertex>> allLevelList=new LinkedList<List<Vertex>>();
+	    
+	    queue.offer(start);
+	    statusMap.put(start, Status.Queued);
+	    levelMap.put(start, 0);
+	    
+	    Vertex vertex;
+	    int lastLevel=-1;
+	    List<Vertex> levelList = null;
+	    while((vertex=queue.poll())!=null){
+		int currentLevel=levelMap.get(vertex);
+		
+		if(currentLevel!=lastLevel){
+		    lastLevel=currentLevel;
+		    levelList=new LinkedList<Vertex>();
+		    
+		    allLevelList.add(levelList);
+		}
+		
+		levelList.add(vertex);
+		
+		if(vertex.equals(end)){
+		    break;
+		}
+		
+		Set<Vertex> adjacentVertexes = vertex.getAdjacentVertexes();
+		for (Iterator iterator = adjacentVertexes.iterator(); iterator.hasNext();) {
+		    Vertex adjacent = (Vertex) iterator.next();
+
+        		if(statusMap.get(adjacent)==null){
+        		    queue.offer(adjacent);
+        		    statusMap.put(adjacent, Status.Queued);
+        		    levelMap.put(adjacent, currentLevel+1);
+        		}
+		}
+	    }
+	    
+	    int count=0;
+	    int max=Integer.MIN_VALUE;
+	    List<Vertex> targetList=new LinkedList<Vertex>();
+	    targetList.add(end);
+	    for(int index=lastLevel-1;index>0;index--){
+		    List<Vertex> lastLevelList = allLevelList.get(lastLevel-1);
+		    List<Vertex> tmpList=new LinkedList<Vertex>();
+		    
+		    for (Iterator iterator = lastLevelList.iterator(); iterator.hasNext();) {
+				Vertex lastLevelVertex = (Vertex) iterator.next();
+				for (Iterator iterator2 = targetList.iterator(); iterator2.hasNext();) {
+					Vertex vertex2 = (Vertex) iterator2.next();
+					if(lastLevelVertex.getAdjacentVertexes().contains(vertex2)){
+					    count++;
+					    tmpList.add(vertex2);
+					}
+					
+				}
+		    }
+		    
+		    targetList=tmpList;
+		    
+		    if(count>max){
+		    	max=count;
+		    }
+	    }
+	    
+	    return max;
+	}
 }

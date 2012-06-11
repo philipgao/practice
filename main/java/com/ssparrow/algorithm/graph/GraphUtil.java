@@ -96,4 +96,27 @@ public class GraphUtil {
 		}
 		
 	}
+	
+	
+	/**
+	 * @param result
+	 * @param statusMap
+	 * @param vertex
+	 */
+	public static void topologicalSortGraph(List<Vertex> result, Map<Vertex, Status> statusMap,Vertex vertex){
+		Set<Vertex> adjacentVertexes = vertex.getAdjacentVertexes();
+		
+		for (Iterator iterator = adjacentVertexes.iterator(); iterator.hasNext();) {
+			Vertex adjacent = (Vertex) iterator.next();
+			
+			if(statusMap.get(adjacent)==null || statusMap.get(adjacent).equals(Status.Unvisited)){
+			    statusMap.put(adjacent, Status.Queued);
+			    
+			    topologicalSortGraph(result, statusMap, adjacent);
+			}
+			
+		}
+		
+		result.add(0, vertex);
+	}
 }

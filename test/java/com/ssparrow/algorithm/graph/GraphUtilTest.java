@@ -109,5 +109,42 @@ public class GraphUtilTest {
 		assertTrue(GraphUtil.checkCircleInGraph(v1));
 		
 	}
+	
+	@Test
+	public void testTopologicalSortGraph(){
+		Graph graph=new Graph();
+		
+		Vertex v1=new Vertex("v1");
+		Vertex v2=new Vertex("v2");
+		Vertex v3=new Vertex("v3");
+		Vertex v4=new Vertex("v4");
+		Vertex v5=new Vertex("v5");
+		Vertex v6=new Vertex("v6");
+		
+		Edge edge12 = new Edge(v1, v2);
+		Edge edge15 = new Edge(v1, v5);
+		Edge edge23 = new Edge(v2, v3);
+		Edge edge34 = new Edge(v3, v4);
+		Edge edge54 = new Edge(v5, v4);
+		Edge edge46 = new Edge(v4, v6);
+		
+		graph.addVertex(v1);
+		graph.addVertex(v2);
+		graph.addVertex(v3);
+		graph.addVertex(v4);
+		graph.addVertex(v5);
+		graph.addVertex(v6);
+	    
+
+		List<Vertex> topoSortResult = new LinkedList<Vertex>();
+		Map<Vertex, Status> statusMap=new HashMap<Vertex, Status>();
+		GraphUtil.topologicalSortGraph(topoSortResult, statusMap, v1);
+		assertEquals(v1, topoSortResult.get(0));
+		assertEquals(v5, topoSortResult.get(1));
+		assertEquals(v2, topoSortResult.get(2));
+		assertEquals(v3, topoSortResult.get(3));
+		assertEquals(v4, topoSortResult.get(4));
+		assertEquals(v6, topoSortResult.get(5));
+	}
 
 }
