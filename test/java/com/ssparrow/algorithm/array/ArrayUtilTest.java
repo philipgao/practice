@@ -142,4 +142,15 @@ public class ArrayUtilTest {
 		array=new int[]{1,2, -1,0,-1, 3, -2, 4, 6,-5,10};
 		assertEquals(new Pair(0, 10), ArrayUtil.findMaxSum(array));
 	}
+	
+	@Test
+	public void testMultiplyNumbersInArray(){
+		int [] input=new int[]{4, 3, 2, 1, 2};
+		int [] output=new int[]{12, 16, 24, 48, 24};
+		
+		assertArrayEquals(output, ArrayUtil.multiplyNumbersInArray(input));
+		
+
+		assertArrayEquals(output, ArrayUtil.multiplyNumbersInArrayWIthNoExtraSpace(input));
+	}
 }

@@ -163,4 +163,19 @@ public class TreeUtilTest {
 		assertEquals(-1, TreeUtil.findTreeDepth("(00)x"));
 		assertEquals(-1, TreeUtil.findTreeDepth("(0p)"));
 	}
+	
+	
+	@Test
+	public void testFindKthNumberInBST(){
+		TreeNode root = TreeUtil.createMinimalBST(null, new int[]{1,2,3,4,5,6,7}, 0, 6);
+		
+		assertEquals(3, TreeUtil.findKthNumberInBST(root, 3));
+	}
+	
+	@Test
+	public void testFindKthMaxNumberInBST(){
+		TreeNode root = TreeUtil.createMinimalBST(null, new int[]{1,2,3,4,5,6,7}, 0, 6);
+		
+		assertEquals(5, TreeUtil.findKthMaxNumberInBST(root, 3));
+	}
 }

@@ -1,5 +1,7 @@
 package com.ssparrow.algorithm.tree;
 
+import com.ssparrow.algorithm.misc.Pair;
+
 public class TreeUtil {
 	/**
 	 * @param root
@@ -293,5 +295,73 @@ public class TreeUtil {
 			
 			
 		}
+	}
+	
+	/**
+	 * @param root
+	 * @param k
+	 * @return
+	 */
+	public static int bst_index=1;
+	public static int findKthNumberInBST(TreeNode root, int k){
+		if(root==null){
+			return -1;
+		}
+		
+		if(root.getLeftNode()!=null){
+			int leftResult = findKthNumberInBST(root.getLeftNode(), k);
+			if(leftResult!=-1){
+				return leftResult;
+			}
+		}
+		
+		if(bst_index==k){
+			return root.getValue();
+		}
+		bst_index++;
+		
+		if(root.getRightNode()!=null){
+			int rightResult = findKthNumberInBST(root.getRightNode(), k);
+			if(rightResult!=-1){
+				return rightResult;
+			}
+		}
+		
+		return -1;
+	}
+	
+	
+	/**
+	 * find kth max number in BST
+	 * @param node
+	 * @param k
+	 * @return
+	 */
+	public static int max_index=1;
+	public static int findKthMaxNumberInBST(TreeNode node, int k){
+		if(node==null){
+			return -1;
+		}
+		
+		if(node.getRightNode()!=null){
+			int result = findKthMaxNumberInBST(node.getRightNode(), k);
+			if(result!=-1){
+				return result;
+			}
+		}
+		
+		if(max_index==k){
+			return node.getValue();
+		}
+		max_index++;
+		
+		if(node.getLeftNode()!=null){
+			int result = findKthMaxNumberInBST(node.getLeftNode(), k);
+			if(result!=-1){
+				return result;
+			}
+		}
+		
+		return -1;
 	}
 }

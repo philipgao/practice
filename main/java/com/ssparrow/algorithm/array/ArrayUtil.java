@@ -438,4 +438,62 @@ public final class ArrayUtil {
 		return new Pair(start, end);
 	}
 	
+	
+	/**
+	 * There is an array A[N] of N numbers. 
+	 * You have to compose an array Output[N] such that Output[i] will be equal to multiplication of all the elements of A[N] except A[i]. 
+	 * For example Output[0] will be multiplication of A[1] to A[N-1] and Output[1] will be multiplication of A[0] and from A[2] to A[N-1]
+	 * 
+	 * this solution use O(n) space and O(n) time
+	 * @param array
+	 * @return
+	 */
+	public static int[] multiplyNumbersInArray(int [] array){
+		int [] left=new int[array.length];
+		int [] right=new int[array.length];
+		
+		left[0]=1;
+		for(int index=1;index<array.length;index++){
+			left[index]=left[index-1]*array[index-1];
+		}
+		
+		right[array.length-1]=1;
+		for(int index=array.length-2;index>=0;index--){
+			right[index]=right[index+1]*array[index+1];
+		}
+		
+		int [] result=new int[array.length];
+		for(int index=0;index<array.length;index++){
+			result[index]=left[index]*right[index];
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * this solution only O(1) space and O(n) time
+	 * 
+	 * @param array
+	 * @return
+	 */
+	public static int [] multiplyNumbersInArrayWIthNoExtraSpace(int [] array){
+		int left=1;
+		int right=1;
+		
+		int [] result=new int[array.length];
+		for(int index=0;index<array.length;index++){
+			result[index]=1;
+		}
+		
+		for(int index=0; index<array.length; index++){
+			result[index]*=left;
+			result[array.length-index-1]*=right;
+			
+			left*=array[index];
+			right*=array[array.length-index-1];
+		}
+		
+		return result;
+	}
+	
 }
