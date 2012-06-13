@@ -137,7 +137,14 @@ public class Ch04GraphUtil {
 	}
 	
 	
-	public static int p413ComputeSortestPathNumber(Vertex start, Vertex end){
+	/**
+	 * find the number of shortest paths
+	 * 
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public static int p413ComputeShortestPathNumber(Vertex start, Vertex end){
 	    Queue<Vertex> queue=new LinkedList<Vertex>();
 	    Map<Vertex, Status> statusMap=new HashMap<Vertex, Status>();
 	    Map<Vertex, Integer> levelMap=new HashMap<Vertex, Integer>();
@@ -150,33 +157,33 @@ public class Ch04GraphUtil {
 	    Vertex vertex;
 	    int lastLevel=-1;
 	    List<Vertex> levelList = null;
-	    while((vertex=queue.poll())!=null){
-		int currentLevel=levelMap.get(vertex);
-		
-		if(currentLevel!=lastLevel){
-		    lastLevel=currentLevel;
-		    levelList=new LinkedList<Vertex>();
-		    
-		    allLevelList.add(levelList);
-		}
-		
-		levelList.add(vertex);
-		
-		if(vertex.equals(end)){
-		    break;
-		}
-		
-		Set<Vertex> adjacentVertexes = vertex.getAdjacentVertexes();
-		for (Iterator iterator = adjacentVertexes.iterator(); iterator.hasNext();) {
-		    Vertex adjacent = (Vertex) iterator.next();
+		while ((vertex = queue.poll()) != null) {
+			int currentLevel = levelMap.get(vertex);
 
-        		if(statusMap.get(adjacent)==null){
-        		    queue.offer(adjacent);
-        		    statusMap.put(adjacent, Status.Queued);
-        		    levelMap.put(adjacent, currentLevel+1);
-        		}
+			if (currentLevel != lastLevel) {
+				lastLevel = currentLevel;
+				levelList = new LinkedList<Vertex>();
+
+				allLevelList.add(levelList);
+			}
+
+			levelList.add(vertex);
+
+			if (vertex.equals(end)) {
+				break;
+			}
+
+			Set<Vertex> adjacentVertexes = vertex.getAdjacentVertexes();
+			for (Iterator iterator = adjacentVertexes.iterator(); iterator.hasNext();) {
+				Vertex adjacent = (Vertex) iterator.next();
+
+				if (statusMap.get(adjacent) == null) {
+					queue.offer(adjacent);
+					statusMap.put(adjacent, Status.Queued);
+					levelMap.put(adjacent, currentLevel + 1);
+				}
+			}
 		}
-	    }
 	    
 	    int count=0;
 	    int max=Integer.MIN_VALUE;

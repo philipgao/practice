@@ -151,6 +151,6 @@ public class ArrayUtilTest {
 		assertArrayEquals(output, ArrayUtil.multiplyNumbersInArray(input));
 		
 
-		assertArrayEquals(output, ArrayUtil.multiplyNumbersInArrayWIthNoExtraSpace(input));
+		assertArrayEquals(output, ArrayUtil.multiplyNumbersInArrayWithNoExtraSpace(input));
 	}
 }

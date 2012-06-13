@@ -114,7 +114,7 @@ public class Ch04GraphUtilTest {
 		graph.addVertex(v5);
 		graph.addVertex(v6);
 		
-		assertEquals(2, Ch04GraphUtil.p413ComputeSortestPathNumber(v1, v6));
+		assertEquals(2, Ch04GraphUtil.p413ComputeShortestPathNumber(v1, v6));
 		
 	    
 	}

@@ -316,10 +316,16 @@ public final class ArrayUtil {
 		int columnSpan=columnEnd-columnStart+1;
 		
 		if(rowSpan<columnSpan){
-			searchInSortedMatrix(matrix, value, rowStart, rowEnd, columnStart+rowSpan, columnEnd);
+			Pair result = searchInSortedMatrix(matrix, value, rowStart, rowEnd, columnStart+rowSpan, columnEnd);
+			if(result!=null){
+				return result;
+			}
 			columnEnd=columnStart+rowSpan-1;
 		}else if(rowSpan>columnSpan){
-			searchInSortedMatrix(matrix, value, rowStart+columnSpan, rowEnd, columnStart, columnEnd);
+			Pair result = searchInSortedMatrix(matrix, value, rowStart+columnSpan, rowEnd, columnStart, columnEnd);
+			if(result!=null){
+				return result;
+			}
 			rowEnd=rowStart+rowSpan-1;
 		}
 		
@@ -358,6 +364,13 @@ public final class ArrayUtil {
 	}
 	
 	
+	/**
+	 * find the longest i-j, i, j is index of array A and meet the following condititon
+	 *   i>j
+	 *   A[i]>a[j]
+	 * @param array
+	 * @return
+	 */
 	public static int findLongestDistance(int[] array){
 	        
 	        int [] candidates=new int[array.length];
@@ -391,12 +404,12 @@ public final class ArrayUtil {
 	        int max=Integer.MIN_VALUE;
 	        for(int i=array.length-1;i>=0&&k<index;i--){
 	            while(k<index && array[i]>candidates[k]){
-	        	int span=i-oriIndex[k];
-	        	if(span>max){
-	        	    max=span;
-	        	}
-	        	
-	        	k++;
+		        	int span=i-oriIndex[k];
+		        	if(span>max){
+		        	    max=span;
+		        	}
+		        	
+		        	k++;
 	            }
 	        }
 	        
@@ -476,7 +489,7 @@ public final class ArrayUtil {
 	 * @param array
 	 * @return
 	 */
-	public static int [] multiplyNumbersInArrayWIthNoExtraSpace(int [] array){
+	public static int [] multiplyNumbersInArrayWithNoExtraSpace(int [] array){
 		int left=1;
 		int right=1;
 		
