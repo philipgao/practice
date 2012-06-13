@@ -1,5 +1,10 @@
 package com.ssparrow.algorithm.linkedlist;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
+
+import com.ssparrow.algorithm.stack.Stack;
+import com.ssparrow.algorithm.stack.Stack.IndexOutOfStackBoundException;
+
 public class LinkedListUtil {
 	/**
 	 * @param head
@@ -86,5 +91,82 @@ public class LinkedListUtil {
 		
 		head.setNext(null);
 		return lastNode;
+	}
+	
+	/**
+	 * @param head
+	 * @return
+	 */
+	public static LinkedListNode removeDuplicatesFromLinkedList(LinkedListNode head){
+		LinkedListNode traverser=head.getNext();
+		LinkedListNode nonDuplicateHead=head;
+		LinkedListNode nonDuplicateTail=head;
+		
+		while(traverser!=null){
+			LinkedListNode node=nonDuplicateHead;
+			
+			boolean isDuplicate=false;
+			while(true){
+				
+				if(node.getData().equals(traverser.getData())){
+					isDuplicate=true;
+				}
+				
+
+				if(nonDuplicateTail.equals(node)){
+					break;
+				}else{
+					node=node.getNext();
+				}
+			}
+			
+			if(!isDuplicate){
+				nonDuplicateTail.setNext(traverser);
+				nonDuplicateTail=traverser;
+				
+				if(nonDuplicateHead.equals(nonDuplicateTail)){
+					nonDuplicateHead.setNext(nonDuplicateTail);
+				}
+			}
+			traverser=traverser.getNext();
+		}
+		nonDuplicateTail.setNext(null);
+		
+		return nonDuplicateHead;
+	}
+	
+	/**
+	 * @param node
+	 * @return
+	 */
+	public static boolean deleteNodeFromMiddle(LinkedListNode node){
+		if(node==null || node.getNext()==null){
+			return false;
+		}
+		
+		
+		LinkedListNode lastNode=node;
+		LinkedListNode next = node.getNext();
+		node.setData(next.getData());
+		node.setNext(next.getNext());
+		
+		return true;
+	}
+	
+	/**
+	 * hanoi tower
+	 * 
+	 * @param n
+	 * @param source
+	 * @param destination
+	 * @param buffer
+	 * @throws IndexOutOfStackBoundException
+	 */
+	public static void moveDisks(int n, Stack source, Stack destination, Stack buffer) throws IndexOutOfStackBoundException{
+		if(n>0){
+			moveDisks(n-1, source, buffer, destination);
+			destination.push(source.pop());
+			moveDisks(n-1, buffer, destination, source);
+		}
 	}
 }

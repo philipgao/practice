@@ -24,7 +24,7 @@ public class LinkedListNode {
 		this.data = data;
 	}
 
-	public void addToTail(Object data){
+	public LinkedListNode addToTail(Object data){
 		LinkedListNode next=new LinkedListNode(data);
 		
 		LinkedListNode node=this;
@@ -33,6 +33,8 @@ public class LinkedListNode {
 		}
 		
 		node.setNext(next);
+		
+		return next;
 	}
 
 }

@@ -153,4 +153,26 @@ public class ArrayUtilTest {
 
 		assertArrayEquals(output, ArrayUtil.multiplyNumbersInArrayWithNoExtraSpace(input));
 	}
+	
+	@Test
+	public void testSetZeroForWholeRowAndColumn(){
+		int[][] matrix=new int[][]{
+				{ 1, 0, 3, 4, 5},
+				{11,12,13,14,15},
+				{21,22,23,0,25},
+				{31,32,33,34,35},
+				{0,42,43,44,45}
+			};
+
+		int[][] result=new int[][]{
+			{0, 0, 0, 0, 0},
+			{0, 0,13,0,15},
+			{0, 0, 0, 0, 0},
+			{0, 0,33,0,35},
+			{0, 0, 0, 0, 0}
+		};
+		
+		ArrayUtil.setZeroForWholeRowAndColumn(matrix);
+		assertArrayEquals(result, matrix);
+	}
 }

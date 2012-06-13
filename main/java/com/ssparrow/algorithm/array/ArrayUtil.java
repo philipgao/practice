@@ -509,4 +509,31 @@ public final class ArrayUtil {
 		return result;
 	}
 	
+	
+	/**
+	 * for a matrix, if an element is 0 then set the whole row and column it resides to 0
+	 * @param array
+	 */
+	public static void setZeroForWholeRowAndColumn(int [][] matrix){
+		boolean [] rows=new boolean[matrix.length];
+		boolean [] columns=new boolean[matrix[0].length];
+		
+		for(int i=0;i<matrix.length;i++){
+			for(int j=0;j<matrix[0].length;j++){
+				if(matrix[i][j]==0){
+					rows[i]=true;
+					columns[j]=true;
+				}
+			}
+		}
+		
+		for(int i=0;i<matrix.length;i++){
+			for(int j=0;j<matrix[0].length;j++){
+				if(rows[i] || columns[j]){
+					matrix[i][j]=0;
+				}
+			}
+		}
+	}
+	
 }

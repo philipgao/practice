@@ -1,6 +1,9 @@
 package com.ssparrow.algorithm.recursion;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class RecursionUtil {
 
@@ -97,5 +100,99 @@ public class RecursionUtil {
 			}
 		}
 		
+	}
+	
+	/**
+	 * @param set
+	 * @param index
+	 * @return
+	 */
+	public static LinkedList<ArrayList<String>>  findAllSubset(ArrayList<String> set, int index){
+		LinkedList<ArrayList<String>> allSubsets =new LinkedList<ArrayList<String>>();
+		
+		if(index>=set.size()){
+			ArrayList<String> subset=new ArrayList<String>();
+			allSubsets.add(subset);
+		}else{
+			String item = set.get(index);
+			
+			LinkedList<ArrayList<String>> subResult = findAllSubset(set, index+1);
+			
+			for (Iterator iterator = subResult.iterator(); iterator.hasNext();) {
+				ArrayList<String> subset = (ArrayList<String>) iterator.next();
+				ArrayList<String> extendedSubset=new ArrayList<String>();
+				extendedSubset.add(item);
+				extendedSubset.addAll(subset);
+				
+				allSubsets.add(extendedSubset);
+			}
+			
+			allSubsets.addAll(subResult);
+		}
+		
+		return allSubsets;
+	}
+	
+	/**
+	 * @param n
+	 * @param denom
+	 * @return
+	 */
+	public static int makeChanges(int n, int denom){
+		int nextDenom=0;
+		
+		switch (denom) {
+		case 25:
+			nextDenom=10;
+			break;
+		case 10:
+			nextDenom=5;
+			break;
+		case 5:
+			nextDenom=1;
+			break;
+		case 1:
+			return 1;
+
+		default:
+			break;
+		}
+		
+		int sum=0;
+		for(int i=0;i*denom<=n;i++){
+			sum+=makeChanges(n-i*denom, nextDenom);
+		}
+		
+		return sum;
+	}
+	
+	/**
+	 * @param columns
+	 * @param row
+	 */
+	public static void placeQueen(int [] columns, int row){
+		if(row==8){
+			for(int index=0;index<columns.length;index++){
+				System.out.println(index+":"+columns[index]);
+			}
+			return;
+		}
+		
+		for(int index=0; index<columns.length;index++){
+			columns[row]=index;
+			if(checkRow(columns, row)){
+				placeQueen(columns, row+1);
+			}
+		}
+	}
+	
+	private static boolean checkRow(int [] columns, int row){
+		for(int index=0;index<row;index++){
+			int diff=Math.abs(columns[index]-columns[row]);
+			if(diff==0 || diff==row-index){
+				return false;
+			}
+		}
+		return true;
 	}
 }

@@ -3,6 +3,7 @@ package com.ssparrow.algorithm.recursion;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import org.junit.Test;
 
@@ -27,5 +28,27 @@ public class RecursionUtilTet {
 		String[] result=new String[]{"((()))", "(()())", "(())()", "()(())", "()()()"};
 		assertArrayEquals(result, RecursionUtil.generateparen(3).toArray());
 	}
+	
+	@Test
+	public void testFindAllSubset(){
+		ArrayList<String> set=new ArrayList<String>();
+		set.add("philip");
+		set.add("jamie");
+		set.add("taotao");
+		
+		LinkedList<ArrayList<String>> allSubsets = RecursionUtil.findAllSubset(set, 0);
+		assertEquals(8, allSubsets.size());
+	}
 
+	
+	@Test
+	public void testMakeChanges(){
+		assertEquals(242, RecursionUtil.makeChanges(100, 25));	
+	}
+
+	@Test
+	public void testPlaceQueen(){
+		RecursionUtil.placeQueen(new int[8], 0);
+	}
+	
 }
