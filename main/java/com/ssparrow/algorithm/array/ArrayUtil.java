@@ -294,6 +294,60 @@ public final class ArrayUtil {
 		}
 	}
 	
+	public static int searchInRotatedArrayOptimized(int [] array, int value){
+		if(!isInRange(array, 0, array.length-1, value)){
+			return -1;
+		}
+		
+		int start=0;
+		int end=array.length-1;
+		
+		while(start<=end){
+			int mid=start + (end-start)/2;
+			
+			if(array[mid]==value){
+				return mid;
+			}
+			
+			if(isInRange(array, start, mid, value)){
+				end=mid;
+				continue;
+			}else if(isInRange(array, mid+1, end, value)){
+				start=mid+1;
+				continue;
+			}else{
+				break;
+			}
+		}
+		
+		return -1;
+	}
+	
+	
+	private static boolean  isInRange(int [] array, int start, int end, int value){
+		if(start>end){
+			return false;
+		}
+		
+		if(array[start]<array[end]){
+			//this sub-array is not rotated, we treat it as a sorted array
+			
+			//if the value is less than the smallest or larger than largest then it do not exist
+			if(value<array[start] || value>array[end]){
+				return false;
+			}
+		}else{
+			// the sub-array is a rotated array when start larger or equal to end 
+			
+			//if the value is between the end and start then it do not exist
+			if(value<array[start]&&value>array[end]){
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
 	/**
 	 * @param matrix
 	 * @param value
