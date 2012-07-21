@@ -132,7 +132,7 @@ public class Ch03MetaAlgorithmUtil {
 		Comparator<Pair> startComparator=new Comparator<Pair>(){
 			@Override
 			public int compare(Pair o1, Pair o2) {
-				return o1.getA()-o2.getB();
+				return o1.getA()-o2.getA();
 			}
 		};
 		List<Pair> startSortList=new LinkedList<Pair>(intervals);

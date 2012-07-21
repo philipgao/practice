@@ -185,21 +185,21 @@ public class Ch04GraphUtil {
 			}
 		}
 	    
-	    int count=0;
 	    int max=Integer.MIN_VALUE;
 	    List<Vertex> targetList=new LinkedList<Vertex>();
 	    targetList.add(end);
 	    for(int index=lastLevel-1;index>0;index--){
-		    List<Vertex> lastLevelList = allLevelList.get(lastLevel-1);
+		    List<Vertex> lastLevelList = allLevelList.get(index);
 		    List<Vertex> tmpList=new LinkedList<Vertex>();
-		    
+
+		    int count=0;
 		    for (Iterator iterator = lastLevelList.iterator(); iterator.hasNext();) {
 				Vertex lastLevelVertex = (Vertex) iterator.next();
 				for (Iterator iterator2 = targetList.iterator(); iterator2.hasNext();) {
 					Vertex vertex2 = (Vertex) iterator2.next();
 					if(lastLevelVertex.getAdjacentVertexes().contains(vertex2)){
 					    count++;
-					    tmpList.add(vertex2);
+					    tmpList.add(lastLevelVertex);
 					}
 					
 				}
