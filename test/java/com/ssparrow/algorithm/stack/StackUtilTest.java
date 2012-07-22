@@ -26,5 +26,22 @@ public class StackUtilTest {
 		assertEquals(7, result.pop());
 		assertEquals(1, result.pop());
 	}
+	
+	@Test
+	public void testReverseStack() throws IndexOutOfStackBoundException{
+		Stack stack = new Stack();
+		stack.push(1);
+		stack.push(2);
+		stack.push(3);
+		stack.push(4);
+		stack.push(5);
+		
+		StackUtil.reverseStack(stack);
+		assertEquals(1, stack.pop());
+		assertEquals(2, stack.pop());
+		assertEquals(3, stack.pop());
+		assertEquals(4, stack.pop());
+		assertEquals(5, stack.pop());
+	}
 
 }

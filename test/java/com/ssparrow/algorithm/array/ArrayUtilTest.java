@@ -179,4 +179,18 @@ public class ArrayUtilTest {
 		ArrayUtil.setZeroForWholeRowAndColumn(matrix);
 		assertArrayEquals(result, matrix);
 	}
+	
+	@Test
+	public void testFindConsecutiveSubarrayWithSum(){
+		int [] array = new int []{1,6,3,3,1,2,3,};
+		
+		int [] result = ArrayUtil.findConsecutiveSubarrayWithSum(array, 5);
+		assertArrayEquals(new int [] {2, 3}, result);
+		
+		array = new int []{1,7,3,4,1,2,2,3,1};
+		
+		result = ArrayUtil.findConsecutiveSubarrayWithSum(array, 6);
+		assertArrayEquals(new int [] {2, 3, 1}, result);
+		
+	}
 }

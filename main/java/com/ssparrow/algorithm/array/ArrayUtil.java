@@ -590,4 +590,53 @@ public final class ArrayUtil {
 		}
 	}
 	
+	/**
+	 * @param array
+	 * @param target
+	 * @return
+	 */
+	public static int [] findConsecutiveSubarrayWithSum(int [] array, int target){
+		int startIndex=0;
+		int runningSum=0;
+		
+		for(int index=0; index<array.length; index++){
+			if(runningSum==0){
+				//runningsum is 0 means current index is the start of subarray candidate
+				startIndex=index;
+			}
+			
+			if(array[index]>target){
+				//if current value is larger than target, there is no way the result subarry include current value  
+				runningSum=0;
+			}else{
+				runningSum = runningSum+array[index];
+				
+				if(runningSum==target){
+					//we find the subarry, copy value from array to create result subarray
+					int [] result=new int [index-startIndex+1];
+					System.arraycopy(array, startIndex, result, 0, index-startIndex+1);
+					return result;
+				}else if(runningSum > target){
+					
+					//when runningsum is larger than target, try to remove element from beginning
+					runningSum = runningSum-array[startIndex];
+					while(startIndex<index && runningSum>target){
+						startIndex++;
+						runningSum = runningSum-array[startIndex];
+					}
+					
+					startIndex++;
+					
+					//if we find the result by remove certain beginning items, create and return result array
+					if(runningSum==target){
+						int [] result=new int [index-startIndex+1];
+						System.arraycopy(array, startIndex, result, 0, index-startIndex+1);
+						return result;
+					}
+				}
+			}
+		}
+		
+		return null;
+	}
 }
