@@ -1,8 +1,53 @@
 package com.ssparrow.algorithm.tree;
 
+import java.util.Stack;
+
 import com.ssparrow.algorithm.misc.Pair;
 
 public class TreeUtil {
+	
+	/**
+	 * @param head
+	 * @return
+	 */
+	public static String postorderTraverseTreeWithLoop(TreeNode head){
+		StringBuffer result=new StringBuffer();
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		stack.push(head);
+		
+		TreeNode previoudNode = null;
+		while(!stack.isEmpty()){
+			TreeNode node = stack.peek();
+			
+			if(node.getLeftNode()==null && node.getRightNode()==null){
+				stack.pop();
+				result.append(node.getValue());
+			} else if (previoudNode == null || (node.getParent()!=null && node.getParent().equals(previoudNode))) {
+				if (node.getLeftNode() != null) {
+					stack.push(node.getLeftNode());
+				}else if(node.getRightNode()!=null){
+					stack.push(node.getRightNode());
+				}
+			} else if(node.equals(previoudNode.getParent())){
+				if(previoudNode.equals(node.getLeftNode())){
+					if(node.getRightNode()!=null){
+						stack.push(node.getRightNode());
+					}else{
+						stack.pop();
+						result.append(node.getValue());
+					}
+				}else if(previoudNode.equals(node.getRightNode())){
+					stack.pop();
+					result.append(node.getValue());
+				}
+			}
+			
+			previoudNode=node;
+		}
+		
+		return result.toString();
+		
+	}
 	/**
 	 * @param root
 	 * @return

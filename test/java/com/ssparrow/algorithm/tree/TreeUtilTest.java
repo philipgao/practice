@@ -5,6 +5,28 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TreeUtilTest {
+	
+	@Test
+	public void testPostorderTraverseTreeWithLoop(){
+		TreeNode root = new TreeNode(6);
+		
+		String result = TreeUtil.postorderTraverseTreeWithLoop(root);
+		assertEquals("6", result);
+		
+		root.addLeft(2);
+		root.getLeftNode().addLeft(1);
+		root.getLeftNode().addRight(4);
+		root.getLeftNode().getRightNode().addLeft(3);
+		root.getLeftNode().getRightNode().addRight(5);
+
+		root.addRight(7);
+		root.getRightNode().addRight(9);
+		root.getRightNode().getRightNode().addLeft(8);
+		
+		result = TreeUtil.postorderTraverseTreeWithLoop(root);
+		assertEquals("135428976", result);
+		
+	}
 
 	@Test
 	public void testTreeHeight() {
