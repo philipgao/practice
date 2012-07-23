@@ -2,6 +2,9 @@ package com.ssparrow.algorithm.string;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 public class StringUtilTest {
@@ -132,5 +135,22 @@ public class StringUtilTest {
 		assertFalse(StringUtil.checkPalindrome("abbc"));
 
 		assertTrue(StringUtil.checkPalindrome("abba"));
+	}
+	
+	@Test
+	public void testFindLongestComboWords(){
+		List<String> words = new ArrayList<String>();
+		words.add("this");
+		words.add("tv");
+		words.add("couch");
+		words.add("dog");
+		words.add("mac");
+		words.add("air");
+		words.add("tvtable");
+		words.add("macbookair");
+		words.add("book");
+		
+		String combo = StringUtil.findLongestComboWords(words);
+		assertEquals("macbookair", combo);
 	}
 }

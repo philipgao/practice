@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.BitSet;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public final class StringUtil {
 	public static final int ASC_CHAR_NUM=256;
@@ -232,6 +235,10 @@ public final class StringUtil {
 		
 	}
 	
+	/**
+	 * @param str
+	 * @return
+	 */
 	public static boolean checkPalindrome(String str){
 		if(str==null){
 			return false;
@@ -257,5 +264,50 @@ public final class StringUtil {
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * @param words
+	 * @return
+	 */
+	public static String findLongestComboWords(List<String> words){
+		Comparator<String> lengthSorter = new Comparator<String>() {
+			
+			@Override
+			public int compare(String o1, String o2) {
+				return o1.length()-o2.length();
+			}
+		};
+		
+		Collections.sort(words, lengthSorter);
+		
+		
+		for(int index=words.size()-1; index>0; index--){
+			String word = words.get(index);
+			
+			if(isComboWords(word, 0, words)){
+				return word;
+			}
+		}
+		
+		return null;
+	}
+	
+	private static boolean isComboWords(String str, int start, List<String> words){
+		for(int index=start+1; index<str.length();index++){
+			String firstSection=str.substring(start, index);
+			
+			if(words.contains(firstSection)){
+				String remained=str.substring(index);
+				
+				if(words.contains(remained)){
+					return true;
+				}else{
+					return isComboWords(remained, 0, words);
+				}
+			}
+		}
+		
+		return false;
 	}
 }
