@@ -201,4 +201,16 @@ public class ArrayUtilTest {
 		ArrayUtil.pushZerosToEnd(array);
 		assertArrayEquals(new int []{1,2,4,8,0,0,0}, array);
 	}
+	
+	@Test
+	public void testFindMaxSumSubarray(){
+		int [] array=new int[]{1,2, -2,0,-1, 3, -2, 4, 6,-5,10};
+		assertArrayEquals(new int[]{ 3, -2, 4, 6,-5,10}, ArrayUtil.findMaxSumSubarray(array));
+		
+		array=new int[]{1,2, -2,0,-1, 3, -2, 4, 6,-5,-5};
+		assertArrayEquals(new int[]{ 3, -2, 4, 6}, ArrayUtil.findMaxSumSubarray(array));
+
+		array=new int[]{1,2, -1,0,-1, 3, -2, 4, 6,-5,10};
+		assertArrayEquals(new int[]{1,2, -1,0,-1, 3, -2, 4, 6,-5,10}, ArrayUtil.findMaxSumSubarray(array));
+	}
 }

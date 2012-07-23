@@ -665,4 +665,34 @@ public final class ArrayUtil {
 			}
 		}
 	}
+	
+	/**
+	 * @param array
+	 * @return
+	 */
+	public static int [] findMaxSumSubarray(int [] array){
+		int max=Integer.MIN_VALUE;
+		int start = 0;
+		int end = 0;
+		
+		int runningSum=0;
+		int runningStart=0;
+		
+		for(int index=0;index<array.length;index++){
+			runningSum=runningSum+array[index];
+			
+			if(runningSum <=0 ){
+				runningSum=0;
+				runningStart=index+1;
+			}else if(runningSum>max){
+				max=runningSum;
+				start=runningStart;
+				end=index;
+			}
+		}
+		
+		int [] result=new int [end-start+1];
+		System.arraycopy(array, start, result, 0, end-start+1);
+		return result;
+	}
 }
