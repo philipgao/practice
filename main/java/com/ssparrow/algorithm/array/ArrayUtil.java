@@ -639,4 +639,30 @@ public final class ArrayUtil {
 		
 		return null;
 	}
+	
+	/**
+	 * Push all the zero's of a given array to the end of the array. In place only. Ex 1,2,0,4,0,0,8 becomes 1,2,4,8,0,0,0
+	 * 
+	 * @param array
+	 */
+	public static void pushZerosToEnd(int [] array){
+		int zeroStartIndex=-1;
+		
+		for(int index=0; index<array.length; index++){
+			if(array[index] == 0){
+				if(zeroStartIndex == -1){
+					zeroStartIndex=index;
+				}
+			}else if(zeroStartIndex!=-1){
+				array[zeroStartIndex]=array[index];
+				array[index]=0;
+				
+				if(array[zeroStartIndex+1]==0){
+					zeroStartIndex++;
+				}else{
+					zeroStartIndex=-1;
+				}
+			}
+		}
+	}
 }

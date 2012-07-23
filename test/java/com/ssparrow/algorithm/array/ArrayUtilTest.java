@@ -193,4 +193,12 @@ public class ArrayUtilTest {
 		assertArrayEquals(new int [] {2, 3, 1}, result);
 		
 	}
+	
+	@Test
+	public void testPushZerosToEnd(){
+		int [] array = new int [] {1,2,0,4,0,0,8};
+		
+		ArrayUtil.pushZerosToEnd(array);
+		assertArrayEquals(new int []{1,2,4,8,0,0,0}, array);
+	}
 }
