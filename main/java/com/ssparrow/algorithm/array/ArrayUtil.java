@@ -695,4 +695,43 @@ public final class ArrayUtil {
 		System.arraycopy(array, start, result, 0, end-start+1);
 		return result;
 	}
+	
+	/**
+	 * Partition problem is to determine whether a given set can be partitioned into two subsets such that the sum of elements in both subsets is same.
+	 * 
+	 * Examples
+	 * 
+	 * arr[] = {1, 5, 11, 5}
+	 * Output: true 
+	 * The array can be partitioned as {1, 5, 5} and {11}
+
+	 * arr[] = {1, 5, 3}
+	 * Output: false 
+	 * The array cannot be partitioned into equal sum sets.
+	 * @return
+	 */
+	public static boolean isArrayPartitionable(int [] array){
+		int sum=0;
+		for(int index=0;index<array.length;index++){
+			sum+=array[index];
+		}
+		
+		if(sum%2!=0){
+			return false;
+		}
+		
+		return existSubsetWithSum(array, array.length, sum/2);
+	}
+	
+	private static boolean existSubsetWithSum(int [] array, int length, int sum){
+		if(length<=0){
+			return false;
+		}
+		
+		if(array[length-1]==sum){
+			return true;
+		}else{
+			return existSubsetWithSum(array, length-1, sum) || existSubsetWithSum(array, length-1, sum-array[length-1]);
+		}
+	}
 }

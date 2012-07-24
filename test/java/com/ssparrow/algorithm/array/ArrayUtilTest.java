@@ -213,4 +213,16 @@ public class ArrayUtilTest {
 		array=new int[]{1,2, -1,0,-1, 3, -2, 4, 6,-5,10};
 		assertArrayEquals(new int[]{1,2, -1,0,-1, 3, -2, 4, 6,-5,10}, ArrayUtil.findMaxSumSubarray(array));
 	}
+	
+	@Test
+	public void testIsArrayPartitionable(){
+		int [] array = new int [] {1, 5, 11, 5};
+		assertTrue(ArrayUtil.isArrayPartitionable(array));
+		
+		array = new int [] {1, 5, 3};
+		assertFalse(ArrayUtil.isArrayPartitionable(array));
+		
+		array = new int [] {1, -5, 11, 5, 12};
+		assertTrue(ArrayUtil.isArrayPartitionable(array));
+	}
 }
