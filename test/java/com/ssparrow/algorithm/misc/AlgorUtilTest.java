@@ -60,4 +60,19 @@ public class AlgorUtilTest {
 	public void testPower(){
 		System.out.println(AlgorUtil.power(1.1, 3));
 	}
+	
+	@Test
+	public void testFindAllPrimeNumber(){
+		int [] expected =new int []{2, 3, 5, 7};
+		
+		assertArrayEquals(expected, AlgorUtil.findAllPrimeNumber(10));
+		
+		expected =new int []{2, 3, 5, 7, 11};
+		
+		assertArrayEquals(expected, AlgorUtil.findAllPrimeNumber(11));
+		
+		expected =new int []{2, 3, 5, 7, 11, 13, 17, 19};
+		
+		assertArrayEquals(expected, AlgorUtil.findAllPrimeNumber(20));
+	}
 }

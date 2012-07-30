@@ -106,4 +106,51 @@ public class AlgorUtil {
 		}
 		return result;
 	}
+	
+	/**
+	 * Given a number n, find all primes smaller than or equal to n. It is also given that n is a small number.
+	 * For example, if n is 10, the output should be “2, 3, 5, 7″. If n is 20, the output should be “2, 3, 5, 7, 11, 13, 17, 19″.
+	 * 
+	 * Here we are using Sieve of Eratosthenes, a simple, ancient algorithm, with the following steps
+	 * 	1.Create a list of consecutive integers from 2 to n: (2, 3, 4, ..., n).
+	 * 	2.Initially, let p equal 2, the first prime number.
+	 * 	3.Starting from p, count up in increments of p and mark each of these numbers greater than p itself in the list. These numbers will be 2p, 3p, 4p, etc.; note that some of them may have already been marked.
+	 * 	4. Find the first number greater than p in the list that is not marked. If there was no such number, stop. Otherwise, let p now equal this number (which is the next prime), and repeat from step 3.
+	 * 
+	 * @param n
+	 * @return
+	 */
+	public static int [] findAllPrimeNumber(int n){
+		int [] temp =new int [n];
+		int index=0;
+		
+		int prime=2;
+		boolean [] flags= new boolean[n+1];
+
+		while(prime<=n){
+			temp[index++]=prime;
+			
+			for(int i=2;i*prime<=n;i++){
+				flags[i*prime]=true;
+			}
+			
+			boolean found=false;
+			for(int i=prime+1; i<=n;i++){
+				if(!flags[i]){
+					prime=i;
+					found=true;
+					break;
+				}
+			}
+			
+			if(!found){
+				break;
+			}
+		}
+		
+		int [] result = new int[index];
+		System.arraycopy(temp, 0, result, 0, index);
+		
+		return result;
+	}
 }
