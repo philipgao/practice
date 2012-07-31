@@ -225,4 +225,12 @@ public class ArrayUtilTest {
 		array = new int [] {1, -5, 11, 5, 12};
 		assertTrue(ArrayUtil.isArrayPartitionable(array));
 	}
+	
+	public void testFindPythagorasTriplet(){
+		int [] array = new int []{1,2,3,4,5,6,7};
+		assertEquals(new Triplet(3, 4, 5), ArrayUtil.findPythagorasTriplet(array));
+		
+		array = new int []{1,2,3,4,5,7,8};
+		assertNull(ArrayUtil.findPythagorasTriplet(array));
+	}
 }

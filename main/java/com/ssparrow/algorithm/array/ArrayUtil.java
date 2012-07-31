@@ -734,4 +734,28 @@ public final class ArrayUtil {
 			return existSubsetWithSum(array, length-1, sum) || existSubsetWithSum(array, length-1, sum-array[length-1]);
 		}
 	}
+	
+	
+	/**
+	 * @param array
+	 * @return
+	 */
+	public static Triplet findPythagorasTriplet(int [] array){
+		for(int index=array.length-1;index>=2; index--){
+			int start=0;
+			int end=index-1;
+			
+			while(start<end){
+				if(array[start]*array[start] + array[end]*array[end] ==array[index]*array[index]){
+					return new Triplet(array[start], array[end], array[index]);
+				}else if(array[start]*array[start] + array[end]*array[end] < array[index]*array[index]){
+					start++;
+				}else{
+					end--;
+				}
+			}
+		}
+		
+		return null;
+	}
 }
