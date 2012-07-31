@@ -1,8 +1,14 @@
 package com.ssparrow.algorithm.misc;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class AlgorUtil {
 	/**
@@ -150,6 +156,44 @@ public class AlgorUtil {
 		
 		int [] result = new int[index];
 		System.arraycopy(temp, 0, result, 0, index);
+		
+		return result;
+	}
+	
+	/**
+	 * You are given a number of points on the XY-plane, [(x0,y0),(x1,y1),(x2,y2),...].
+	 * A point (xi,yi) is dominant to another point (xj,yj) iff xi>xj and yi>yj.
+	 * Calculate all pairs of points such that one dominates the other.
+	 * 
+	 * A time complexity less then O(n*n) was required.
+	 * @param points
+	 * @return
+	 */
+	public static Set<PointPair> findAllDominatePairs(List<Point> points){
+		Set<PointPair> result = new HashSet<PointPair>();
+		
+		Comparator<Point> xComparator=new Comparator<Point>() {
+
+			@Override
+			public int compare(Point o1, Point o2) {
+				return o1.getX()-o2.getX();
+			}
+		};
+		
+		List<Point> xSortedPoints= new ArrayList<Point>(points);
+		Collections.sort(xSortedPoints, xComparator);
+		
+		for(int i=xSortedPoints.size()-1;i>=0;i--){
+			Point point1=xSortedPoints.get(i);
+			
+			for(int j=i-1;j>=0;j--){
+				Point point2 = xSortedPoints.get(j);
+				
+				if(point2.getX()<point1.getX() && point2.getY()<point1.getY()){
+					result.add(new PointPair(point1, point2));
+				}
+			}
+		}
 		
 		return result;
 	}

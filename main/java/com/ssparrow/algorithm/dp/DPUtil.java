@@ -30,6 +30,12 @@ public class DPUtil {
 		return s;
 	}
 	
+	/**
+	 * @param sb
+	 * @param s
+	 * @param i
+	 * @param j
+	 */
 	public static void printMatrixChain(StringBuffer sb, int[][] s, int i, int j){
 		if(i==j){
 			sb.append("A["+i+"]");
@@ -47,6 +53,14 @@ public class DPUtil {
 	
 
 	
+	/**
+	 * @param map
+	 * @param array1
+	 * @param length1
+	 * @param array2
+	 * @param length2
+	 * @return
+	 */
 	public static char[] findLongestCommonSubsequence(char[][][] map,char[] array1, int length1,char array2[], int length2){
 		System.out.println(length1+":"+length2);
 		if(length1==0||length2==0){
@@ -78,5 +92,35 @@ public class DPUtil {
 			map[length1][length2]=result;
 			return result;
 		}
+	}
+	
+	/**
+	 * @param result
+	 * @param array
+	 * @param position
+	 * @return
+	 */
+	public static int [] findLongestIncreasingSubsequence(int [][]result, int [] array, int position){
+		if(result[position]!=null){
+			return result[position];
+		}
+		
+		int [] lis=new int[1];
+		lis[0]=array[position];
+		
+		for(int index=position-1;index>=0;index--){
+			if(array[index]<array[position]){
+				int [] subLis=findLongestIncreasingSubsequence(result, array, index);
+				
+				if(subLis.length+1>lis.length){
+					lis = new int[subLis.length+1];
+					
+					System.arraycopy(subLis, 0, lis, 0, subLis.length);
+					lis[subLis.length]=array[position];
+				}
+			}
+		}
+		
+		return lis;
 	}
 }

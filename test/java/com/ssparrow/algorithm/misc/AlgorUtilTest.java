@@ -2,6 +2,10 @@ package com.ssparrow.algorithm.misc;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.Test;
 
 public class AlgorUtilTest {
@@ -74,5 +78,19 @@ public class AlgorUtilTest {
 		expected =new int []{2, 3, 5, 7, 11, 13, 17, 19};
 		
 		assertArrayEquals(expected, AlgorUtil.findAllPrimeNumber(20));
+	}
+	
+	@Test
+	public void testFindAllDominatePairs(){
+		List<Point> points = new ArrayList<Point>();
+		points.add(new Point(1, 1));
+		points.add(new Point(2, 1));
+		points.add(new Point(2, 0));
+		points.add(new Point(2, 2));
+		points.add(new Point(3, 2));
+		points.add(new Point(3, 3));
+		
+		Set<PointPair> dominatePairs = AlgorUtil.findAllDominatePairs(points);
+		assertEquals(8, dominatePairs.size());
 	}
 }

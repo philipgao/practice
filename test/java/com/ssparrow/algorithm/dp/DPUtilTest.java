@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.ssparrow.afi.ch05string.Ch05StringUtil;
 
 public class DPUtilTest {
 
@@ -39,6 +38,20 @@ public class DPUtilTest {
 		str2="GAGGTGTTGGGTACCCTTAACAC";map = new char[str1.length()+1][str2.length()+1][];
 		lcs = DPUtil.findLongestCommonSubsequence(map, str1.toCharArray(), str1.length(), str2.toCharArray(), str2.length());
 		assertEquals("ATTTGGGTTTA", new String(lcs));
+	}
+	
+	@Test
+	public void testFindLongestIncreasingSubsequence(){
+		int [] array=new int[]{1,3,5,2,7};
+		int [][] result=new int[array.length][];
+		int[] lns = DPUtil.findLongestIncreasingSubsequence(result, array, array.length-1);
+		assertArrayEquals(new int[]{1,3,5,7}, lns);
+		
+		
+		array=new int[]{1,7,5,2,10,3,8,9};
+		result=new int[array.length][];
+		lns = DPUtil.findLongestIncreasingSubsequence(result, array, array.length-1);
+		assertArrayEquals(new int[]{1,2,3,8,9}, lns);
 	}
 
 }
