@@ -123,4 +123,99 @@ public class DPUtil {
 		
 		return lis;
 	}
+	
+	
+	/**
+	 * @param result
+	 * @param array
+	 * @param position
+	 * @return
+	 */
+	public static int [] findlongestDecreasingSubsequence(int [][] result, int [] array, int position){
+		if(result[position]!=null){
+			return result[position];
+		}
+		
+		int [] lds =new int[1];
+		lds[0]=array[position];
+		
+		for(int index=position+1;index<array.length;index++){
+			if(array[index]<array[position]){
+				int [] subLds=findlongestDecreasingSubsequence(result, array, index);
+				
+				if(subLds.length+1>lds.length){
+					lds=new int[subLds.length+1];
+					lds[0]=array[position];
+					System.arraycopy(subLds, 0, lds, 1, subLds.length);
+				}
+			}
+		}
+		
+		return lds;
+	}
+	
+	/**
+	 * Given an array arr[0 ... n-1] containing n positive integers, a subsequence of arr[] is called Bitonic if it is first increasing, then decreasing. Write a function that takes an array as argument and returns the length of the longest bitonic subsequence.
+	 * A sequence, sorted in increasing order is considered Bitonic with the decreasing part as empty. Similarly, decreasing order sequence is considered Bitonic with the increasing part as empty.
+	 * 
+	 * Examples:
+
+	 * Input arr[] = {1, 11, 2, 10, 4, 5, 2, 1};
+	 * Output: 6 (A Longest Bitonic Subsequence of length 6 is 1, 2, 10, 4, 2, 1)
+	 * 
+	 * Input arr[] = {12, 11, 40, 5, 3, 1}
+	 * Output: 5 (A Longest Bitonic Subsequence of length 5 is 12, 11, 5, 3, 1)
+	 * 
+	 * Input arr[] = {80, 60, 30, 40, 20, 10}
+	 * Output: 5 (A Longest Bitonic Subsequence of length 5 is 80, 60, 30, 20, 10)
+	 * Source: Microsoft Interview Question
+	 * @param array
+	 * @return
+	 */
+	public static int [] findLongestBitonicSubsequence(int [] array){
+		int [][] lisResult=new int[array.length][];
+		findLongestIncreasingSubsequence(lisResult, array, array.length-1);
+		
+		int [][] ldsResult = new int[array.length][];
+		findlongestDecreasingSubsequence(ldsResult, array, 0);
+		
+		int lbsLength=Integer.MIN_VALUE;
+		int lbsIndex=0;
+		
+		for(int index=0;index<array.length;index++){
+			int lisLength = lisResult[index]==null? 0: lisResult[index].length;
+			int ldsLength = ldsResult[index]==null? 0: ldsResult[index].length;
+			int value = lisLength+ldsLength-1;
+			if(value>lbsLength){
+				lbsLength=value;
+				lbsIndex=index;
+			}
+		}
+		
+		int [] result = new int [lbsLength];
+		System.arraycopy(lisResult[lbsIndex], 0, result, 0, lisResult[lbsIndex].length);
+		System.arraycopy(ldsResult[lbsIndex], 0, result, lisResult[lbsIndex].length, ldsResult[lbsIndex].length-1);
+		
+		return result;
+	}
+	/**
+	 * @param array
+	 * @return
+	 */
+//	public static int [] findLongestIncreasingSubsequenceWithoutRecursion(int [] array){
+//		int [] temp=new int [array.length];
+//		int index=-1;
+//		
+//		
+//		for(int i=0;i<array.length;i++){
+//			if(index==-1 || array[i]>temp[index]){
+//				temp[++index]=array[i];
+//			}
+//		}
+//		
+//		int [] lis =new int [index+1];
+//		System.arraycopy(temp, 0, lis, 0, index+1);
+//		
+//		return lis;
+//	}
 }
