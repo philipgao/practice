@@ -109,18 +109,22 @@ public class DPUtil {
 		lis[0]=array[position];
 		
 		for(int index=position-1;index>=0;index--){
-			if(array[index]<array[position]){
-				int [] subLis=findLongestIncreasingSubsequence(result, array, index);
+			int [] subLis=findLongestIncreasingSubsequence(result, array, index);
+			
+			if(subLis[subLis.length-1]<array[position]){
 				
-				if(subLis.length+1>lis.length){
+				if(subLis.length+1>=lis.length){
 					lis = new int[subLis.length+1];
 					
 					System.arraycopy(subLis, 0, lis, 0, subLis.length);
 					lis[subLis.length]=array[position];
 				}
+			}else if(subLis.length>lis.length){
+				lis=subLis;
 			}
 		}
 		
+		result[position]=lis;
 		return lis;
 	}
 	
@@ -140,17 +144,21 @@ public class DPUtil {
 		lds[0]=array[position];
 		
 		for(int index=position+1;index<array.length;index++){
+			int [] subLds=findlongestDecreasingSubsequence(result, array, index);
+			
 			if(array[index]<array[position]){
-				int [] subLds=findlongestDecreasingSubsequence(result, array, index);
 				
-				if(subLds.length+1>lds.length){
+				if(subLds.length+1>=lds.length){
 					lds=new int[subLds.length+1];
 					lds[0]=array[position];
 					System.arraycopy(subLds, 0, lds, 1, subLds.length);
 				}
+			}else if(subLds.length>lds.length){
+				lds=subLds;
 			}
 		}
 		
+		result[position]=lds;
 		return lds;
 	}
 	
@@ -161,7 +169,7 @@ public class DPUtil {
 	 * Examples:
 
 	 * Input arr[] = {1, 11, 2, 10, 4, 5, 2, 1};
-	 * Output: 6 (A Longest Bitonic Subsequence of length 6 is 1, 2, 10, 4, 2, 1)
+	 * Output: 6 (A Longest Bitonic Subsequence of length 6 is 1, 11, 10, 4, 2, 1)
 	 * 
 	 * Input arr[] = {12, 11, 40, 5, 3, 1}
 	 * Output: 5 (A Longest Bitonic Subsequence of length 5 is 12, 11, 5, 3, 1)
@@ -194,7 +202,7 @@ public class DPUtil {
 		
 		int [] result = new int [lbsLength];
 		System.arraycopy(lisResult[lbsIndex], 0, result, 0, lisResult[lbsIndex].length);
-		System.arraycopy(ldsResult[lbsIndex], 0, result, lisResult[lbsIndex].length, ldsResult[lbsIndex].length-1);
+		System.arraycopy(ldsResult[lbsIndex], 1, result, lisResult[lbsIndex].length, ldsResult[lbsIndex].length-1);
 		
 		return result;
 	}

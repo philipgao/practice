@@ -53,10 +53,10 @@ public class DPUtilTest {
 		lis = DPUtil.findLongestIncreasingSubsequence(result, array, array.length-1);
 		assertArrayEquals(new int[]{1,2,3,8,9}, lis);
 		
-//		array = new int []{1, 11, 2, 10, 4, 5, 2, 1};
-//		result=new int[array.length][];
-//		lis = DPUtil.findLongestIncreasingSubsequence(result, array, array.length-1);
-//		assertArrayEquals(new int[]{1,2,4,5}, lis);
+		array = new int []{1, 11, 2, 10, 4, 5, 2, 1};
+		result=new int[array.length][];
+		lis = DPUtil.findLongestIncreasingSubsequence(result, array, array.length-1);
+		assertArrayEquals(new int[]{1,2,4,5}, lis);
 	}
 
 	
@@ -86,13 +86,13 @@ public class DPUtilTest {
 	
 	@Test
 	public void testFindLongestBitonicSubsequence(){
-//		int [] array = new int []{1, 11, 2, 10, 4, 5, 2, 1};
-//		assertArrayEquals(new int []{1, 2, 10, 4, 2, 1}, DPUtil.findLongestBitonicSubsequence(array));
-//		
-//		array = new int []{12, 11, 40, 5, 3, 1};
-//		assertArrayEquals(new int []{12, 11, 5, 3, 1}, DPUtil.findLongestBitonicSubsequence(array));
-//		
-//		array = new int []{80, 60, 30, 40, 20, 10};
-//		assertArrayEquals(new int []{80, 60, 30, 20, 10}, DPUtil.findLongestBitonicSubsequence(array));
+		int [] array = new int []{1, 11, 2, 10, 4, 5, 2, 1};
+		assertArrayEquals(new int []{1, 11, 10, 5, 2, 1}, DPUtil.findLongestBitonicSubsequence(array));
+		
+		array = new int []{12, 11, 40, 5, 3, 1};
+		assertArrayEquals(new int []{12, 11, 5, 3, 1}, DPUtil.findLongestBitonicSubsequence(array));
+		
+		array = new int []{80, 60, 30, 40, 20, 10};
+		assertArrayEquals(new int []{80, 60, 40, 20, 10}, DPUtil.findLongestBitonicSubsequence(array));
 	}
 }
