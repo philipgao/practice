@@ -345,6 +345,12 @@ public class ProjectEuler {
 		return null;
 	}
 	
+	/**
+	 * The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+	 * Find the sum of all the primes below two million.
+	 * @param n
+	 * @return
+	 */
 	public static BigInteger p010FindSumOfPrimeBelowN(int n){
 		int lastPrime=2;
 		BigInteger product=BigInteger.valueOf(2);
@@ -374,4 +380,76 @@ public class ProjectEuler {
 		
 		return product;
 	}
+	
+	/**
+	 * In the 2020 grid below, four numbers along a diagonal line have been marked in red.
+	 * The product of these numbers is 26  63  78  14 = 1788696.
+	 * 
+	 * What is the greatest product of four adjacent numbers in any direction (up, down, left, right, or diagonally) in the 2020 grid?
+	 * @param matrix
+	 * @return
+	 */
+	public static int p011FindLargestAdjacentProduct(int [][] matrix){
+		int row=0;
+		int column=0;
+		Direction direction;
+			
+		
+		int maxProduct=Integer.MIN_VALUE;
+		
+		for(int i=0; i<matrix.length;i++){
+			int downLength=matrix.length-1-i+1;
+			for(int j=0;j<matrix[i].length;j++){
+				int leftLength=j+1;
+				int rightLength=matrix[i].length-1-j+1;
+				
+				if(rightLength>=4){
+					int product=matrix[i][j]*matrix[i][j+1]*matrix[i][j+2]*matrix[i][j+3];
+					if(product>maxProduct){
+						maxProduct=product;
+						row=i;
+						column=j;
+						direction=Direction.RIGHT;
+					}
+				}
+				
+				if(downLength>=4){
+					int product=matrix[i][j]*matrix[i+1][j]*matrix[i+2][j]*matrix[i+3][j];
+					if(product>maxProduct){
+						maxProduct=product;
+						row=i;
+						column=j;
+						direction=Direction.DOWN;
+					}
+				}
+				
+				if(rightLength>=4 && downLength>=4){
+					int product=matrix[i][j]*matrix[i+1][j+1]*matrix[i+2][j+2]*matrix[i+3][j+3];
+					if(product>maxProduct){
+						maxProduct=product;
+						row=i;
+						column=j;
+						direction=Direction.DIAGONAL_RIGHT;
+					}
+				}
+				
+				if(leftLength>=4 && downLength>=4){
+					int product=matrix[i][j]*matrix[i+1][j-1]*matrix[i+2][j-2]*matrix[i+3][j-3];
+					if(product>maxProduct){
+						maxProduct=product;
+						row=i;
+						column=j;
+						direction=Direction.DIAGONAL_LEFT;
+					}
+				}
+			}
+		}
+		
+		return maxProduct;
+	}
+	
+}
+
+enum Direction{
+	DOWN,RIGHT,DIAGONAL_RIGHT,DIAGONAL_LEFT;
 }
