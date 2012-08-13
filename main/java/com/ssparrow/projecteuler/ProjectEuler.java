@@ -238,6 +238,7 @@ public class ProjectEuler {
 				for(int i=0;i<index;i++){
 					if(number%prime[i]==0){
 						isPrime=false;
+						break;
 					}
 				}
 				
@@ -251,5 +252,65 @@ public class ProjectEuler {
 		}
 		
 		return prime[n-1];
+	}
+	
+	public static int p008FindLargest5DigitProduct(String input){
+		int maxProduct=0;
+		int maxStartIndex=-1;
+		int [] maxWindow =new int[5];
+		
+		int slidingWindowStart=-1;
+		int SlidingWindowIndex=0;
+		int [] SlidingWindow=new int[5];
+		int slidingProduct=0;
+		
+		for(int i=0;i<input.length();i++){
+			int digit=input.charAt(i)-'0';
+			
+			if(digit<0 || digit>=10){
+				return -1;
+			}
+			
+			if(digit==0){
+				slidingProduct=0;
+			}else{
+				if(slidingProduct==0){
+					slidingWindowStart=i;
+					SlidingWindowIndex=0;
+					slidingProduct=digit;
+					
+					SlidingWindow[SlidingWindowIndex++]=digit;
+				}else{
+					if(i-slidingWindowStart<4){
+						SlidingWindow[SlidingWindowIndex++]=digit;
+						slidingProduct=slidingProduct*digit;
+						continue;
+					}else if(i-slidingWindowStart==4){
+						SlidingWindow[SlidingWindowIndex]=digit;
+						slidingProduct=slidingProduct*digit;
+					}else{
+						slidingWindowStart++;
+						slidingProduct=(slidingProduct/SlidingWindow[0])*digit;
+						moveSlidingWindow(SlidingWindow, digit);
+					}
+					
+					if(slidingProduct>maxProduct){
+						maxProduct=slidingProduct;
+						maxStartIndex=SlidingWindowIndex;
+						System.arraycopy(SlidingWindow, 0, maxWindow, 0, 5);
+					}
+				}
+			}
+		}
+		
+		return maxProduct;
+		
+	}
+	
+	private static void moveSlidingWindow(int [] window, int value){
+		for(int i=0;i<window.length-1;i++){
+			window[i]=window[i+1];
+		}
+		window[window.length-1]=value;
 	}
 }
