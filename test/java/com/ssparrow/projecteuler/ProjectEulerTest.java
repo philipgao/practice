@@ -6,6 +6,8 @@ import java.math.BigInteger;
 
 import org.junit.Test;
 
+import com.ssparrow.algorithm.array.Triplet;
+
 public class ProjectEulerTest {
 
 	@Test
@@ -156,5 +158,30 @@ public class ProjectEulerTest {
 				"05886116467109405077541002256983155200055935729725"+
 				"71636269561882670428252483600823257530420752963450";
 		assertEquals(40824, ProjectEuler.p008FindLargest5DigitProduct(input));
+	}
+	
+	@Test
+	public void testP009FindTheLargestPythagorean(){
+		assertEquals(new Triplet(3,4,5), ProjectEuler.p009FindTheLargestPythagorean(12));
+		
+
+		assertEquals(new Triplet(200,375,425), ProjectEuler.p009FindTheLargestPythagorean(1000));
+	}
+	
+	@Test
+	public void testP010FindProductOfPrimeBelowN(){
+		assertEquals(BigInteger.valueOf(2), ProjectEuler.p010FindSumOfPrimeBelowN(2));
+
+		assertEquals(BigInteger.valueOf(5), ProjectEuler.p010FindSumOfPrimeBelowN(3));
+		
+		assertEquals(BigInteger.valueOf(5), ProjectEuler.p010FindSumOfPrimeBelowN(4));
+
+		assertEquals(BigInteger.valueOf(10), ProjectEuler.p010FindSumOfPrimeBelowN(5));
+
+		assertEquals(BigInteger.valueOf(77), ProjectEuler.p010FindSumOfPrimeBelowN(20));
+		
+		assertEquals(BigInteger.valueOf(21171191), ProjectEuler.p010FindSumOfPrimeBelowN(20000));
+
+		assertEquals(new BigInteger("142913828922",10), ProjectEuler.p010FindSumOfPrimeBelowN(2000000));
 	}
 }

@@ -3,6 +3,8 @@ package com.ssparrow.projecteuler;
 import java.math.BigInteger;
 import java.util.BitSet;
 
+import com.ssparrow.algorithm.array.Triplet;
+
 public class ProjectEuler {
 
 	/**
@@ -254,6 +256,12 @@ public class ProjectEuler {
 		return prime[n-1];
 	}
 	
+	/**
+	 * Find the greatest product of five consecutive digits in the 1000-digit number.
+	 * 
+	 * @param input
+	 * @return
+	 */
 	public static int p008FindLargest5DigitProduct(String input){
 		int maxProduct=0;
 		int maxStartIndex=-1;
@@ -312,5 +320,58 @@ public class ProjectEuler {
 			window[i]=window[i+1];
 		}
 		window[window.length-1]=value;
+	}
+	
+	/**
+	 * A Pythagorean triplet is a set of three natural numbers, a  b  c, for which,
+	 * 
+	 * a2 + b2 = c2
+	 * For example, 3^2 + 4^2 = 9 + 16 = 25 = 5^2.
+	 * There exists exactly one Pythagorean triplet for which a + b + c = 1000.
+	 * Find the product abc.
+	 * @param sum
+	 * @return
+	 */
+	public static Triplet p009FindTheLargestPythagorean(int sum){
+		for(int i=sum/3;i<sum;i++){
+			
+			for(int j=1;j<i;j++){
+				int k=sum-i-j;
+				if(j*j+k*k==i*i){
+					return new Triplet(j, k, i);
+				}
+			}
+		}
+		return null;
+	}
+	
+	public static BigInteger p010FindSumOfPrimeBelowN(int n){
+		int lastPrime=2;
+		BigInteger product=BigInteger.valueOf(2);
+		
+		BitSet flags=new BitSet();
+		flags.set(2);
+		
+		while(lastPrime < n){
+			for( int i=2; i*lastPrime<=n;i++){
+				flags.set(i*lastPrime);
+			}
+			
+			boolean foundPrime=false;
+			for(int i=lastPrime+1; i<=n;i++){
+				if(!flags.get(i)){
+					lastPrime=i;
+					product=product.add(BigInteger.valueOf(i));
+					foundPrime=true;
+					break;
+				}
+			}
+			
+			if(!foundPrime){
+				break;
+			}
+		}
+		
+		return product;
 	}
 }
