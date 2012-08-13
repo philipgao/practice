@@ -1,5 +1,8 @@
 package com.ssparrow.projecteuler;
 
+import java.math.BigInteger;
+import java.util.BitSet;
+
 public class ProjectEuler {
 
 	/**
@@ -69,5 +72,184 @@ public class ProjectEuler {
 		}
 		
 		return sum;
+	}
+	
+	/**
+	 * The prime factors of 13195 are 5, 7, 13 and 29.
+	 * 
+	 * What is the largest prime factor of the number 600851475143 ?
+	 * @param n
+	 * @return
+	 */
+	public static BigInteger p003FindLargestPrimeFactor(BigInteger n){
+		BigInteger lpf=BigInteger.valueOf(1);
+		
+		BigInteger[] divideAndRemainder = n.divideAndRemainder(BigInteger.valueOf(2));
+		while(divideAndRemainder[1].equals(BigInteger.valueOf(0))){
+			n=n.divide(BigInteger.valueOf(2));
+			lpf=BigInteger.valueOf(2);
+			
+			divideAndRemainder = n.divideAndRemainder(BigInteger.valueOf(2));
+		}
+		
+		for(BigInteger i=BigInteger.valueOf(3);i.compareTo(n)<=0;i = i.add(BigInteger.valueOf(2))){
+			divideAndRemainder = n.divideAndRemainder(i);
+			while(divideAndRemainder[1].equals(BigInteger.valueOf(0))){
+				n=n.divide(i);
+				lpf=i;
+				
+				divideAndRemainder = n.divideAndRemainder(BigInteger.valueOf(2));
+			}
+		}
+		
+		return lpf;
+	}
+	
+	/**
+	 * A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 99.
+	 * 
+	 * Find the largest palindrome made from the product of two 3-digit numbers.
+	 * @return
+	 */
+	public static int p004FindLargestPalindromicNumber(){
+		BitSet visited=new BitSet(999*999);
+		int max=-1;
+		for(int first=100;first<=999;first++){
+			for(int second=100;second<=999;second++){
+				int n =first*second;
+				if(!visited.get(n) && isPalindrome(n)){
+					if(n>max){
+						max=n;
+					}
+				}
+			}
+		}
+		
+		return max;
+	}
+	
+	public static boolean isPalindrome(int n){
+		String nStr=String.valueOf(n);
+		
+		int forwardIndex=0;
+		int backIndex=0;
+		int fastIndex=0;
+		
+		for(;forwardIndex<nStr.length();forwardIndex++,fastIndex+=2){
+			if(fastIndex==nStr.length()-1){
+				backIndex=forwardIndex-1;
+			}else if(fastIndex==nStr.length()){
+				backIndex=forwardIndex-1;
+				forwardIndex--;
+			}else if(fastIndex>nStr.length()){
+				if(nStr.charAt(backIndex)!=nStr.charAt(forwardIndex)){
+					return false;
+				}
+				backIndex--;
+			}
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+	 * 
+	 * What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+	 * 
+	 * @param n
+	 * @return
+	 */
+	public static int p005FindSmallestDivisibleBy1ToN(int n){
+		if(n==1){
+			return 1;
+		}
+		
+		int result=1;
+		
+		for(int i=2;i<=n;i++){
+			int multiply=1;
+			
+			if(result%i!=0){
+				int lastDividend=1;
+				for(int j=2; j<i;j++){
+					if(i%j==0){
+						lastDividend = j;
+					}
+				}
+				
+				multiply=i/lastDividend;
+			}
+			
+			result*=multiply;
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 
+	 * The sum of the squares of the first ten natural numbers is,
+	 * 
+	 * 12 + 22 + ... + 102 = 385
+	 * The square of the sum of the first ten natural numbers is,
+	 * 
+	 * (1 + 2 + ... + 10)2 = 552 = 3025
+	 * Hence the difference between the sum of the squares of the first ten natural numbers and the square of the sum is 3025  385 = 2640.
+	 * 
+	 * Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
+	 * @param n
+	 * @return
+	 */
+	public static int p006FindDiffSumSquareAndSquareSum(int n){
+		 int sum = (n*(n+1))/2;
+		 int sumSuqare= sum * sum;
+		 
+		 int squareSum=0;
+		 for(int i=1;i<=n;i++){
+			 squareSum+=i*i;
+		 }
+		 
+		 return sumSuqare-squareSum;
+	}
+	
+	/**
+	 * By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.
+	 * 
+	 * What is the 10 001st prime number?
+	 * 
+	 * @param n
+	 * @return
+	 */
+	public static int p007FindNthPrimeNumber(int n){
+		if(n==1){
+			return 2;
+		}
+		
+		int [] prime=new int [n];
+		prime[0]=2;
+		int index=1;
+		
+		while(index<n){
+			int previousPrime = prime[index-1];
+			int number=previousPrime==2?previousPrime+1:previousPrime+2;
+			while(true){
+				boolean isPrime=true;
+				for(int i=0;i<index;i++){
+					if(number%prime[i]==0){
+						isPrime=false;
+					}
+				}
+				
+				if(isPrime){
+					prime[index]=number;
+					break;
+				}
+				number+=2;
+			}
+			index++;
+		}
+		
+		return prime[n-1];
 	}
 }
