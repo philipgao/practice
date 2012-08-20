@@ -182,7 +182,7 @@ public class ArrayUtilTest {
 	
 	@Test
 	public void testFindConsecutiveSubarrayWithSum(){
-		int [] array = new int []{1,6,3,3,1,2,3,};
+		int [] array = new int []{1,6,1,2,4,2,3,};
 		
 		int [] result = ArrayUtil.findConsecutiveSubarrayWithSum(array, 5);
 		assertArrayEquals(new int [] {2, 3}, result);
