@@ -6,6 +6,10 @@ import java.util.Map;
 import java.util.Set;
 
 public class Vertex {
+	public String getId() {
+		return id;
+	}
+
 	private String id;
 	
 	private Set<Vertex> adjacentVertexes=new LinkedHashSet<Vertex>();
