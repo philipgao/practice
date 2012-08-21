@@ -3,10 +3,12 @@ package com.ssparrow.algorithm.string;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 public final class StringUtil {
 	public static final int ASC_CHAR_NUM=256;
@@ -309,5 +311,70 @@ public final class StringUtil {
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * 
+	 * Given two strings .Print all the interleavings of the two strings.
+	 * Interleaving means that the if B comes after A .It should also come after A in the interleaved string.
+	 * ex-
+	 * AB and CD
+	 * 	ABCD
+	 * 	ACBD
+	 * 	ACDB
+	 * 	CABD
+	 * 	CADB
+	 * 	CDAB
+	 * @param str1
+	 * @param str2
+	 * @return
+	 */
+	public static List<String> createInterleavingStrings(String str1, String str2){
+		boolean [] flags1 = new boolean [str1.length()];
+		boolean [] flags2 = new boolean [str2.length()];
+		
+		List<String> result=new ArrayList<String>();
+		char [] chars = new char[str1.length()+str2.length()];
+		
+		createInterleavingStrings(result, str1, str2, flags1, flags2, 0, 0, 0, chars);
+		
+		return result;
+	}
+	
+	private static void createInterleavingStrings(List<String> result,String str1, String str2, boolean [] flags1, boolean [] flags2, int position1, int position2, int position, char[] chars ){
+		if(position==str1.length()+str2.length()){
+			result.add(new String(chars));
+			System.out.println(new String(chars));
+			return;
+		}
+		
+		for(int i=position1,j=position2;i<str1.length() || j<str2.length();){
+			if(i<str1.length()){
+				if(!flags1[i]){
+					flags1[i]=true;
+					
+					chars[position]=str1.charAt(i);
+					System.out.println("i="+i+", j="+j+" ,char["+position+"]=1:"+str1.charAt(i));
+					createInterleavingStrings(result, str1, str2, flags1, flags2, position1+1, position2,position+1, chars);
+					
+					flags1[i]=false;
+				}
+				i++;
+			}
+			
+			
+			if(j<str2.length()){
+				if(!flags2[j]){
+					flags2[j]=true;
+					
+					chars[position]=str2.charAt(j);
+					System.out.println("i="+i+", j="+j+" ,char["+position+"]=2:"+str2.charAt(j));
+					createInterleavingStrings(result, str1, str2, flags1, flags2, position1, position2+1,position+1, chars);
+					
+					flags2[j]=false;
+				}
+				j++;
+			} 
+		}
 	}
 }

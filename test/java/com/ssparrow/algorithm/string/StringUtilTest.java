@@ -153,4 +153,9 @@ public class StringUtilTest {
 		String combo = StringUtil.findLongestComboWords(words);
 		assertEquals("macbookair", combo);
 	}
+	
+	@Test
+	public void testCreateInterleavingStrings(){
+		assertEquals(6, StringUtil.createInterleavingStrings("AB", "CD").size());
+	}
 }
