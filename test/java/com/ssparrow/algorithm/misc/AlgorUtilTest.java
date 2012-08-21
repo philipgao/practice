@@ -93,4 +93,23 @@ public class AlgorUtilTest {
 		Set<PointPair> dominatePairs = AlgorUtil.findAllDominatePairs(points);
 		assertEquals(8, dominatePairs.size());
 	}
+	
+	@Test
+	public void testGetSquareRoot(){
+		assertEquals(0.5, AlgorUtil.getSquareRoot(0.25, 8, 0.000001), 0.000001);
+
+		assertEquals(0.6, AlgorUtil.getSquareRoot(0.36, 8, 0.000001), 0.000001);
+		
+		assertEquals(0.83666, AlgorUtil.getSquareRoot(0.7, 8, 0.000001), 0.000001);
+
+		assertEquals(0.948683, AlgorUtil.getSquareRoot(0.9, 8, 0.000001), 0.000001);
+		
+		assertEquals(1.1, AlgorUtil.getSquareRoot(1.21, 8, 0.000001), 0.000001);
+
+		assertEquals(2.64575148, AlgorUtil.getSquareRoot(7, 8, 0.000001), 0.000001);
+
+		assertEquals(3, AlgorUtil.getSquareRoot(9, 8, 0.000001), 0.000001);
+		
+		assertEquals(10.04987565, AlgorUtil.getSquareRoot(101, 8, 0.000001), 0.000001);
+	}
 }
