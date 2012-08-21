@@ -344,37 +344,33 @@ public final class StringUtil {
 	private static void createInterleavingStrings(List<String> result,String str1, String str2, boolean [] flags1, boolean [] flags2, int position1, int position2, int position, char[] chars ){
 		if(position==str1.length()+str2.length()){
 			result.add(new String(chars));
-			System.out.println(new String(chars));
+			System.out.println(position1+":"+position2+" "+new String(chars));
 			return;
 		}
 		
-		for(int i=position1,j=position2;i<str1.length() || j<str2.length();){
-			if(i<str1.length()){
-				if(!flags1[i]){
-					flags1[i]=true;
-					
-					chars[position]=str1.charAt(i);
-					System.out.println("i="+i+", j="+j+" ,char["+position+"]=1:"+str1.charAt(i));
-					createInterleavingStrings(result, str1, str2, flags1, flags2, position1+1, position2,position+1, chars);
-					
-					flags1[i]=false;
-				}
-				i++;
+		if(position1<str1.length()){
+			if(!flags1[position1]){
+				flags1[position1]=true;
+				
+				chars[position]=str1.charAt(position1);
+					System.out.println(position1+":"+position2+",char["+position+"]=1:"+str1.charAt(position1));
+				createInterleavingStrings(result, str1, str2, flags1, flags2, position1+1, position2,position+1, chars);
+				
+				flags1[position1]=false;
 			}
-			
-			
-			if(j<str2.length()){
-				if(!flags2[j]){
-					flags2[j]=true;
-					
-					chars[position]=str2.charAt(j);
-					System.out.println("i="+i+", j="+j+" ,char["+position+"]=2:"+str2.charAt(j));
-					createInterleavingStrings(result, str1, str2, flags1, flags2, position1, position2+1,position+1, chars);
-					
-					flags2[j]=false;
-				}
-				j++;
-			} 
 		}
+		
+		
+		if(position2<str2.length()){
+			if(!flags2[position2]){
+				flags2[position2]=true;
+				
+				chars[position]=str2.charAt(position2);
+					System.out.println(position1+":"+position2+",char["+position+"]=2:"+str2.charAt(position2));
+				createInterleavingStrings(result, str1, str2, flags1, flags2, position1, position2+1,position+1, chars);
+				
+				flags2[position2]=false;
+			}
+		} 
 	}
 }
