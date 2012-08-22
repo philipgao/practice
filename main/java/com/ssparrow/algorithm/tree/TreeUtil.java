@@ -2,8 +2,6 @@ package com.ssparrow.algorithm.tree;
 
 import java.util.Stack;
 
-import com.ssparrow.algorithm.misc.Pair;
-
 public class TreeUtil {
 	
 	/**
@@ -420,21 +418,74 @@ public class TreeUtil {
 	 * @param numbers
 	 * @return
 	 */
-	public static String generateEquation(int [] numbers, OPERATOR [] operators, int lastPosition, int position,int target){
+	public static String generateEquation(int [] numbers, OPERATOR [] operators, int position,int target){
 		
-		if(position==numbers.length){
-			int value=numbers[numbers.length-1];
-			int temp=0;
+		if(position==operators.length){
+			int lastOperator=-1;
+			int value=numbers[0];
 			
-			int i=numbers.length-2;
-			while(i>=0){
+			
+			for(int i=0;i<operators.length;i++){
 				if(operators[i].equals(OPERATOR.ADD)||operators[i].equals(OPERATOR.MINUS)){
-					temp=value;
+					if(lastOperator+1==i){
+						value=doOperation(value, numbers[i+1], operators[i]);
+					}else{
+						int temp=numbers[lastOperator++];
+						while(lastOperator<i){
+							temp=doOperation(temp, numbers[lastOperator], operators[lastOperator]);
+							lastOperator++;
+						}
+						
+						value=doOperation(temp, numbers[i+1], operators[i]);
+					}
+					lastOperator=i;
+				}else if(i==numbers.length-2){
+					int temp=numbers[lastOperator++];
+					while(lastOperator<i){
+						temp=doOperation(temp, numbers[lastOperator], operators[lastOperator]);
+						lastOperator++;
+					}
+					
+					value=doOperation(temp, numbers[i+1], operators[i]);
 				}
 			}
 			
+			if(value==target){
+				StringBuffer sb=new StringBuffer();
+				sb.append(numbers[0]);
+				
+				for(int k=0;k<numbers.length-1;k++){
+					sb.append(operators[k]).append(numbers[k+1]);
+				}
+				return sb.toString();
+			}
+			return null;
+			
 		}
 		
+		operators[position]=OPERATOR.ADD;
+		String result = generateEquation(numbers, operators, position+1, target);
+		if(result!=null){
+			return result;
+		}
+		
+		operators[position]=OPERATOR.MINUS;
+		result = generateEquation(numbers, operators, position+1, target);
+		if(result!=null){
+			return result;
+		}
+		
+		operators[position]=OPERATOR.MULTIPLY;
+		result = generateEquation(numbers, operators, position+1, target);
+		if(result!=null){
+			return result;
+		}
+		
+		operators[position]=OPERATOR.DIVIDE;
+		result = generateEquation(numbers, operators, position+1, target);
+		if(result!=null){
+			return result;
+		}
 		 	
 		return null;  
 	}

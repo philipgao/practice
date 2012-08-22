@@ -200,4 +200,12 @@ public class TreeUtilTest {
 		
 		assertEquals(5, TreeUtil.findKthMaxNumberInBST(root, 3));
 	}
+	
+	@Test
+	public void testGenerateEquation(){
+		int [] numbers = new int[]{2,3,5,1};
+		OPERATOR [] operators=new OPERATOR[numbers.length-1];
+		
+		assertEquals("", TreeUtil.generateEquation(numbers, operators, 0, 16));
+	}
 }
