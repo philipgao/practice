@@ -436,10 +436,9 @@ public class TreeUtil {
 				
 				if(value==target){
 					StringBuffer sb=new StringBuffer();
-					sb.append(numbers[0]);
 					
-					for(int k=0;k<numbers.length-1;k++){
-						sb.append(operators[k]).append(numbers[k+1]);
+					for(int k=0;k<=equation.length-1;k++){
+						sb.append(equation[k]);
 					}
 					return sb.toString();
 				}
