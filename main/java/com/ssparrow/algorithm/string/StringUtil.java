@@ -330,18 +330,17 @@ public final class StringUtil {
 	 * @return
 	 */
 	public static List<String> createInterleavingStrings(String str1, String str2){
-		boolean [] flags1 = new boolean [str1.length()];
-		boolean [] flags2 = new boolean [str2.length()];
-		
 		List<String> result=new ArrayList<String>();
 		char [] chars = new char[str1.length()+str2.length()];
 		
-		createInterleavingStrings(result, str1, str2, flags1, flags2, 0, 0, 0, chars);
+		createInterleavingStrings(result, str1, str2, 0, 0,chars);
 		
 		return result;
 	}
 	
-	private static void createInterleavingStrings(List<String> result,String str1, String str2, boolean [] flags1, boolean [] flags2, int position1, int position2, int position, char[] chars ){
+	private static void createInterleavingStrings(List<String> result,String str1, String str2, int position1, int position2,char[] chars ){
+		int position = position1+position2;
+		
 		if(position==str1.length()+str2.length()){
 			result.add(new String(chars));
 			System.out.println(position1+":"+position2+" "+new String(chars));
@@ -349,28 +348,16 @@ public final class StringUtil {
 		}
 		
 		if(position1<str1.length()){
-			if(!flags1[position1]){
-				flags1[position1]=true;
-				
-				chars[position]=str1.charAt(position1);
-					System.out.println(position1+":"+position2+",char["+position+"]=1:"+str1.charAt(position1));
-				createInterleavingStrings(result, str1, str2, flags1, flags2, position1+1, position2,position+1, chars);
-				
-				flags1[position1]=false;
-			}
+			chars[position]=str1.charAt(position1);
+			System.out.println(position1+":"+position2+",char["+position+"]=1:"+str1.charAt(position1));
+			createInterleavingStrings(result, str1, str2, position1+1, position2,chars);
 		}
 		
 		
 		if(position2<str2.length()){
-			if(!flags2[position2]){
-				flags2[position2]=true;
-				
-				chars[position]=str2.charAt(position2);
-					System.out.println(position1+":"+position2+",char["+position+"]=2:"+str2.charAt(position2));
-				createInterleavingStrings(result, str1, str2, flags1, flags2, position1, position2+1,position+1, chars);
-				
-				flags2[position2]=false;
-			}
+			chars[position]=str2.charAt(position2);
+			System.out.println(position1+":"+position2+",char["+position+"]=2:"+str2.charAt(position2));
+			createInterleavingStrings(result, str1, str2, position1, position2+1, chars);
 		} 
 	}
 }
