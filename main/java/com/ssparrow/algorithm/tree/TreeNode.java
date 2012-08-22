@@ -5,13 +5,13 @@ public class TreeNode {
 	private TreeNode leftNode;
 	private TreeNode rightNode;
 	
-	private int value;
+	private Object value;
 	
-	public TreeNode(int value) {
+	public TreeNode(Object value) {
 		this.value = value;
 	}
 	
-	public TreeNode(TreeNode parent, int value) {
+	public TreeNode(TreeNode parent, Object value) {
 		this.parent=parent;
 		this.value = value;
 	}
@@ -22,7 +22,7 @@ public class TreeNode {
 	public void setLeftNode(TreeNode leftNode) {
 		this.leftNode = leftNode;
 	}
-	public void addLeft(int leftValue){
+	public void addLeft(Object leftValue){
 		TreeNode left=new TreeNode(this, leftValue);
 		this.setLeftNode(left);
 	}
@@ -32,11 +32,11 @@ public class TreeNode {
 	public void setRightNode(TreeNode rightNode) {
 		this.rightNode = rightNode;
 	}
-	public void addRight(int rightValue){
+	public void addRight(Object rightValue){
 		TreeNode right=new TreeNode(this, rightValue);
 		this.setRightNode(right);
 	}
-	public int getValue() {
+	public Object getValue() {
 		return value;
 	}
 	public void setValue(int value) {

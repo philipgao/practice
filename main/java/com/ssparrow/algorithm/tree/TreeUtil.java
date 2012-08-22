@@ -154,7 +154,7 @@ public class TreeUtil {
 			return;
 		}
 		copyBST(node.getLeftNode(), array);
-		array[index++]=node.getValue();
+		array[index++]=((Integer)node.getValue()).intValue();
 		copyBST(node.getRightNode(), array);
 	}
 	
@@ -173,10 +173,10 @@ public class TreeUtil {
 			return false;
 		}
 		
-		if(root.getValue()<last_data){
+		if(((Integer)root.getValue()).intValue()<last_data){
 			return false;
 		}
-		last_data=root.getValue();
+		last_data=((Integer)root.getValue()).intValue();
 		
 		if(!checkBSTOptimaized(root.getRightNode())){
 			return false;
@@ -202,7 +202,7 @@ public class TreeUtil {
 			return;
 		}
 		
-		path[level]=node.getValue();
+		path[level]=((Integer)node.getValue()).intValue();
 		int result=0;
 		for(int i=level;i>=0;i--){
 			result+=path[i];
@@ -359,7 +359,7 @@ public class TreeUtil {
 		}
 		
 		if(bst_index==k){
-			return root.getValue();
+			return ((Integer)root.getValue()).intValue();
 		}
 		bst_index++;
 		
@@ -394,7 +394,7 @@ public class TreeUtil {
 		}
 		
 		if(max_index==k){
-			return node.getValue();
+			return ((Integer)node.getValue()).intValue();
 		}
 		max_index++;
 		
@@ -413,54 +413,40 @@ public class TreeUtil {
 	 * The order of the input cannot be changed. If there is an equation, print it; or print "no equation". If more than one solution, any working equation is fine.
 	 *
 	 *example:
-	 *input: 2, 3, 1, 4
-	 *output: 2+3-1 = 4.
+	 *input: 2, 3, 5, 1, 4
+	 *output: 2+3*5-1 = 4.
 	 * @param numbers
 	 * @return
 	 */
 	public static String generateEquation(int [] numbers, OPERATOR [] operators, int position,int target){
 		
 		if(position==operators.length){
-			int lastOperator=-1;
-			int value=numbers[0];
-			
-			
-			for(int i=0;i<operators.length;i++){
-				if(operators[i].equals(OPERATOR.ADD)||operators[i].equals(OPERATOR.MINUS)){
-					if(lastOperator+1==i){
-						value=doOperation(value, numbers[i+1], operators[i]);
-					}else{
-						int temp=numbers[lastOperator++];
-						while(lastOperator<i){
-							temp=doOperation(temp, numbers[lastOperator], operators[lastOperator]);
-							lastOperator++;
-						}
-						
-						value=doOperation(temp, numbers[i+1], operators[i]);
-					}
-					lastOperator=i;
-				}else if(i==numbers.length-2){
-					int temp=numbers[lastOperator++];
-					while(lastOperator<i){
-						temp=doOperation(temp, numbers[lastOperator], operators[lastOperator]);
-						lastOperator++;
-					}
-					
-					value=doOperation(temp, numbers[i+1], operators[i]);
-				}
+			Object [] equation = new Object[numbers.length+operators.length];
+			equation[0]=numbers[0];
+			int index=1;
+			for(int i=0;i<numbers.length-1;i++){
+				equation[index++]=operators[i];
+				equation[index++]=numbers[i+1];
 			}
 			
-			if(value==target){
-				StringBuffer sb=new StringBuffer();
-				sb.append(numbers[0]);
+			TreeNode root= createEquationTree(equation, 0, equation.length-1);
+			
+			try{
+				int value=calculateEquationValue(root);
 				
-				for(int k=0;k<numbers.length-1;k++){
-					sb.append(operators[k]).append(numbers[k+1]);
+				if(value==target){
+					StringBuffer sb=new StringBuffer();
+					sb.append(numbers[0]);
+					
+					for(int k=0;k<numbers.length-1;k++){
+						sb.append(operators[k]).append(numbers[k+1]);
+					}
+					return sb.toString();
 				}
-				return sb.toString();
+				return null;
+			}catch(InvalidEquationException exception){
+				return null;
 			}
-			return null;
-			
 		}
 		
 		operators[position]=OPERATOR.ADD;
@@ -490,7 +476,91 @@ public class TreeUtil {
 		return null;  
 	}
 	
-	private static int doOperation(int value1, int value2, OPERATOR operator){
+	private static int calculateEquationValue(TreeNode node) throws InvalidEquationException{
+		if(node.getValue() instanceof Integer){
+			return ((Integer)node.getValue()).intValue();
+		}else{
+			int left=calculateEquationValue(node.getLeftNode());
+			int right=calculateEquationValue(node.getRightNode());
+			
+			OPERATOR operator=(OPERATOR) node.getValue();
+			return doOperation(left, right, operator);
+		}
+	}
+	
+	private static TreeNode createEquationTree(Object []  equation, int start, int end){
+		if(start==end){
+			return new TreeNode(equation[start]);
+		}
+		
+		
+		int mid=start+(end-start)/2;
+		
+		int left=mid;
+		boolean isFirstLeftOperator=true;
+		int leftRoot=-1;
+		int leftOperator=-1;
+		while(left>=start){
+			if(equation[left] instanceof OPERATOR){
+				if(isFirstLeftOperator){
+					isFirstLeftOperator=false;
+					leftOperator=left;
+				}
+				
+				if(equation[left]==OPERATOR.ADD||equation[left]==OPERATOR.MINUS){
+					leftRoot=left;
+					break;
+				}
+			}
+			left--;
+		}
+		
+		int right=mid+1;
+		boolean isFirstRightOperator=true;
+		int rightRoot=-1;
+		int rightOperator=-1;
+		while(right<end){
+			if(equation[right] instanceof OPERATOR){
+				if(isFirstRightOperator){
+					isFirstRightOperator=false;
+					rightOperator=right;
+				}
+				
+				if(equation[right]==OPERATOR.ADD||equation[right]==OPERATOR.MINUS){
+					rightRoot=right;
+					break;
+				}
+			}
+			right++;
+		}
+		
+		int rootIndex=-1;
+		if(leftRoot>0 || rightRoot>0){
+			int leftDistance=mid-leftRoot;
+			int rightDistance=Math.abs(rightRoot-mid);
+					
+			rootIndex = leftDistance<rightDistance?leftRoot:rightRoot;
+		}else if(leftOperator>0 || rightOperator>0){
+			int leftDistance=mid-leftOperator;
+			int rightDistance=Math.abs(rightOperator-mid);
+					
+			rootIndex = leftDistance<rightDistance?leftOperator:rightOperator;
+		}
+		
+		if(rootIndex>0){
+			TreeNode root=new TreeNode(equation[rootIndex]);
+			
+			root.setLeftNode(createEquationTree(equation, start, rootIndex-1));
+			
+			root.setRightNode(createEquationTree(equation, rootIndex+1, end));
+			
+			return root;
+		}else{
+			return null;
+		}
+	}
+	
+	private static int doOperation(int value1, int value2, OPERATOR operator) throws InvalidEquationException{
 		switch (operator) {
 		case ADD:
 			
@@ -505,6 +575,10 @@ public class TreeUtil {
 			return value1*value2;
 
 		case DIVIDE:
+			
+			if(value2==0){
+				throw new InvalidEquationException();
+			}
 			
 			return value1/value2;
 			

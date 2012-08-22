@@ -206,6 +206,6 @@ public class TreeUtilTest {
 		int [] numbers = new int[]{2,3,5,1};
 		OPERATOR [] operators=new OPERATOR[numbers.length-1];
 		
-		assertEquals("", TreeUtil.generateEquation(numbers, operators, 0, 16));
+		assertEquals("2+3*5-1", TreeUtil.generateEquation(numbers, operators, 0, 16));
 	}
 }
