@@ -197,4 +197,36 @@ public class AlgorUtil {
 		
 		return result;
 	}
+	
+	/**
+	 * @param d
+	 * @param digits
+	 * @param precision
+	 * @return
+	 */
+	public static double getSquareRoot(double d, int digits,double precision){
+		double start = 0;
+		double end= d<1?1:d;
+		
+		while(start<end){
+			double mid=start +(end-start)/2;
+			
+			double floats=mid - (int)mid;
+			double shiftedFloats = Math.pow(10, digits)*floats;
+			int round=(shiftedFloats - (int)shiftedFloats)>=0.5?1:0;
+			int cutFloat=(int) shiftedFloats+round;
+			double cutMid=(int)mid + cutFloat/Math.pow(10,digits);
+			
+			double square=cutMid*cutMid;
+			if(Math.abs(square-d)<=precision){
+				return cutMid;
+			}else if(square>d){
+				end=cutMid;
+			}else{
+				start=cutMid;
+			}
+		}
+		
+		return 0;
+	}
 }
