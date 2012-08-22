@@ -409,4 +409,57 @@ public class TreeUtil {
 		
 		return -1;
 	}
+	
+	/**
+	 * Given a series of numbers as the input, the last one as the result. Use the rest numbers to calculate the result,only +, -, *, / are allowed. 
+	 * The order of the input cannot be changed. If there is an equation, print it; or print "no equation". If more than one solution, any working equation is fine.
+	 *
+	 *example:
+	 *input: 2, 3, 1, 4
+	 *output: 2+3-1 = 4.
+	 * @param numbers
+	 * @return
+	 */
+	public static String generateEquation(int [] numbers, OPERATOR [] operators, int lastPosition, int position,int target){
+		
+		if(position==numbers.length){
+			int value=numbers[numbers.length-1];
+			int temp=0;
+			
+			int i=numbers.length-2;
+			while(i>=0){
+				if(operators[i].equals(OPERATOR.ADD)||operators[i].equals(OPERATOR.MINUS)){
+					temp=value;
+				}
+			}
+			
+		}
+		
+		 	
+		return null;  
+	}
+	
+	private static int doOperation(int value1, int value2, OPERATOR operator){
+		switch (operator) {
+		case ADD:
+			
+			return value1+value2;
+
+		case MINUS:
+			
+			return value1-value2;
+			
+		case MULTIPLY:
+			
+			return value1*value2;
+
+		case DIVIDE:
+			
+			return value1/value2;
+			
+		default:
+			return 0;
+		}
+	}
+	
 }
