@@ -360,4 +360,32 @@ public final class StringUtil {
 			createInterleavingStrings(result, str1, str2, position1, position2+1, chars);
 		} 
 	}
+	
+	/**
+	 * Three strings say A,B,C are given to you. Check weather 3rd string is interleaved from string A and B.
+	 * Ex: A="abcd" B="xyz" C="axybczd". answer is yes. o(n)
+	 * 
+	 * @param str1
+	 * @param str2
+	 * @param target
+	 * @return
+	 */
+	public static boolean isInterleavingString(String str1, String str2, String target){
+		int position1=0;
+		int position2=0;
+		int position=0;
+		
+		while(position<target.length()){
+			if(position1<str1.length() && str1.charAt(position1)==target.charAt(position)){
+				position1++;
+				position++;
+			}else if(position2<str2.length() &&str2.charAt(position2)==target.charAt(position)){
+				position2++;
+				position++;
+			}else{
+				return false;
+			}
+		}
+		return true;
+	}
 }

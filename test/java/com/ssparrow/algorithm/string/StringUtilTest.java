@@ -158,4 +158,19 @@ public class StringUtilTest {
 	public void testCreateInterleavingStrings(){
 		assertEquals(6, StringUtil.createInterleavingStrings("AB", "CD").size());
 	}
+	
+	@Test
+	public void testIsInterleavingString(){
+		assertTrue(StringUtil.isInterleavingString("abc", "xyz", "axbycz"));
+
+		assertTrue(StringUtil.isInterleavingString("abc", "xyz", "xaybzc"));
+
+		assertFalse(StringUtil.isInterleavingString("abc", "xyz", "axbyczd"));
+
+		assertFalse(StringUtil.isInterleavingString("abc", "xyz", "axcybz"));
+
+		assertTrue(StringUtil.isInterleavingString("abc", "xyz", "abxycz"));
+
+		assertFalse(StringUtil.isInterleavingString("abc", "xyz", "zazbcz"));
+	}
 }
