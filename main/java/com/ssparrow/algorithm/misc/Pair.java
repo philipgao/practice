@@ -11,6 +11,14 @@ public class Pair{
 		this.b = b;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "[" + a + ", " + b + "]";
+	}
+
 	public int getA() {
 		return a;
 	}

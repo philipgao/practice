@@ -112,4 +112,47 @@ public class AlgorUtilTest {
 		
 		assertEquals(10.04987565, AlgorUtil.getSquareRoot(101, 8, 0.000001), 0.000001);
 	}
+	
+	/**
+	 * Example 1 :(1,4) (6,10) (14, 19) and another interval (13, 17) merge them as (1,4) (6,10) (13,19)
+	 * 
+	 * Example 2: (1,5) (6, 15) (20, 21) (23, 26) (27, 30) (35, 40)
+	 * New interval (14, 33)
+	 * Output should be 
+	 * (1,5) (6, 33) (35, 40)
+	 */
+	@Test
+	public void testMergeNonOverlappingIntervalWithNewInterval(){
+		List<Pair> intervals=new ArrayList<Pair>();
+		intervals.add(new Pair(1,4));
+		intervals.add(new Pair(6,10));
+		intervals.add(new Pair(14,19));
+		List<Pair> result=AlgorUtil.mergeNonOverlappingIntervalWithNewInterval(intervals, new Pair(13,17));
+		assertEquals(3, result.size());
+		assertEquals(new Pair(1,4), result.get(0));
+		assertEquals(new Pair(6,10), result.get(1));
+		assertEquals(new Pair(13,19), result.get(2));
+		
+		intervals=new ArrayList<Pair>();
+		intervals.add(new Pair(1,5));
+		intervals.add(new Pair(6,15));
+		intervals.add(new Pair(20,21));
+		intervals.add(new Pair(23,26));
+		intervals.add(new Pair(27,30));
+		intervals.add(new Pair(35,40));
+		result=AlgorUtil.mergeNonOverlappingIntervalWithNewInterval(intervals, new Pair(14,33));
+		assertEquals(3, result.size());
+		assertEquals(new Pair(1,5), result.get(0));
+		assertEquals(new Pair(6,33), result.get(1));
+		assertEquals(new Pair(35,40), result.get(2));
+		
+		intervals=new ArrayList<Pair>();
+		intervals.add(new Pair(1,4));
+		intervals.add(new Pair(6,10));
+		intervals.add(new Pair(14,19));
+		result=AlgorUtil.mergeNonOverlappingIntervalWithNewInterval(intervals, new Pair(10,15));
+		assertEquals(2, result.size());
+		assertEquals(new Pair(1,4), result.get(0));
+		assertEquals(new Pair(6,19), result.get(1));
+	}
 }

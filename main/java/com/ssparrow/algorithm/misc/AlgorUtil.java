@@ -229,4 +229,65 @@ public class AlgorUtil {
 		
 		return 0;
 	}
+	
+	/**
+	 * Given a set of non overlapping intervals
+	 * Example 1 :(1,4) (6,10) (14, 19) and another interval (13, 17) merge them as (1,4) (6,10) (13,19)
+	 * 
+	 * Example 2: (1,5) (6, 15) (20, 21) (23, 26) (27, 30) (35, 40)
+	 * New interval (14, 33)
+	 * Output should be 
+	 * (1,5) (6, 33) (35, 40)
+	 * 
+	 * This is because the new interval overlaps with (6, 15) (20, 21) (23, 26) (27, 30)
+	 * 
+	 * 
+	 * @param intervals
+	 * @param newInterval
+	 * @return
+	 */
+	public static List<Pair> mergeNonOverlappingIntervalWithNewInterval(List<Pair> intervals, Pair addedInterval){
+		List<Pair> result = new ArrayList<Pair>();
+		
+		int newStart=0;
+		int newEnd=0;
+		
+		boolean merged=false;
+		int previousEnd=Integer.MIN_VALUE;
+		for(int index=0;index<intervals.size();index++){
+			Pair interval=intervals.get(index);
+					
+			if(merged){
+				result.add(interval);
+			}else{
+				if(addedInterval.getA()>previousEnd && addedInterval.getA()<=interval.getB()){
+					newStart=Math.min(addedInterval.getA(), interval.getA());
+				}
+				
+				if(addedInterval.getB()>previousEnd){ 
+					if(addedInterval.getB()<interval.getA()){
+						newEnd=addedInterval.getB();
+					}else if(addedInterval.getB()<=interval.getB()){
+						newEnd=Math.max(addedInterval.getB(), interval.getB());
+					}
+				}
+				
+				if(newStart==0 && newEnd==0){
+					result.add(interval);
+				}else if(newStart>0 && newEnd>0){
+					result.add(new Pair(newStart, newEnd));
+					
+					if(addedInterval.getB()<interval.getA()){
+						result.add(interval);
+					}
+					
+					merged=true;
+				}
+			}
+			
+			previousEnd=interval.getB();
+		}
+		
+		return result;
+	}
 }
