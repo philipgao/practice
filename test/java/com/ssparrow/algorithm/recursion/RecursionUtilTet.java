@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -51,4 +52,17 @@ public class RecursionUtilTet {
 		RecursionUtil.placeQueen(new int[8], 0);
 	}
 	
+	@Test
+	public void testP604FindXNMultiplcationPath(){
+		
+		List<Integer> multiplicationPath = RecursionUtil.findXNMultiplcationPath(30);
+		assertEquals(7, multiplicationPath.size());
+		assertEquals(1, multiplicationPath.get(0).intValue());
+		assertEquals(2, multiplicationPath.get(1).intValue());
+		assertEquals(3, multiplicationPath.get(2).intValue());
+		assertEquals(5, multiplicationPath.get(3).intValue());
+		assertEquals(10, multiplicationPath.get(4).intValue());
+		assertEquals(15, multiplicationPath.get(5).intValue());
+		assertEquals(30, multiplicationPath.get(6).intValue());
+	}
 }

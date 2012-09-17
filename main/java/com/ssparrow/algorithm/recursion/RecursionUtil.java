@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class RecursionUtil {
 
@@ -194,5 +195,43 @@ public class RecursionUtil {
 			}
 		}
 		return true;
+	}
+	
+	public static List<Integer> findXNMultiplcationPath(int n){
+	    Queue<List<Integer>> allPartialPaths=new LinkedList<List<Integer>>();
+	    int shortestPartialPath=Integer.MAX_VALUE;
+	    List<Integer> result=null;
+	    
+	    List<Integer> initalPath=new ArrayList<Integer>();
+	    initalPath.add(1);
+	    allPartialPaths.offer(initalPath);
+	    
+	    while(!allPartialPaths.isEmpty()){
+		List<Integer> partialPath=allPartialPaths.poll();
+		
+		for(Integer value1:partialPath){
+		    for(Integer value2:partialPath){
+			int sum=value1+value2;
+			
+			if(sum==n){
+			    if(partialPath.size()<shortestPartialPath){
+				shortestPartialPath=partialPath.size();
+				
+				result=new ArrayList<Integer>(partialPath);
+				result.add(n);
+			    }
+			}else if(sum<n){
+			    if(!partialPath.contains(sum) && partialPath.size()<shortestPartialPath &&partialPath.get(partialPath.size()-1)<sum){
+				List<Integer> newPartialPath=new ArrayList<Integer>(partialPath);
+				newPartialPath.add(sum);
+				allPartialPaths.offer(newPartialPath);
+			    }
+			}
+		    }
+		}
+		
+	    }
+	    
+	    return result;
 	}
 }

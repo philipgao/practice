@@ -20,12 +20,12 @@ public class MatchCounterTest {
 	 * @throws InterruptedException 
 	 */
 	public static void main(String[] args) throws InterruptedException, Exception {
-		File directory=new File("main/java");
-		MatchCounter counter=new MatchCounter(directory, "class");
+		File directory=new File("test/java");
+		MatchCounter counter=new MatchCounter(directory, "@Test");
 		FutureTask<Integer> task=new FutureTask<Integer>(counter);
 		new Thread(task).start();
 		
-		System.out.println(task.get()+" java classes");
+		System.out.println(task.get()+"test cases");
 
 	}
 

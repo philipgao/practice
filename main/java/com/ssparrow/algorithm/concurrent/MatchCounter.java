@@ -53,7 +53,7 @@ public class MatchCounter implements Callable<Integer>{
 				
 				new Thread(subTask).start();
 			}else{
-				count++;
+				count+=searchFile(child);
 			}
 		}
 		
@@ -65,18 +65,20 @@ public class MatchCounter implements Callable<Integer>{
 	}
 	
 	
-	private boolean searchFile(File file) throws IOException{
+	private int searchFile(File file) throws IOException{
+	    int matches =0;
 		Scanner scanner=new Scanner(file);
 		
 		String line;
 		
-		while((line=scanner.nextLine())!=null){
+		while(scanner.hasNextLine()){
+		    line=scanner.nextLine();
 			if(line.contains(keyword)){
-				return true;
+				matches++;
 			}
 		}
 		
-		return false;
+		return matches;
 		
 	}
 	
