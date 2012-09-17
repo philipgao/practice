@@ -1,5 +1,7 @@
 package com.ssparrow.algorithm.tree;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
 
 public class TreeUtil {
@@ -586,4 +588,46 @@ public class TreeUtil {
 		}
 	}
 	
+	/**
+	 * convert a bst to linked list representation
+	 * 
+	 * @param root
+	 * @return
+	 */
+	public static List<TreeNode> convertTreeToLinkedList(TreeNode root){
+		List<TreeNode> result=new LinkedList<TreeNode>();
+		
+		TreeNode lastNodeFromLeft = convertTreeToLinkedList(result, root.getLeftNode(), null, true);
+		
+		result.add(root);
+		root.setPreviousNode(lastNodeFromLeft);
+
+		convertTreeToLinkedList(result, root.getRightNode(), root, true);
+		
+		return result;
+	}
+	
+	private static TreeNode convertTreeToLinkedList(List<TreeNode> list, TreeNode node, TreeNode previousNode, boolean isOnLeft){
+		if(node==null){
+			return null;
+		}
+		
+		TreeNode leftNode = node.getLeftNode();
+		if(leftNode!=null){
+			leftNode.setPreviousNode(previousNode);
+			convertTreeToLinkedList(list, leftNode, previousNode, isOnLeft);
+		}
+		
+		list.add(node);
+		TreeNode previousNodeForCurrent = leftNode==null?previousNode:leftNode;
+		node.setPreviousNode(previousNodeForCurrent);
+		
+		TreeNode rightNode = node.getRightNode();
+		if(rightNode!=null){
+			rightNode.setPreviousNode(node);
+			return convertTreeToLinkedList(list, rightNode, node, isOnLeft);
+		}else{
+			return node;
+		}
+	}
 }

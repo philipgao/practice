@@ -2,6 +2,8 @@ package com.ssparrow.algorithm.tree;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
 public class TreeUtilTest {
@@ -207,5 +209,12 @@ public class TreeUtilTest {
 		OPERATOR [] operators=new OPERATOR[numbers.length-1];
 		
 		assertEquals("2+3*5-1", TreeUtil.generateEquation(numbers, operators, 0, 16));
+	}
+	
+	@Test
+	public void testConvertTreeToLinkedList(){
+		TreeNode root = TreeUtil.createMinimalBST(null, new int[]{1,2,3,4,5,6,7}, 0, 6);
+		List<TreeNode> result = TreeUtil.convertTreeToLinkedList(root);
+		assertEquals(7, result.size());
 	}
 }

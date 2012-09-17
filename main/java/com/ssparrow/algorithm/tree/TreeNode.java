@@ -4,7 +4,30 @@ public class TreeNode {
 	private TreeNode parent;
 	private TreeNode leftNode;
 	private TreeNode rightNode;
+	private TreeNode previousNode;
+	private TreeNode nextNode;
 	
+	/**
+	 * @return the previousNode
+	 */
+	public TreeNode getPreviousNode() {
+		return previousNode;
+	}
+
+	/**
+	 * @param previousNode the previousNode to set
+	 */
+	public void setPreviousNode(TreeNode previousNode) {
+		this.previousNode = previousNode;
+	}
+
+	/**
+	 * @param nextNode the nextNode to set
+	 */
+	public void setNextNode(TreeNode nextNode) {
+		this.nextNode = nextNode;
+	}
+
 	private Object value;
 	
 	public TreeNode(Object value) {
@@ -83,4 +106,13 @@ public class TreeNode {
 		}
 		return null;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "[" + value + "]";
+	}
+	
 }
