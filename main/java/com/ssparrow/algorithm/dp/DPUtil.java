@@ -62,7 +62,7 @@ public class DPUtil {
 	 * @return
 	 */
 	public static char[] findLongestCommonSubsequence(char[][][] map,char[] array1, int length1,char array2[], int length2){
-		System.out.println(length1+":"+length2);
+		//System.out.println(length1+":"+length2);
 		if(length1==0||length2==0){
 			return new char[0];
 		}
@@ -226,4 +226,67 @@ public class DPUtil {
 //		
 //		return lis;
 //	}
+	
+	
+	/**
+	 * Find the subsequences whose elements should not be adjacent and their sum should be maximum from the given array (contains only positive integers).
+	 * Eg: int[] A = {10, 1, 3, 25}
+	 * Sol: Sum: {10, 3} = 13
+	 * {1,25} = 26
+	 * {10,25} = 35
+	 * Here the Maximum subsequence is {10, 25}.
+	 * @param array
+	 * @return
+	 */
+	public static int [] findLargestNonConsecutiveSubArray(int [] array){
+		boolean [] flags=new boolean[array.length];
+		
+		return findLargestNonConsecutiveSubArray(array, flags, 0);
+	}
+	
+	private static int [] findLargestNonConsecutiveSubArray(int [] array, boolean[] flags, int position){
+		if(position==array.length){
+			return getSubArray(array, flags);
+		}
+		
+		if(position==0 || !flags[position-1]){
+			flags[position]=false;
+			int[] result1 = findLargestNonConsecutiveSubArray(array, flags, position+1);
+
+			flags[position]=true;
+			int[] result2 = findLargestNonConsecutiveSubArray(array, flags, position+1);
+			
+			if(sum(result1)>=sum(result2)){
+				return result1;
+			}else{
+				return result2;
+			}
+		}else{
+			flags[position]=false;
+			return findLargestNonConsecutiveSubArray(array, flags, position+1);
+		}
+	}
+	
+	private static int [] getSubArray(int [] array, boolean[] flags){
+		int index=0;
+		int [] temp=new int[array.length];
+		
+		for(int i=0;i<flags.length;i++){
+			if(flags[i]){
+				temp[index++]=array[i];
+			}
+		}
+		
+		int [] result=new int[index];
+		System.arraycopy(temp, 0, result, 0, index);
+		return result;
+	}
+	
+	private static int sum(int []array){
+		int sum=0;
+		for(int i=0;i<array.length;i++){
+			sum+=array[i];
+		}
+		return sum;
+	}
 }

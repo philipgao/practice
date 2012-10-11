@@ -95,4 +95,13 @@ public class DPUtilTest {
 		array = new int []{80, 60, 30, 40, 20, 10};
 		assertArrayEquals(new int []{80, 60, 40, 20, 10}, DPUtil.findLongestBitonicSubsequence(array));
 	}
+	
+	@Test
+	public void testFindLargestNonConsecutiveSubArray(){
+		int [] array =new int []{10, 1, 3, 25};
+		assertArrayEquals(new int[]{10,25}, DPUtil.findLargestNonConsecutiveSubArray(array));
+		
+		array =new int []{10, 1, 3, 25,23};
+		assertArrayEquals(new int[]{10,3, 23}, DPUtil.findLargestNonConsecutiveSubArray(array));
+	}
 }
