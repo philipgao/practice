@@ -226,11 +226,37 @@ public class ArrayUtilTest {
 		assertTrue(ArrayUtil.isArrayPartitionable(array));
 	}
 	
+	@Test
 	public void testFindPythagorasTriplet(){
 		int [] array = new int []{1,2,3,4,5,6,7};
 		assertEquals(new Triplet(3, 4, 5), ArrayUtil.findPythagorasTriplet(array));
 		
-		array = new int []{1,2,3,4,5,7,8};
+		array = new int []{1,2,3,4,6,7,8};
 		assertNull(ArrayUtil.findPythagorasTriplet(array));
+	}
+	
+	@Test
+	public void testFindRowWithMostOnes(){
+		int[][] matrix=new int[][]{
+				{ 0, 1, 1, 1, 1},
+				{ 0, 0, 1, 1, 1},
+				{ 0, 0, 0, 1, 1},
+				{ 1, 1, 1, 1, 1},
+				{ 0, 1, 1, 1, 1},
+				{ 0, 0, 0, 1, 1}
+			};
+		
+		assertEquals(3, ArrayUtil.findRowWithMostOnes(matrix));
+		
+		matrix=new int[][]{
+				{ 0, 0, 0, 1, 1},
+				{ 0, 0, 0, 0, 0},
+				{ 0, 0, 0, 1, 1},
+				{ 0, 0, 1, 1, 1},
+				{ 0, 0, 0, 1, 1},
+				{ 0, 0, 0, 0, 1}
+			};
+		
+		assertEquals(3, ArrayUtil.findRowWithMostOnes(matrix));
 	}
 }

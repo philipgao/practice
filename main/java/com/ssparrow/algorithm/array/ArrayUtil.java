@@ -758,4 +758,46 @@ public final class ArrayUtil {
 		
 		return null;
 	}
+	
+	/**
+	 * Given an mXn matrix with only 0 and 1 in it.
+	 * All the rows are sorted , ie, you will not find any row like this 101 , it will be 011
+	 * Return the row with maximum 1s.
+	 * Ex array:
+	 * 011
+	 * 111
+	 * 000
+	 * Give a solution with worst case time complexity less than 0(mXn)
+	 * @param matrix
+	 * @return
+	 */
+	public static int findRowWithMostOnes(int[][] matrix){
+		
+		for(int column=0;column<matrix[0].length;column++){
+			int rowNum=0;
+			int sum=0;
+			int firstIndex=-1;
+			boolean allRowSame=true;
+			
+			for(int row=0;row<matrix.length;row++){
+				rowNum++;
+				sum+=matrix[row][column];
+				
+				if(matrix[row][column]==1){
+					firstIndex=row;
+				}
+				
+				if(sum!=0 && sum!=rowNum){
+					allRowSame=false;
+					break;
+				}
+			}
+			
+			if(!allRowSame){
+				return firstIndex;
+			}
+		}
+		
+		return 0;
+	}
 }
