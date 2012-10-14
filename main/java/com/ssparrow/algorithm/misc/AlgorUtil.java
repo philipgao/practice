@@ -290,4 +290,41 @@ public class AlgorUtil {
 		
 		return result;
 	}
+	
+	/**
+	 * determine winner of 2/9 number game
+	 * 
+	 * Two players play the following game: they pick a random number N (less than 2 billion) then, 
+	 * starting from 1, take turns multiplying the number from the previous turn with either 2 or 9 (their choice). 
+	 * Whoever reaches N first wins. 
+	 * The candidate should write a function that given N decides who wins (first or second player)?
+	 * 
+	 * @param n
+	 * @return
+	 */
+	public static int findWinnerOf2and9Game(int n){
+		return findWinnerOf2and9Game(n, 1, 1);
+	}
+	
+	private static int findWinnerOf2and9Game(int n, int current, int player){
+		if(current*2>=n){
+			return player;
+		}else if(current*9>=n){
+			return player;
+		}else {
+			int nextPlayer=player==1?2:1;
+			
+			int result2 = findWinnerOf2and9Game(n, current*2, nextPlayer);
+			if(result2==player){
+				return player;
+			}
+			
+			int result9 = findWinnerOf2and9Game(n, current*9, nextPlayer);
+			if(result9==player){
+				return player;
+			}
+
+			return nextPlayer;
+		}
+	}
 }
