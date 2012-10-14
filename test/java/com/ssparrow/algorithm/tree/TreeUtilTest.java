@@ -217,4 +217,13 @@ public class TreeUtilTest {
 		List<TreeNode> result = TreeUtil.convertTreeToLinkedList(root);
 		assertEquals(7, result.size());
 	}
+	
+	@Test
+	public void testRebuildTreeFromInorderAndPreOrder(){
+		int [] inOrder=new int[]{4,2,5,1,6,3};
+		int [] preOrder=new int[]{1,2,4,5,3,6};
+		
+		TreeNode root = TreeUtil.rebuildTreeFromInorderAndPreOrder(inOrder, preOrder);
+		assertEquals("[1][2][4][5][3][6]", root.toString());
+	}
 }

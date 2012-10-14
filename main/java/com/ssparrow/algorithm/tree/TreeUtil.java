@@ -630,4 +630,62 @@ public class TreeUtil {
 			return node;
 		}
 	}
+	
+	/**
+	 * Construct Tree from given Inorder and Preorder traversals
+	 * Let us consider the below traversals:
+	 * 
+	 * Inorder sequence: D B E A F C
+	 * Preorder sequence: A B D E C F
+	 * 
+	 * @param inOrder
+	 * @param preOrder
+	 * @return
+	 */
+	public static TreeNode rebuildTreeFromInorderAndPreOrder(int [] inOrder, int [] preOrder){
+		return buildTreeFromInOrder(inOrder, 0, inOrder.length-1, preOrder, 0);
+	}
+	
+	private static TreeNode buildTreeFromInOrder(int [] inOrder, int start, int end, int [] preOrder, int preOrderIndex){
+		if(start>end){
+			return null;
+		}
+		
+		if(start==end){
+			return new TreeNode(inOrder[start]);
+		}
+		
+		int rootIndex=-1;
+		int rootValue = preOrder[preOrderIndex];
+		for(int i=start;i<=end;i++){
+			if(inOrder[i]==rootValue){
+				rootIndex=i;
+				break;
+			}
+		}
+		
+		TreeNode root=new TreeNode(rootValue);
+		
+		TreeNode leftRoot=buildTreeFromInOrder(inOrder, start, rootIndex-1, preOrder, preOrderIndex+1);
+		root.setLeftNode(leftRoot);
+		
+		int preOrderRightRootIndex=-1;
+		if(rootIndex>start){
+			int lastLeftNodeValue=inOrder[rootIndex-1];
+			
+			for(int i=preOrderIndex+1;i<preOrder.length;i++){
+				if(preOrder[i]==lastLeftNodeValue){
+					preOrderRightRootIndex=i+1;
+					break;
+				}
+			}
+		}else{
+			preOrderRightRootIndex=rootIndex+1;
+		}
+		
+		TreeNode rightRoot=buildTreeFromInOrder(inOrder, rootIndex+1, end, preOrder,preOrderRightRootIndex);
+		root.setRightNode(rightRoot);
+		
+		return root;
+	}
 }

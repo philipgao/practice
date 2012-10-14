@@ -112,7 +112,15 @@ public class TreeNode {
 	 */
 	@Override
 	public String toString() {
-		return "[" + value + "]";
+		StringBuffer sb=new StringBuffer();
+		sb.append("[").append(value).append("]");
+		if(leftNode!=null){
+			sb.append(leftNode.toString());
+		}
+		if(rightNode!=null){
+			sb.append(rightNode.toString());
+		}
+		return sb.toString();
 	}
 	
 }
