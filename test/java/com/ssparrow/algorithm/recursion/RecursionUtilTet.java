@@ -37,7 +37,10 @@ public class RecursionUtilTet {
 		set.add("jamie");
 		set.add("taotao");
 		
-		LinkedList<ArrayList<String>> allSubsets = RecursionUtil.findAllSubset(set, 0);
+		List<List<String>> allSubsets = RecursionUtil.findAllSubset(set, 0);
+		assertEquals(8, allSubsets.size());
+		
+		allSubsets = RecursionUtil.findAllSubSetByCombination(set);
 		assertEquals(8, allSubsets.size());
 	}
 

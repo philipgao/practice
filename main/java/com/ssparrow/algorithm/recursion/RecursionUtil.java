@@ -108,8 +108,8 @@ public class RecursionUtil {
 	 * @param index
 	 * @return
 	 */
-	public static LinkedList<ArrayList<String>>  findAllSubset(ArrayList<String> set, int index){
-		LinkedList<ArrayList<String>> allSubsets =new LinkedList<ArrayList<String>>();
+	public static List<List<String>>  findAllSubset(ArrayList<String> set, int index){
+		List<List<String>> allSubsets =new LinkedList<List<String>>();
 		
 		if(index>=set.size()){
 			ArrayList<String> subset=new ArrayList<String>();
@@ -117,7 +117,7 @@ public class RecursionUtil {
 		}else{
 			String item = set.get(index);
 			
-			LinkedList<ArrayList<String>> subResult = findAllSubset(set, index+1);
+			List<List<String>> subResult = findAllSubset(set, index+1);
 			
 			for (Iterator iterator = subResult.iterator(); iterator.hasNext();) {
 				ArrayList<String> subset = (ArrayList<String>) iterator.next();
@@ -132,6 +132,33 @@ public class RecursionUtil {
 		}
 		
 		return allSubsets;
+	}
+	
+	/**
+	 * @param list
+	 * @return
+	 */
+	public static List<List<String>> findAllSubSetByCombination(List<String> list){
+		List<List<String>> allSubSet=new ArrayList<List<String>>();
+		
+		int max=(1<<list.size());
+		for(int number=0;number<max;number++){
+			List<String> subset=new ArrayList<String>();
+			int temp=number;
+			
+			int index=0;
+			while(temp>0){
+				if((temp&1)>0){
+					subset.add(list.get(index));
+				}
+				
+				temp=temp>>1;
+				index++;
+			}
+			allSubSet.add(subset);
+		}
+		
+		return allSubSet;
 	}
 	
 	/**
