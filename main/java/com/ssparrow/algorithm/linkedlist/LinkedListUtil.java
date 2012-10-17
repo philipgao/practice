@@ -169,4 +169,43 @@ public class LinkedListUtil {
 			moveDisks(n-1, buffer, destination, source);
 		}
 	}
+	
+	/**
+	 * @param head
+	 * @param k
+	 * @return
+	 */
+	public static LinkedListNode reverserEveryKNodesInList(LinkedListNode head, int k){
+		LinkedListNode node=head;
+		head=null;
+		
+		LinkedListNode previousLastNode=null;
+		while(node!=null){
+			LinkedListNode firstNode=node;
+
+			int count=0;
+			LinkedListNode previousNode=null;
+			while(count<k && node!=null){
+				LinkedListNode next=node.getNext();
+				
+				node.setNext(previousNode);
+				previousNode=node;
+				
+				node=next;
+				count++;
+			}
+			
+			if(head==null){
+				head=previousNode;
+			}
+			
+			if(previousLastNode!=null){
+				previousLastNode.setNext(previousNode);
+			}
+			
+			previousLastNode=firstNode;
+		}
+		
+		return head;
+	}
 }

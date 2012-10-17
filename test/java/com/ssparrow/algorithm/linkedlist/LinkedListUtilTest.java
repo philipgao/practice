@@ -126,4 +126,45 @@ public class LinkedListUtilTest {
 		
 		
 	}
+	
+	@Test
+	public void testReverserEveryKNodesInList(){
+		LinkedListNode head=new LinkedListNode("1");
+		head.addToTail("2");
+		head.addToTail("3");
+		head.addToTail("4");
+		head.addToTail("5");
+		
+		head = LinkedListUtil.reverserEveryKNodesInList(head, 2);
+		assertEquals("2", head.getData());
+		head=head.getNext();
+		assertEquals("1", head.getData());
+		head=head.getNext();
+		assertEquals("4", head.getData());
+		head=head.getNext();
+		assertEquals("3", head.getData());
+		head=head.getNext();
+		assertEquals("5", head.getData());
+		head=head.getNext();
+		assertNull(head);
+		
+		head=new LinkedListNode("1");
+		head.addToTail("2");
+		head.addToTail("3");
+		head.addToTail("4");
+		head.addToTail("5");
+		
+		head = LinkedListUtil.reverserEveryKNodesInList(head, 3);
+		assertEquals("3", head.getData());
+		head=head.getNext();
+		assertEquals("2", head.getData());
+		head=head.getNext();
+		assertEquals("1", head.getData());
+		head=head.getNext();
+		assertEquals("5", head.getData());
+		head=head.getNext();
+		assertEquals("4", head.getData());
+		head=head.getNext();
+		assertNull(head);
+	}
 }
