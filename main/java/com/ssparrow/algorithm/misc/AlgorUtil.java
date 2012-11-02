@@ -327,4 +327,48 @@ public class AlgorUtil {
 			return nextPlayer;
 		}
 	}
+	
+	/**
+	 * @param digits
+	 * @return
+	 */
+	public static List<String> getAllPossibleStrs(int [] digits){
+		char [][] possibleChars = new char[9][]; 
+
+		int number=26;
+		int avg=26/9+1;
+		
+		for(int i=0;i<9;i++){
+			int count=number>=avg?avg:number;
+			
+			char [] candidate=new char[count];
+			for(int j=0;j<count;j++){
+				candidate[j]=(char) ('a'+i*avg+j);
+			}
+			possibleChars[i]=candidate;
+		}
+		
+		List<String> result=new ArrayList<String>();
+		char [] str = new char[digits.length];
+		
+		getAllPossibleStrs(result, possibleChars, digits, str, 0);
+		
+		return result;
+		
+	}
+	
+	private static void getAllPossibleStrs(List<String> result, char [][] possibleChars, int []  digits, char [] str, int position){
+		if(position==digits.length){
+			result.add(new String(str));
+			return;
+		}
+		
+		char[] cand=possibleChars[digits[position]-1];
+		
+		for(int i=0;i<cand.length;i++){
+			str[position]=cand[i];
+			
+			getAllPossibleStrs(result, possibleChars, digits, str, position+1);
+		}
+	}
 }

@@ -168,4 +168,10 @@ public class AlgorUtilTest {
 
 		assertEquals(1, AlgorUtil.findWinnerOf2and9Game(1000000000));
 	}
+	
+	@Test
+	public void testGetAllPossibleStrs(){
+		List<String> allPossibleStrs = AlgorUtil.getAllPossibleStrs(new int []{3, 5, 7});
+		assertEquals(27, allPossibleStrs.size());
+	}
 }
