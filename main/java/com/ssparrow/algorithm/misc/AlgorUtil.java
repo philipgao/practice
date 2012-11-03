@@ -434,15 +434,19 @@ public class AlgorUtil {
 		int index=numberStr.length()-2;
 		
 		while(index>=0){
-			if(numberStr.charAt(index)=='0'){
+			char currentChar = numberStr.charAt(index);
+			
+			if(currentChar=='0'){
 				temp0=temp1;
 				temp1=0;
-			}else{
+			}else if(currentChar>='1' && currentChar<='9'){
 				int value2=Integer.parseInt(numberStr.substring(index, index+2));
 				
 				int temp=temp1;
 				temp1=(value2<=26)?(temp0+temp1):temp1;
 				temp0=temp;
+			}else{
+				return -1;
 			}
 			
 			index--;
