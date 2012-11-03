@@ -332,7 +332,7 @@ public class AlgorUtil {
 	 * @param digits
 	 * @return
 	 */
-	public static List<String> getAllPossibleStrs(int [] digits){
+	public static List<String> getAllPossibleStrFromPhoneDigits(int [] digits){
 		char [][] possibleChars = new char[9][]; 
 
 		int number=26;
@@ -346,18 +346,20 @@ public class AlgorUtil {
 				candidate[j]=(char) ('a'+i*avg+j);
 			}
 			possibleChars[i]=candidate;
+			
+			number=number-count;
 		}
 		
 		List<String> result=new ArrayList<String>();
 		char [] str = new char[digits.length];
 		
-		getAllPossibleStrs(result, possibleChars, digits, str, 0);
+		getAllPossibleStrFromPhoneDigits(result, possibleChars, digits, str, 0);
 		
 		return result;
 		
 	}
 	
-	private static void getAllPossibleStrs(List<String> result, char [][] possibleChars, int []  digits, char [] str, int position){
+	private static void getAllPossibleStrFromPhoneDigits(List<String> result, char [][] possibleChars, int []  digits, char [] str, int position){
 		if(position==digits.length){
 			result.add(new String(str));
 			return;
@@ -368,7 +370,84 @@ public class AlgorUtil {
 		for(int i=0;i<cand.length;i++){
 			str[position]=cand[i];
 			
-			getAllPossibleStrs(result, possibleChars, digits, str, position+1);
+			getAllPossibleStrFromPhoneDigits(result, possibleChars, digits, str, position+1);
 		}
+	}
+	
+	/**
+	 * suppose number 1-26 represent character a-z,please find all the possible translation when convert a number string to characters
+	 * for example:
+	 *    112 -> aab, al, kb
+	 *    
+	 *    102
+	 *
+	 * @param numberStr
+	 * @return
+	 */
+	public static List<String> getAllPossibleStrFrom1To26Number(String numberStr){
+		List<String> result=new ArrayList<String>();
+		char[] chars=new char[numberStr.length()];
+		
+		getAllPossibleStrFrom1To26Number(result, chars, 0, numberStr, 0);
+		
+		return result;
+	}
+	
+	private static void getAllPossibleStrFrom1To26Number(List<String> result, char[] chars, int position, String numberStr, int start){
+		
+		for(int end=start+1;end<=numberStr.length();end++){
+			int number=Integer.parseInt(numberStr.substring(start, end));
+			
+			if(number>=1 && number<=26){
+				chars[position]=(char) ('a'+number-1);
+				
+				if(end==numberStr.length()){
+					result.add(new String(chars, 0, position+1));
+				}else{
+					getAllPossibleStrFrom1To26Number(result, chars, position+1, numberStr, end);
+				}
+			}else{
+				break;
+			}
+		}
+	}
+	
+	/**
+	 * suppose number 1-26 represent character a-z,please find all the possible translation when convert a number string to characters
+	 * for example:
+	 *    112 -> aab, al, kb
+	 *       ~
+	 *      2
+	 *     1
+	 *     
+	 *    102
+	 *       ~
+	 *      2
+	 *     0
+	 * @param numberStr
+	 * @return
+	 */
+	public static int getPossibleStrNumFrom1To26NumberWithoutRecursion(String numberStr){
+		int temp0=1;
+		int temp1=numberStr.charAt(numberStr.length()-1)=='0'?0:1;
+		
+		int index=numberStr.length()-2;
+		
+		while(index>=0){
+			if(numberStr.charAt(index)=='0'){
+				temp0=temp1;
+				temp1=0;
+			}else{
+				int value2=Integer.parseInt(numberStr.substring(index, index+2));
+				
+				int temp=temp1;
+				temp1=(value2<=26)?(temp0+temp1):temp1;
+				temp0=temp;
+			}
+			
+			index--;
+		}
+		
+		return temp1;
 	}
 }

@@ -171,7 +171,36 @@ public class AlgorUtilTest {
 	
 	@Test
 	public void testGetAllPossibleStrs(){
-		List<String> allPossibleStrs = AlgorUtil.getAllPossibleStrs(new int []{3, 5, 7});
+		List<String> allPossibleStrs = AlgorUtil.getAllPossibleStrFromPhoneDigits(new int []{3, 5, 7});
 		assertEquals(27, allPossibleStrs.size());
+	}
+	
+	@Test
+	public void testGetAllPossibleStrFrom1To26Number(){
+		List<String> result = AlgorUtil.getAllPossibleStrFrom1To26Number("112");
+		
+		assertEquals(3, result.size());
+		assertEquals("[aab, al, kb]", result.toString());
+		
+		result = AlgorUtil.getAllPossibleStrFrom1To26Number("2011");
+		
+		assertEquals(2, result.size());
+		assertEquals("[taa, tk]", result.toString());
+		
+		result = AlgorUtil.getAllPossibleStrFrom1To26Number("2112");
+		
+		assertEquals(5, result.size());
+		assertEquals("[baab, bal, bkb, uab, ul]", result.toString());
+	}
+	
+	@Test
+	public void testGetPossibleStrNumFrom1To26NumberWithoutRecursion(){
+		assertEquals(3, AlgorUtil.getPossibleStrNumFrom1To26NumberWithoutRecursion("112"));
+
+		assertEquals(1, AlgorUtil.getPossibleStrNumFrom1To26NumberWithoutRecursion("102"));
+
+		assertEquals(2, AlgorUtil.getPossibleStrNumFrom1To26NumberWithoutRecursion("2011"));
+
+		assertEquals(5, AlgorUtil.getPossibleStrNumFrom1To26NumberWithoutRecursion("2112"));
 	}
 }
