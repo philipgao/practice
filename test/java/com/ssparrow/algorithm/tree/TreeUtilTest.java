@@ -226,4 +226,35 @@ public class TreeUtilTest {
 		TreeNode root = TreeUtil.rebuildTreeFromInorderAndPreOrder(inOrder, preOrder);
 		assertEquals("[1][2][4][5][3][6]", root.toString());
 	}
+	
+	@Test
+	public void testIsIsomorphicTree(){
+		TreeNode root1=new TreeNode(4);
+		root1.addLeft(2);
+		root1.getLeftNode().addLeft(1);
+		root1.getLeftNode().addRight(3);
+		root1.addRight(6);
+		root1.getRightNode().addLeft(5);
+		root1.getRightNode().addRight(7);
+		
+		TreeNode root2=new TreeNode(4);
+		root2.addLeft(2);
+		root2.getLeftNode().addLeft(1);
+		root2.getLeftNode().addRight(3);
+		root2.addRight(6);
+		root2.getRightNode().addLeft(5);
+		root2.getRightNode().addRight(7);
+		
+		assertTrue(TreeUtil.isIsomorphicTree(root1, root2));
+		
+		TreeNode root3=new TreeNode(4);
+		root3.addLeft(6);
+		root3.getLeftNode().addLeft(1);
+		root3.getLeftNode().addRight(3);
+		root3.addRight(2);
+		root3.getRightNode().addLeft(7);
+		root3.getRightNode().addRight(5);
+		
+		assertTrue(TreeUtil.isIsomorphicTree(root1, root3));
+	}
 }

@@ -688,4 +688,74 @@ public class TreeUtil {
 		
 		return root;
 	}
+	
+	/**
+	 * Two trees can be called isomorphic if they have similar structure and the only difference amongst them can be is, that their child nodes may or may not be swaped..
+	 * 
+	 * for example
+	 * 
+	 * ——4
+	 * 
+	 * —-2—6
+	 * 
+	 * –1–3–5–7
+	 * 
+	 * and
+	 * 
+	 * ——4
+	 * 
+	 * —-6—2
+	 * 
+	 * –1–3–7–5
+	 * 
+	 * are isomorphic .. the trees are similar and a few nodes have their left and right child swapped…
+	 * 
+	 * Given two trees determine if they are isomorphic…
+	 * @param root1
+	 * @param root2
+	 * @return
+	 */
+	public static boolean isIsomorphicTree(TreeNode root1, TreeNode root2){
+		if(root1==null && root2==null){
+			return true;
+		}else if(root1==null || root2==null || !root1.getValue().equals(root2.getValue())){
+			return false;
+		}
+			
+		if(root1.getLeftNode().getValue().equals(root2.getLeftNode().getValue()) && 
+				root1.getRightNode().getValue().equals(root2.getRightNode().getValue())){
+			return isIsomorphicSubTree(root1.getLeftNode(), root2.getLeftNode()) &&
+					isIsomorphicSubTree(root1.getRightNode(), root2.getRightNode());
+		}else if(root1.getLeftNode().getValue().equals(root2.getRightNode().getValue()) && 
+				root1.getRightNode().getValue().equals(root2.getLeftNode().getValue())){
+			return isIsomorphicSubTree(root1.getLeftNode(), root2.getLeftNode()) &&
+					isIsomorphicSubTree(root1.getRightNode(), root2.getRightNode());
+		}
+		
+		return false;
+	}
+	
+	private static boolean isIsomorphicSubTree(TreeNode root1, TreeNode root2){
+		if(root1==null && root2==null){
+			return true;
+		}else if(root1==null || root2==null){
+			return false;
+		}
+	
+		if((root1.getLeftNode()==null && root2.getLeftNode()==null || 
+				root1.getLeftNode().getValue().equals(root2.getLeftNode().getValue())) && 
+				(root1.getRightNode()==null && root2.getRightNode()==null || 
+				root1.getRightNode().getValue().equals(root2.getRightNode().getValue())) ){
+			return isIsomorphicSubTree(root1.getLeftNode(), root2.getLeftNode()) &&
+					isIsomorphicSubTree(root1.getRightNode(), root2.getRightNode());
+		}else if((root1.getLeftNode()==null && root2.getRightNode()==null || 
+				root1.getLeftNode().getValue().equals(root2.getRightNode().getValue())) && 
+				(root1.getRightNode()==null && root2.getLeftNode()==null || 
+				root1.getRightNode().getValue().equals(root2.getLeftNode().getValue())) ){
+			return isIsomorphicSubTree(root1.getLeftNode(), root2.getLeftNode()) &&
+					isIsomorphicSubTree(root1.getRightNode(), root2.getRightNode());
+		}
+		
+		return false;
+	}
 }
