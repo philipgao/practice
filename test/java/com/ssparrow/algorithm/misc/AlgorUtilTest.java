@@ -8,6 +8,8 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import com.ssparrow.algorithm.array.ArrayUtil;
+
 public class AlgorUtilTest {
 
 	@Test
@@ -202,5 +204,12 @@ public class AlgorUtilTest {
 		assertEquals(2, AlgorUtil.getPossibleStrNumFrom1To26NumberWithoutRecursion("2011"));
 
 		assertEquals(5, AlgorUtil.getPossibleStrNumFrom1To26NumberWithoutRecursion("2112"));
+	}
+	
+	@Test
+	public void testCountSort(){
+		int [] array=new int []{0,1,2,2,1,1,0,2,1,0};
+		
+		assertArrayEquals(new int[]{0,0,0,1,1,1,1,2,2,2}, ArrayUtil.countSort(array, 2));
 	}
 }

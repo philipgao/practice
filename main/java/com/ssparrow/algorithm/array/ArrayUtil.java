@@ -800,4 +800,31 @@ public final class ArrayUtil {
 		
 		return 0;
 	}
+	
+	/**
+	 * An array of n length, filled with 0's,1's and 2's, how to sort effectively?
+	 * Input:{0,1,2,2,1,1,0,2,1,0}
+	 * Output: {0,0,0,1,1,1,1,2,2,2}
+	 * @param array
+	 * @param k
+	 * @return
+	 */
+	public static int [] countSort(int [] array, int k){
+		int [] counts=new int [k+1];
+		for(int i=0;i<array.length;i++){
+			counts[array[i]]=counts[array[i]]+1;
+		}
+		
+		for(int i=1;i<counts.length;i++){
+			counts[i]=counts[i]+counts[i-1];
+		}
+		
+		int [] result=new int [array.length];
+		for(int i=array.length-1;i>=0;i--){
+			result[counts[array[i]]-1]=array[i];
+			counts[array[i]]=counts[array[i]]-1;
+		}
+		
+		return result;
+	}
 }
