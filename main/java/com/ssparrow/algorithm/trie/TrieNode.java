@@ -69,16 +69,14 @@ public class TrieNode {
 		}
 		
 		char childValue = str.charAt(index);
-		if(this.hasChild(childValue)){
-			this.getChild(childValue).addChild(str, index+1);
-		}else{
+		if(!this.hasChild(childValue)){
 			TrieNode newChild=new TrieNode(this);
 			newChild.setValue(childValue);
 			
 			children.add(newChild);
 			childrenMap.put(childValue, newChild);
-			
-			newChild.addChild(str, index+1);
 		}
+		
+		this.getChild(childValue).addChild(str, index+1);
 	}
 }
