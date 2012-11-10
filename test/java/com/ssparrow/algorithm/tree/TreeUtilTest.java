@@ -146,6 +146,11 @@ public class TreeUtilTest {
 		assertEquals(4, root.getValue());
 		assertEquals(5, root.getNextNode().getValue());
 		assertEquals(root, root.getLeftNode().getRightNode().getNextNode());
+		
+		root = TreeUtil.createMinimalBST(null, new int[]{1,2,3,4,5,6,7}, 0, 6);
+		assertEquals(4, root.getValue());
+		assertEquals(5, TreeUtil.getNextNode(root).getValue());
+		assertEquals(root, TreeUtil.getNextNode(root.getLeftNode().getRightNode()));
 	}
 	
 	@Test
@@ -257,4 +262,6 @@ public class TreeUtilTest {
 		
 		assertTrue(TreeUtil.isIsomorphicTree(root1, root3));
 	}
+	
+	
 }

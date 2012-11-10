@@ -758,4 +758,28 @@ public class TreeUtil {
 		
 		return false;
 	}
+	
+	/**
+	 * @param node
+	 * @return
+	 */
+	public static TreeNode getNextNode(TreeNode node){
+		if(node.getRightNode()!=null){
+			node = node.getRightNode();
+			
+			while(node.getLeftNode()!=null){
+				node=node.getLeftNode();
+			}
+			
+			return node;
+		}else if(node.getParent()!=null){
+			while(node==node.getParent().getRightNode()){
+				node=node.getParent();
+			}
+			
+			return node.getParent();
+		}
+		
+		return null;
+	}
 }
