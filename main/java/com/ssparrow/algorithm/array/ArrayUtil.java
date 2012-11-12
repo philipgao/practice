@@ -827,4 +827,85 @@ public final class ArrayUtil {
 		
 		return result;
 	}
+	
+	/**
+	 * 
+Problem Statement :
+¥ Given an 4n X 4n Matrix, where n is a positive integer taken as input. Imagine the matrix consisting of two interleaved coils whose centers are at the centre of the matrix. Implement a java program which takes an integer (n) as input and prints the two coils in two seperate lines.
+
+Please have a look at the below examples to get a sense of what the two coils are :
+¥ Example 1:
+¥ Input: 1
+¥ Matrix:
+01 02 03 04
+05 06 07 08
+09 10 11 12
+13 14 15 16
+
+¥ Output the Two Coils as:
+- Coil1: 10 06 02 03 04 08 12 16
+- Coil2: 07 11 15 14 13 09 05 01
+
+¥ Example 2:
+¥ Input: 2
+¥ Matrix:
+01 02 03 04 05 06 07 08
+09 10 11 12 13 14 15 16
+17 18 19 20 21 22 23 24
+25 26 27 28 29 30 31 32
+33 34 35 36 37 38 39 40
+41 42 43 44 45 46 47 48
+49 50 51 52 53 54 55 56
+57 58 59 60 61 62 63 64
+
+¥ Output the Two Coils as:
+- Coil1: 36 28 20 21 22 30 38 46 54 63 52 51 50 42 34 26 18 10 02 03 04 05 06 07 08 16 24 32 40 48 56 64
+- Coil2: 29 37 45 44 43 35 27 19 11 12 13 14 15 23 31 39 47 55 63 62 61 60 59 58 57 49 41 33 25 17 09 01
+	 * @param n
+	 * @return
+	 */
+	public static int [][] getInterleavingCoilsFrom4nMatrix(int n){
+		int coilItemNumer = (int) (8*Math.pow(n, 2));
+		
+		int [][] result = new int [2][coilItemNumer];
+		
+		result[0]=getColiItems(n, coilItemNumer,  4*n-1, 4*n-1);
+		result[1]=getColiItems(n, coilItemNumer,  0, 0);
+		
+		return result;
+	}
+
+	/**
+	 * @param n
+	 * @param coilItemNumer
+	 */
+	private static int [] getColiItems(int n, int coilItemNumer, int startRow, int startColumn) {
+		int [] coilItems=new int [coilItemNumer];
+		
+		int row=startRow;
+		int column=startColumn;
+		int index=coilItemNumer-1;
+		int layer=0;
+		while(layer<2*n){
+			coilItems[index--]=row*4*n+column+1;
+			
+			if(row==4*n-layer-1 && column==4*n-layer-2){
+				layer++;
+				row--;
+			}else if(row==layer && column==layer+1){
+				layer++;
+				row++;
+			}else if(row<4*n-layer-1 && column==layer){
+				row++;
+			}else if(row==4*n-layer-1 && column<4*n-layer-2){
+				column++;
+			}else if(row >layer && column == 4*n-layer-1){
+				row--;
+			}else if(row == layer && column > layer+1){
+				column--;
+			}
+		}
+		
+		return coilItems;
+	}
 }

@@ -259,4 +259,11 @@ public class ArrayUtilTest {
 		
 		assertEquals(3, ArrayUtil.findRowWithMostOnes(matrix));
 	}
+	
+	@Test
+	public void testGetInterleavingCoilsFrom4nMatrix(){
+		int[][] result = ArrayUtil.getInterleavingCoilsFrom4nMatrix(1);
+		assertArrayEquals(new int[]{10,6,2,3,4,8,12,16},result[0]);
+		assertArrayEquals(new int []{7,11,15,14,13,9,5,1},result[1]);
+	}
 }
