@@ -255,7 +255,7 @@ public class GraphUtil {
 	}
 	
 	private static void updateLabel(int [][] labels, int row, int column, int target){
-		if(labels[row][column]==target){
+		if(labels[row][column]==target || labels[row][column]==0){
 			return;
 		}
 		
@@ -270,6 +270,13 @@ public class GraphUtil {
 		}
 	}
 	
+	/**
+	 * another solution to get the connected regions
+	 * by recursion and use flags to mark the items that has visited
+	 * 
+	 * @param matrix
+	 * @return
+	 */
 	public static int getConnectedRegionsByRecursion(int [][] matrix){
 		boolean [][] flags=new boolean [matrix.length][matrix[0].length];
 		
