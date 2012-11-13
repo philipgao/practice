@@ -337,4 +337,25 @@ public class GraphUtilTest {
 		assertEquals(1, scc.get(3).size());
 	}
 
+	@Test
+	public void testGetConnectedRegions(){
+		int [][] matrix=new int[][]{{1,0,1}};
+		
+		assertEquals(2, GraphUtil.getConnectedRegionsByRecursion(matrix));
+		
+
+		assertEquals(2, GraphUtil.getConnectedRegionsByLabeling(matrix));
+		
+		matrix=new int[][]{
+		{1,0,1,0,0,1},
+		{1,1,0,1,1,0},
+		{1,1,1,0,0,0},
+		{0,0,0,0,1,0}
+		};		
+
+		assertEquals(5, GraphUtil.getConnectedRegionsByRecursion(matrix));
+		
+
+		assertEquals(5, GraphUtil.getConnectedRegionsByLabeling(matrix));
+	}
 }
