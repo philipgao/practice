@@ -7,8 +7,13 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
+
+import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Woodstox;
 
 public final class StringUtil {
 	public static final int ASC_CHAR_NUM=256;
@@ -311,6 +316,55 @@ public final class StringUtil {
 		}
 		
 		return false;
+	}
+	
+	
+	/**
+	 * @param dictionary
+	 * @return
+	 */
+	public static String findWordWithMaxCombo(Set<String> dictionary){
+		Map<String, Integer> wordComboMap=new HashMap<String, Integer>();
+		
+		int max=Integer.MIN_VALUE;
+		String maxWord=null;
+		for(String word:dictionary){
+			int count= getWordComboCount(word, dictionary, wordComboMap);
+			if(count>max){
+				max=count;
+				maxWord=word;
+			}
+		}
+		
+		return maxWord;
+	}
+	
+	private static int getWordComboCount(String word, Set<String> dictionary, Map<String, Integer> wordComboMap){
+		if(wordComboMap.get(word)!=null){
+			return wordComboMap.get(word);
+		}
+		
+		for(int end=1;end<=word.length();end++){
+			String prefix=word.substring(0, end);
+			
+			if(dictionary.contains(prefix)){
+				if(end<word.length()){
+					String remains=word.substring(end);
+					
+					int subResult=getWordComboCount(remains, dictionary, wordComboMap);
+					int result=subResult==-1?-1:subResult+1;
+					
+					wordComboMap.put(word, result);
+					return result;
+				}else{
+					wordComboMap.put(word, 1);
+					return 1;
+				}
+			}
+		}
+		
+		wordComboMap.put(word, -1);
+		return -1;
 	}
 	
 	/**

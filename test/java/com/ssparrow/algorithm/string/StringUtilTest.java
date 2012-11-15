@@ -3,7 +3,9 @@ package com.ssparrow.algorithm.string;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -151,6 +153,23 @@ public class StringUtilTest {
 		words.add("book");
 		
 		String combo = StringUtil.findLongestComboWords(words);
+		assertEquals("macbookair", combo);
+	}
+	
+	@Test
+	public void testFindWordWithMaxCombo(){
+		Set<String> words = new HashSet<String>();
+		words.add("this");
+		words.add("tv");
+		words.add("couch");
+		words.add("dog");
+		words.add("mac");
+		words.add("air");
+		words.add("tvtable");
+		words.add("macbookair");
+		words.add("book");
+		
+		String combo = StringUtil.findWordWithMaxCombo(words);
 		assertEquals("macbookair", combo);
 	}
 	
