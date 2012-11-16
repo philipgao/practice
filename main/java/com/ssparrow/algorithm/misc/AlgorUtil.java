@@ -454,4 +454,41 @@ public class AlgorUtil {
 		
 		return temp1;
 	}
+	
+	/**
+	 * @return
+	 */
+	public static List<List<Integer>> findAllPossible8QueenPlacement(){
+		List<List<Integer>> result=new ArrayList<List<Integer>>();
+		
+		int [] columns=new int[8];
+		placeQueen(result, columns, 0);
+		
+		return result;
+	}
+	
+	private static void placeQueen(List<List<Integer>> result, int [] columns, int row){
+		if(row==columns.length){
+			List<Integer> placement=new ArrayList<Integer>();
+			for(int i=0;i<columns.length;i++){
+				placement.add(columns[i]);
+			}
+			result.add(placement);
+			return;
+		}
+		
+		for(int column=0;column<=8;column++){
+			boolean isValid=true;
+			for(int previousRow=0;previousRow<row;previousRow++){
+				if(column==columns[previousRow] || row-previousRow==Math.abs(column-columns[previousRow])){
+					isValid=false;
+					break;
+				}
+			}
+			if(isValid){
+				columns[row]=column;
+				placeQueen(result, columns, row+1);
+			}
+		}
+	}
 }

@@ -212,4 +212,10 @@ public class AlgorUtilTest {
 		
 		assertArrayEquals(new int[]{0,0,0,1,1,1,1,2,2,2}, ArrayUtil.countSort(array, 2));
 	}
+	
+	@Test
+	public void testFindAllPossible8QueenPlacement(){
+		List<List<Integer>> result = AlgorUtil.findAllPossible8QueenPlacement();
+		assertEquals(1, result.size());
+	}
 }
