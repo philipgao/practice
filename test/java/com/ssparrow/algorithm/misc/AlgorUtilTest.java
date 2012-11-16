@@ -215,7 +215,6 @@ public class AlgorUtilTest {
 	
 	@Test
 	public void testFindAllPossible8QueenPlacement(){
-		List<List<Integer>> result = AlgorUtil.findAllPossible8QueenPlacement();
-		assertEquals(1, result.size());
+		assertEquals(1066, AlgorUtil.findAllPossible8QueenPlacement());
 	}
 }
