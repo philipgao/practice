@@ -187,6 +187,56 @@ public class TreeUtil {
 		return true;
 	}
 	
+	
+	/**
+	 * @param root
+	 * @param value
+	 * @return
+	 */
+	public static BSTCheckResult checkBSTWithoutStaticVariable(TreeNode root, Object value){
+		if(root==null){
+			return new BSTCheckResult(true,value);
+		}
+		
+		BSTCheckResult leftResult = checkBSTWithoutStaticVariable(root.getLeftNode(), value);
+		if(!leftResult.isBST()){
+			return new BSTCheckResult(true, null);
+		}
+		Object leftMaxValue=leftResult.getMaxValue();
+		
+		if(leftMaxValue!=null && ((Integer)root.getValue()).compareTo((Integer)leftMaxValue)<0){
+			return new BSTCheckResult(false, root.getValue());
+		}
+		
+		return checkBSTWithoutStaticVariable(root.getRightNode(), root.getValue());
+	}
+	
+	static class BSTCheckResult{
+		private boolean isBST;
+		private Object maxValue;
+		/**
+		 * @param isBST
+		 * @param maxValue
+		 */
+		private BSTCheckResult(boolean isBST, Object maxValue) {
+			super();
+			this.isBST = isBST;
+			this.maxValue = maxValue;
+		}
+		/**
+		 * @return the isBST
+		 */
+		public boolean isBST() {
+			return isBST;
+		}
+		/**
+		 * @return the maxValue
+		 */
+		public Object getMaxValue() {
+			return maxValue;
+		}
+	}
+	
 	/**
 	 * @param root
 	 * @param sum

@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.ssparrow.algorithm.tree.TreeUtil.BSTCheckResult;
+
 public class TreeUtilTest {
 	
 	@Test
@@ -131,6 +133,8 @@ public class TreeUtilTest {
 		TreeNode root = TreeUtil.createMinimalBST(null, new int[]{1,2,3,4,5,6,7}, 0, 6);
 		assertTrue(TreeUtil.checkBST(root));
 		assertTrue(TreeUtil.checkBSTOptimaized(root));
+		BSTCheckResult result = TreeUtil.checkBSTWithoutStaticVariable(root, null);
+		assertTrue(result.isBST());
 		
 		root=new TreeNode(20);
 		root.addLeft(10);
@@ -138,6 +142,8 @@ public class TreeUtilTest {
 		root.addRight(30);
 		assertFalse(TreeUtil.checkBST(root));
 		assertFalse(TreeUtil.checkBSTOptimaized(root));
+		result = TreeUtil.checkBSTWithoutStaticVariable(root, null);
+		assertFalse(result.isBST());
 	}
 	
 	@Test 
