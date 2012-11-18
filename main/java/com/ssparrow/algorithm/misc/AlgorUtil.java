@@ -485,4 +485,52 @@ public class AlgorUtil {
 		
 		return count;
 	}
+	
+	/**
+	 * 
+	 *  we will name a number "aggregated number" if this number has the following attribute:
+		just like the Fibonacci numbers
+		1,1,2,3,5,8,13.....
+		
+		the digits in the number can divided into several parts, and the later part is the sum of the former parts.
+		
+		like 112358, because 1+1=2, 1+2=3, 2+3=5, 3+5=8
+		122436, because 12+24=36
+		1299111210, because 12+99=111, 99+111=210
+		112112224, because 112+112=224
+		so can you provide a function to check whether this number is aggregated number or not?
+	 * @param str
+	 * @return
+	 */
+	public static boolean isAggregateNumber(String str){
+		return isAggregateNumber(str, 0, -1,-1);
+	}
+	
+	private static boolean isAggregateNumber(String str, int start, int number1, int number2){
+		if(start>=str.length()){
+			return true;
+		}
+		
+		for(int end=start+1;end<=str.length();end++){
+			int number=Integer.parseInt(str.substring(start,end));
+
+			boolean result = false;
+			
+			if(number1>=0 && number2>=0){
+				if((number1+number2)==number){
+					result= isAggregateNumber(str, end, number2, number);
+				}
+			}else if(number1<0 && number2<0){
+				result= isAggregateNumber(str, end, number, number2);
+			}else if(number1>=0 && number2<0){
+				result= isAggregateNumber(str, end, number1, number);
+			}
+			
+			if(result){
+				return result;
+			}
+		}
+		
+		return false;
+	}
 }

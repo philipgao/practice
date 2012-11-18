@@ -217,4 +217,15 @@ public class AlgorUtilTest {
 	public void testFindAllPossible8QueenPlacement(){
 		assertEquals(1066, AlgorUtil.findAllPossible8QueenPlacement());
 	}
+	
+	@Test
+	public void testIsAggregateNumber(){
+		assertTrue(AlgorUtil.isAggregateNumber("112358"));
+
+		assertTrue(AlgorUtil.isAggregateNumber("122436"));
+
+		assertTrue(AlgorUtil.isAggregateNumber("1299111210"));
+
+		assertTrue(AlgorUtil.isAggregateNumber("112112224"));
+	}
 }
