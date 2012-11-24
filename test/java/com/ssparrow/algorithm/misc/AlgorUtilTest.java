@@ -241,4 +241,10 @@ public class AlgorUtilTest {
 		int [] array=new int[]{1,2,4,7,10,11,7,12,6,7,16,18,19};
 		assertEquals(new Pair(3, 9), AlgorUtil.p1706FindOutOfOrderMiddleArray(array));
 	}
+	
+	@Test
+	public void testP1708GetMaxSumContinuousSubarray(){
+		int [] array =new int[]{2,-8,3,-2,4,-10};
+		assertArrayEquals(new int[]{3,-2,4}, AlgorUtil.p1708GetMaxSumContinuousSubarray(array));
+	}
 }

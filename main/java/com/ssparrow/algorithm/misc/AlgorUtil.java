@@ -628,4 +628,42 @@ public class AlgorUtil {
 		
 		return new Pair(midStart, midEnd);
 	}
+	
+	/**
+	 * @param array
+	 * @return
+	 */
+	public static int [] p1708GetMaxSumContinuousSubarray(int [] array){
+		int maxStart=-1;
+		int maxEnd=-1;
+		int maxSum=Integer.MIN_VALUE;
+		
+		int currentStart=-1;
+		int currentEnd=-1;
+		int currentSum=0;
+		
+		int index=0;
+		while(index<array.length){
+			if(currentSum==0){
+				currentStart=index;
+			}
+			
+			currentEnd=index;
+			currentSum=currentSum+array[index];
+			
+			if(currentSum<0){
+				currentSum=0;
+			}else if(currentSum>maxSum){
+				maxSum=currentSum;
+				maxStart=currentStart;
+				maxEnd=currentEnd;
+			}
+			
+			index++;
+		}
+		
+		int [] result=new int[maxEnd-maxStart+1];
+		System.arraycopy(array, maxStart, result, 0, maxEnd-maxStart+1);
+		return result;
+	}
 }
