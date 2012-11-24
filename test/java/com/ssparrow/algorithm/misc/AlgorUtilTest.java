@@ -204,6 +204,8 @@ public class AlgorUtilTest {
 		assertEquals(2, AlgorUtil.getPossibleStrNumFrom1To26NumberWithoutRecursion("2011"));
 
 		assertEquals(5, AlgorUtil.getPossibleStrNumFrom1To26NumberWithoutRecursion("2112"));
+		
+		assertEquals(0, AlgorUtil.getPossibleStrNumFrom1To26NumberWithoutRecursion("1002"));
 	}
 	
 	@Test
