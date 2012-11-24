@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -665,5 +667,79 @@ public class AlgorUtil {
 		int [] result=new int[maxEnd-maxStart+1];
 		System.arraycopy(array, maxStart, result, 0, maxEnd-maxStart+1);
 		return result;
+	}
+	
+	/**
+	 * @param line
+	 * @param dictionary
+	 * @return
+	 */
+	public static LineBreak p1714GetOptimizedBreakForLine(String line, Set<String> dictionary){
+		Map<Integer, LineBreak> resultMap=new HashMap<Integer, AlgorUtil.LineBreak>();
+		
+		return getOptimizedBreakForLine(line, 0, dictionary, resultMap);
+	}
+	
+	private static LineBreak getOptimizedBreakForLine(String line, int start, Set<String> dictionary, Map<Integer, LineBreak> resultMap){
+		if(resultMap.get(start)!=null){
+			return resultMap.get(start);
+		}
+		
+		if(start==line.length()){
+			return new LineBreak();
+		}
+		
+		int minUnRecoginzedWords=Integer.MAX_VALUE;
+		LineBreak optimalResult=new LineBreak();
+		
+		for(int end=start+1;end<=line.length();end++){
+			String word=line.substring(start,end);
+			
+			LineBreak subResult = getOptimizedBreakForLine(line, end, dictionary, resultMap);
+			
+			int unRecoginzedWords=dictionary.contains(word)?subResult.getUnRecognizedWords():subResult.getUnRecognizedWords()+word.length();
+			
+			if(unRecoginzedWords<minUnRecoginzedWords){
+				minUnRecoginzedWords=unRecoginzedWords;
+				optimalResult.setUnRecognizedWords(minUnRecoginzedWords);
+				
+				List<String> words=new ArrayList<String>(subResult.getWords());
+				words.add(0, word);
+				optimalResult.setWords(words);
+			}
+		}
+		
+		resultMap.put(start, optimalResult);
+		return optimalResult;
+	}
+	
+	public static class LineBreak{
+		int unRecognizedWords = 0;
+		List<String> words=new ArrayList<String>();
+		/**
+		 * @return the unRecognizedWords
+		 */
+		public int getUnRecognizedWords() {
+			return unRecognizedWords;
+		}
+		/**
+		 * @param unRecognizedWords the unRecognizedWords to set
+		 */
+		public void setUnRecognizedWords(int unRecognizedWords) {
+			this.unRecognizedWords = unRecognizedWords;
+		}
+		/**
+		 * @return the words
+		 */
+		public List<String> getWords() {
+			return words;
+		}
+		/**
+		 * @param words the words to set
+		 */
+		public void setWords(List<String> words) {
+			this.words = words;
+		}
+		
 	}
 }

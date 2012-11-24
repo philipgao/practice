@@ -3,12 +3,14 @@ package com.ssparrow.algorithm.misc;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
 
 import com.ssparrow.algorithm.array.ArrayUtil;
+import com.ssparrow.algorithm.misc.AlgorUtil.LineBreak;
 
 public class AlgorUtilTest {
 
@@ -246,5 +248,18 @@ public class AlgorUtilTest {
 	public void testP1708GetMaxSumContinuousSubarray(){
 		int [] array =new int[]{2,-8,3,-2,4,-10};
 		assertArrayEquals(new int[]{3,-2,4}, AlgorUtil.p1708GetMaxSumContinuousSubarray(array));
+	}
+	
+	@Test
+	public void testP1714GetOptimizedBreakForLine(){
+		Set<String> dictionary=new HashSet<String>();
+		dictionary.add("looked");
+		dictionary.add("just");
+		dictionary.add("like");
+		dictionary.add("her");
+		dictionary.add("brother");
+		
+		LineBreak result = AlgorUtil.p1714GetOptimizedBreakForLine("jesslookedjustliketimherbrother", dictionary);
+		assertEquals(7, result.getUnRecognizedWords());
 	}
 }
