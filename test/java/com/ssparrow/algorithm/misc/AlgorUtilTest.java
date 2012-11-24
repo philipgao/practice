@@ -235,4 +235,10 @@ public class AlgorUtilTest {
 
 		assertTrue(AlgorUtil.isAggregateNumber("112112224"));
 	}
+	
+	@Test
+	public void testP1706FindOutOfOrderMiddleArray(){
+		int [] array=new int[]{1,2,4,7,10,11,7,12,6,7,16,18,19};
+		assertEquals(new Pair(3, 9), AlgorUtil.p1706FindOutOfOrderMiddleArray(array));
+	}
 }

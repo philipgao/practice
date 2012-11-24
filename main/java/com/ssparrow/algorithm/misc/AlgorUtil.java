@@ -564,4 +564,68 @@ public class AlgorUtil {
 		
 		return false;
 	}
+	
+	/**
+	 * example:
+	 * 	input:{1,2,4,7,10,11,7,12,6,7,16,18,19};
+	 *	output:(3,9)
+	 *
+	 * 	input:{1,2,4,7,10,11,7,12,6,7,16,18,19};
+	 *	output:(3,9)
+	 * @param array
+	 * @return
+	 */
+	public static Pair p1706FindOutOfOrderMiddleArray(int [] array){
+		int midStart=-1;
+		int midEnd=-1;
+		
+		int midMinIndex=-1;
+		int midMaxIndex=-1;
+		
+		int previousIndex=-1;
+		int index=0;
+		
+		while(index<array.length){
+			if(previousIndex>=0 && array[index]<array[previousIndex]){
+				if(midStart==-1){
+					midStart=index;
+				}else{
+					midEnd=previousIndex;
+				}
+			}
+			
+			if(midStart>=0 && midEnd==-1){
+				if(midMinIndex==-1){
+					midMinIndex=index;
+				}
+				if(midMaxIndex==-1){
+					midMaxIndex=index;
+				}
+				
+				if(array[index]<array[midMinIndex]){
+					midMinIndex=index;
+				}else if(array[index]>array[midMaxIndex]){
+					midMaxIndex=index;
+				}
+			}
+			
+			previousIndex=index;
+			index++;
+		}
+		
+		int leftIndex=midStart-1;
+		int rightIndex=midEnd+1;
+		
+		while(leftIndex>=0 && array[leftIndex]>=array[midMinIndex]){
+			leftIndex--;
+		}
+		midStart=leftIndex+1;
+		
+		while(rightIndex<array.length && array[rightIndex]<=array[midMaxIndex]){
+			rightIndex++;
+		}
+		midEnd=rightIndex-1;
+		
+		return new Pair(midStart, midEnd);
+	}
 }
