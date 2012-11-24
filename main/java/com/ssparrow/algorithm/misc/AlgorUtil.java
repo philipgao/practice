@@ -413,6 +413,37 @@ public class AlgorUtil {
 	}
 	
 	/**
+	 * @param numberStr
+	 * @return
+	 */
+	public static int getPossibleStrNumFrom1To26Number(String numberStr){
+		
+		return getPossibleStrNumFrom1To26Number(numberStr, 0);
+		
+	}
+	
+	private static int getPossibleStrNumFrom1To26Number(String numberStr, int start){
+		
+		int count = 0;
+		
+		for(int end=start+1;end<=numberStr.length();end++){
+			int number=Integer.parseInt(numberStr.substring(start, end));
+			
+			if(number>=1 && number<=26){
+				if(end==numberStr.length()){
+					count += 1;
+				}else{
+					count += getPossibleStrNumFrom1To26Number(numberStr, end);
+				}
+			}else{
+				break;
+			}
+		}
+		
+		return count;
+	}
+	
+	/**
 	 * suppose number 1-26 represent character a-z,please find all the possible translation when convert a number string to characters
 	 * for example:
 	 *    112 -> aab, al, kb

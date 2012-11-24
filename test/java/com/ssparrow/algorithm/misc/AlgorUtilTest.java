@@ -197,14 +197,19 @@ public class AlgorUtilTest {
 	
 	@Test
 	public void testGetPossibleStrNumFrom1To26NumberWithoutRecursion(){
+		assertEquals(3, AlgorUtil.getPossibleStrNumFrom1To26Number("112"));
 		assertEquals(3, AlgorUtil.getPossibleStrNumFrom1To26NumberWithoutRecursion("112"));
 
+		assertEquals(1, AlgorUtil.getPossibleStrNumFrom1To26Number("102"));
 		assertEquals(1, AlgorUtil.getPossibleStrNumFrom1To26NumberWithoutRecursion("102"));
 
+		assertEquals(2, AlgorUtil.getPossibleStrNumFrom1To26Number("2011"));
 		assertEquals(2, AlgorUtil.getPossibleStrNumFrom1To26NumberWithoutRecursion("2011"));
 
+		assertEquals(5, AlgorUtil.getPossibleStrNumFrom1To26Number("2112"));
 		assertEquals(5, AlgorUtil.getPossibleStrNumFrom1To26NumberWithoutRecursion("2112"));
-		
+
+		assertEquals(0, AlgorUtil.getPossibleStrNumFrom1To26Number("1002"));
 		assertEquals(0, AlgorUtil.getPossibleStrNumFrom1To26NumberWithoutRecursion("1002"));
 	}
 	
