@@ -200,7 +200,7 @@ public class TreeUtil {
 		
 		BSTCheckResult leftResult = checkBSTWithoutStaticVariable(root.getLeftNode(), value);
 		if(!leftResult.isBST()){
-			return new BSTCheckResult(true, null);
+			return new BSTCheckResult(false, null);
 		}
 		Object leftMaxValue=leftResult.getMaxValue();
 		
