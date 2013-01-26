@@ -192,4 +192,13 @@ public class StringUtilTest {
 
 		assertFalse(StringUtil.isInterleavingString("abc", "xyz", "zazbcz"));
 	}
+	
+	@Test
+	public void testReverseString(){
+		assertEquals("hello", StringUtil.reverseString("hello"));
+
+		assertEquals("world hello", StringUtil.reverseString("hello world"));
+
+		assertEquals("question a is This", StringUtil.reverseString("This is a question"));
+	}
 }

@@ -442,4 +442,35 @@ public final class StringUtil {
 		}
 		return true;
 	}
+	
+	/**
+	 * Develop and algorithm to reverse a string keeping words intact. 
+	 * Example: This is a question
+	 * result should be: question a is This
+	 * @param line
+	 * @return
+	 */
+	public static String reverseString(String line){
+		StringBuffer result=new StringBuffer();
+		
+		reverseString(line, 0, result);
+		
+		return result.toString();
+	}
+	
+	private static void reverseString(String line, int index, StringBuffer result){
+		if(index>=line.length()){
+			return;
+		}
+		
+		int spaceIndex=line.indexOf(" ", index);
+		if(spaceIndex>0){
+			String word=line.substring(index,spaceIndex);
+			
+			reverseString(line, spaceIndex+1,result);
+			result.append(" ").append(word);
+		}else{
+			result.append(line.substring(index));
+		}
+	}
 }
