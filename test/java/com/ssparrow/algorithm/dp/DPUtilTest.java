@@ -47,6 +47,10 @@ public class DPUtilTest {
 		int[] lis = DPUtil.findLongestIncreasingSubsequence(result, array, array.length-1);
 		assertArrayEquals(new int[]{1,3,5,7}, lis);
 		
+		array=new int[]{1,3,9,2,7, 8};
+		result=new int[array.length][];
+		lis = DPUtil.findLongestIncreasingSubsequence(result, array, array.length-1);
+		assertArrayEquals(new int[]{1,3,7,8}, lis);
 		
 		array=new int[]{1,7,5,2,10,3,8,9};
 		result=new int[array.length][];
