@@ -100,7 +100,24 @@ public class DPUtil {
 	 * @param position
 	 * @return
 	 */
-	public static int [] findLongestIncreasingSubsequence(int [][]result, int [] array, int position){
+	public static int [] findLongestIncreasingSubsequence(int [] array){
+		int [][] result=new int[array.length][];
+		
+		findLongestIncreasingSubsequence(result, array, array.length-1);
+		
+		int maxSubSequenceLength=Integer.MIN_VALUE;
+		int maxSubSequenceIndex=-1;
+		for(int i=0;i<result.length;i++){
+			if(result[i].length>maxSubSequenceLength){
+				maxSubSequenceLength=result[i].length;
+				maxSubSequenceIndex=i;
+			}
+		}
+		
+		return result[maxSubSequenceIndex];
+	}
+	
+	private static int [] findLongestIncreasingSubsequence(int [][]result, int [] array, int position){
 		if(result[position]!=null){
 			return result[position];
 		}
@@ -119,8 +136,6 @@ public class DPUtil {
 					System.arraycopy(subLis, 0, lis, 0, subLis.length);
 					lis[subLis.length]=array[position];
 				}
-			}else if(subLis.length>lis.length){
-				lis=subLis;
 			}
 		}
 		
@@ -135,7 +150,24 @@ public class DPUtil {
 	 * @param position
 	 * @return
 	 */
-	public static int [] findlongestDecreasingSubsequence(int [][] result, int [] array, int position){
+	public static int [] findlongestDecreasingSubsequence(int [] array){
+		int [][] result=new int[array.length][];
+		
+		findlongestDecreasingSubsequence(result, array, 0);
+		
+		int maxSubSequenceLength=Integer.MIN_VALUE;
+		int maxSubSequenceIndex=-1;
+		for(int i=0;i<result.length;i++){
+			if(result[i].length>maxSubSequenceLength){
+				maxSubSequenceLength=result[i].length;
+				maxSubSequenceIndex=i;
+			}
+		}
+		
+		return result[maxSubSequenceIndex];
+	}
+	
+	private static int [] findlongestDecreasingSubsequence(int [][] result, int [] array, int position){
 		if(result[position]!=null){
 			return result[position];
 		}
@@ -153,8 +185,6 @@ public class DPUtil {
 					lds[0]=array[position];
 					System.arraycopy(subLds, 0, lds, 1, subLds.length);
 				}
-			}else if(subLds.length>lds.length){
-				lds=subLds;
 			}
 		}
 		

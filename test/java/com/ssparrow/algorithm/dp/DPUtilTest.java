@@ -43,23 +43,19 @@ public class DPUtilTest {
 	@Test
 	public void testFindLongestIncreasingSubsequence(){
 		int [] array=new int[]{1,3,5,2,7};
-		int [][] result=new int[array.length][];
-		int[] lis = DPUtil.findLongestIncreasingSubsequence(result, array, array.length-1);
+		int[] lis = DPUtil.findLongestIncreasingSubsequence(array);
 		assertArrayEquals(new int[]{1,3,5,7}, lis);
 		
-		array=new int[]{1,3,9,2,7, 8};
-		result=new int[array.length][];
-		lis = DPUtil.findLongestIncreasingSubsequence(result, array, array.length-1);
-		assertArrayEquals(new int[]{1,3,7,8}, lis);
+		array=new int[]{1,9,10,2,7, 8};
+		lis = DPUtil.findLongestIncreasingSubsequence(array);
+		assertArrayEquals(new int[]{1,2,7,8}, lis);
 		
 		array=new int[]{1,7,5,2,10,3,8,9};
-		result=new int[array.length][];
-		lis = DPUtil.findLongestIncreasingSubsequence(result, array, array.length-1);
+		lis = DPUtil.findLongestIncreasingSubsequence(array);
 		assertArrayEquals(new int[]{1,2,3,8,9}, lis);
 		
 		array = new int []{1, 11, 2, 10, 4, 5, 2, 1};
-		result=new int[array.length][];
-		lis = DPUtil.findLongestIncreasingSubsequence(result, array, array.length-1);
+		lis = DPUtil.findLongestIncreasingSubsequence(array);
 		assertArrayEquals(new int[]{1,2,4,5}, lis);
 	}
 
@@ -82,10 +78,13 @@ public class DPUtilTest {
 	public void testFindlongestDecreasingSubsequence(){
 		int [] array =new int[]{12, 11, 40, 5, 3, 1};
 		
-		int [][] result =new int[array.length][];
-		int [] lds= DPUtil.findlongestDecreasingSubsequence(result, array, 0);
-		
+		int [] lds= DPUtil.findlongestDecreasingSubsequence(array);
 		assertArrayEquals(new int []{12, 11, 5, 3, 1}, lds);
+		
+		array =new int[]{8, 7, 2, 10, 9, 1};
+		
+		lds= DPUtil.findlongestDecreasingSubsequence(array);
+		assertArrayEquals(new int []{8,7,2,1}, lds);
 	}
 	
 	@Test
